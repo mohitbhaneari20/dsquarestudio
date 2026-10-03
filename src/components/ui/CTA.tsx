@@ -39,6 +39,9 @@ export function CTA({
           <ButtonLink to="/contact" size="lg">
             Start a project
           </ButtonLink>
+          <ButtonLink to="/contact#book" variant="outline" size="lg">
+            Book a call
+          </ButtonLink>
           <ButtonLink to={secondary.to} variant="text">
             {secondary.label}
           </ButtonLink>

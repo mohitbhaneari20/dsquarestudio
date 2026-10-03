@@ -1,17 +1,20 @@
 import { ArrowUpRight } from 'lucide-react';
+import { CalendlyEmbed } from '../components/contact/CalendlyEmbed';
 import { ContactForm } from '../components/contact/ContactForm';
 import { Reveal } from '../components/ui/Reveal';
 import { Seo } from '../components/ui/Seo';
 import { TextReveal } from '../components/ui/TextReveal';
 import { site } from '../config/site';
+import { useHashScroll } from '../hooks/useHashScroll';
 
 const nextSteps = [
   'We read every message properly.',
-  'We reply by email with questions, or a time to talk.',
+  'We reply by email with questions — or book a call below.',
   'If it’s a fit, we shape a plan together.',
 ];
 
 export default function Contact() {
+  useHashScroll();
   return (
     <>
       <Seo title="Contact" description="Start a project with Dsquare Studio. Tell us about the product, brand or strange idea you’re figuring out." />
@@ -62,6 +65,22 @@ export default function Contact() {
 
           <Reveal delay={0.1} className="col-span-12 lg:col-span-7 lg:col-start-6">
             <ContactForm />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Book a call */}
+      <section id="book" className="container-site scroll-mt-24 pb-[var(--section-space)]">
+        <div className="grid-site gap-y-10 border-t border-border pt-4">
+          <Reveal className="col-span-12 md:col-span-5 lg:col-span-4">
+            <p className="text-meta text-muted">Book a call</p>
+            <h2 className="text-h2 mt-8">Rather talk it through?</h2>
+            <p className="text-lead mt-4 max-w-sm text-muted">
+              Pick a time for a free 30-minute call. Bring the idea, the problem or the half-finished thing — we’ll figure out the next step together.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="col-span-12 md:col-span-7 md:col-start-6 lg:col-span-7 lg:col-start-6">
+            <CalendlyEmbed />
           </Reveal>
         </div>
       </section>

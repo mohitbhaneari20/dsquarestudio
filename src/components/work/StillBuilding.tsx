@@ -99,7 +99,7 @@ export function StillBuilding({ projects }: { projects: OngoingProject[] }) {
     <section className="theme-inverse section-space overflow-hidden" aria-label="Still building">
       <div className="container-site">
         <div className="grid-site gap-y-8 border-t border-border pt-4">
-          <p className="text-meta col-span-12 text-muted lg:col-span-3">
+          <p className="text-meta col-span-12 text-muted lg:col-span-3 lg:tag-top-display">
             (D<sup>2</sup>/03) Work in progress
           </p>
           <div className="col-span-12 lg:col-span-9">

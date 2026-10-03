@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -6,16 +6,57 @@ import { useScrolled } from '../../hooks/useScrolled';
 import { cn } from '../../lib/cn';
 import { useIntroDone } from '../../lib/intro';
 import { EASE_OUT_SOFT } from '../../lib/motion';
+import { BrandMark } from '../brand/Brand';
 import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
 
 const links = [
   { label: 'Work', to: '/work' },
   { label: 'Ongoing', to: '/ongoing' },
-  { label: 'Studio', to: '/studio' },
+  { label: 'About D²', to: '/studio', hand: true },
   { label: 'Services', to: '/services' },
   { label: 'Contact', to: '/contact' },
 ];
+
+/** "About D²": "About" like the other links followed by the D² monogram; an orange loop is drawn around it on hover. */
+function HandNavItem({ label, to }: { label: string; to: string }) {
+  const [hover, setHover] = useState(false);
+  const still = useReducedMotion();
+  return (
+    <li>
+      <NavLink
+        to={to}
+        aria-label={label}
+        onPointerEnter={() => setHover(true)}
+        onPointerLeave={() => setHover(false)}
+        onFocus={() => setHover(true)}
+        onBlur={() => setHover(false)}
+        className={({ isActive }) =>
+          cn(
+            'relative inline-flex items-center gap-1.5 px-1 font-mono text-[11px] uppercase tracking-[0.1em] transition-colors',
+            isActive ? 'text-foreground' : 'text-muted hover:text-foreground',
+          )
+        }
+      >
+        {label.replace(/\s*D²$/, '')}
+        {/* The D² monogram from the logo in place of the letters */}
+        <BrandMark title={null} copyright={false} className="size-[15px] text-foreground" />
+        <svg viewBox="0 0 200 80" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[18%] -inset-y-[45%] h-[190%] w-[136%] overflow-visible" aria-hidden="true">
+          <motion.path
+            d="M18 44 C 20 14, 120 4, 176 22 C 204 32, 190 66, 120 72 C 60 77, 8 66, 14 40 C 18 26, 60 16, 104 14"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth={2.6}
+            strokeLinecap="round"
+            initial={false}
+            animate={{ pathLength: hover ? 1 : 0, opacity: hover ? 1 : 0 }}
+            transition={still ? { duration: 0 } : { pathLength: { duration: 0.5, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.15 } }}
+          />
+        </svg>
+      </NavLink>
+    </li>
+  );
+}
 
 function NavItem({ label, to }: { label: string; to: string }) {
   return (
@@ -70,7 +111,7 @@ export function Navbar() {
           <div className="flex items-center gap-3 md:gap-6">
             <ul className="hidden items-center gap-6 md:flex lg:gap-7">
               {links.map((item) => (
-                <NavItem key={item.to} {...item} />
+                item.hand ? <HandNavItem key={item.to} {...item} /> : <NavItem key={item.to} {...item} />
               ))}
             </ul>
 

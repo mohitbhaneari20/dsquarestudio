@@ -8,6 +8,8 @@ export const site = {
   tagline: 'Design + Development Studio',
   url: 'https://dsquare.studio', // TODO: replace with the production domain
   email: 'hello@dsquare.studio', // TODO: replace with the real inbox
+  /** 30-minute intro call, embedded on /contact#book */
+  calendly: 'https://calendly.com/mohitbhaneari20/30min',
   defaultTitle: 'Dsquare Studio — Design + Development',
   defaultDescription:
     'Dsquare is an independent design and development studio creating brands, digital experiences, websites and products.',
@@ -26,6 +28,6 @@ export const site = {
 export const navigation = [
   { label: 'Work', to: '/work' },
   { label: 'Ongoing', to: '/ongoing' },
-  { label: 'Studio', to: '/studio' },
+  { label: 'About D²', to: '/studio' },
   { label: 'Services', to: '/services' },
 ] as const;

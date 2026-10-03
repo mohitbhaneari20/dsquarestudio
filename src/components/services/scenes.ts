@@ -1,5 +1,5 @@
 /*
- * Six short looping animations for the Services page, one per service.
+ * Short looping animations for the Services page, one per service.
  * Drawn on a 1600 × 1000 canvas in a minimal palette: a light neutral ground with a
  * faint grid, black / off-white / sand objects, and orange only as a small accent. No text — only objects.
  * Each scene is a pure function of time t (0 → LOOP seconds) and starts and
@@ -647,13 +647,209 @@ function websites(g: G, t: number) {
   });
 }
 
+
+// ---------- Graphic design: a logo on an artboard, a presentation deck, a package that folds up ----------
+function graphicDesign(g: G, t: number) {
+  ground(g);
+  const out = 1 - eio(seg(t, 6.9, 7.7));
+
+  // Logo artboard with corner handles
+  const lk = back(seg(t, 0.2, 1.0)) * out;
+  scaled(g, 330, 470, lk, () => {
+    box(g, 190, 330, 280, 280, C.paper, C.ink, 4);
+    for (const [x, y] of [[190, 330], [470, 330], [190, 610], [470, 610]] as const) box(g, x - 9, y - 9, 18, 18, C.paper, C.ink, 3);
+    const mk = back(seg(t, 0.7, 1.4));
+    if (mk > 0) mark(g, 330, 470, 150 * mk);
+  });
+
+  // Presentation deck: three 16:9 slides fan out
+  const slides = [
+    { dx: 0, dy: 0, r: 0 },
+    { dx: 40, dy: 34, r: 0.05 },
+    { dx: 80, dy: 68, r: 0.1 },
+  ];
+  for (let i = slides.length - 1; i >= 0; i--) {
+    const k = eio(seg(t, 1.5 + i * 0.25, 2.3 + i * 0.25)) * out;
+    if (k <= 0) continue;
+    const sl = slides[i]!;
+    const w = 380;
+    const h = 214;
+    const cx = 760 + sl.dx * k;
+    const cy = 330 + sl.dy * k;
+    g.save();
+    g.translate(cx, cy);
+    g.rotate(sl.r * k);
+    g.globalAlpha = Math.min(1, k * 1.5);
+    box(g, -w / 2, -h / 2, w, h, C.paper, C.ink, 4);
+    if (i === 0) {
+      // the front slide: a headline bar, a chart and an accent
+      box(g, -w / 2 + 26, -h / 2 + 28, 160, 18, C.ink);
+      box(g, -w / 2 + 26, -h / 2 + 58, 110, 12, C.soft);
+      [60, 96, 72, 120].forEach((bh, j) => {
+        const gk = eo(seg(t, 2.5 + j * 0.1, 3.0 + j * 0.1));
+        box(g, 30 + j * 34, h / 2 - 28 - bh * gk, 22, bh * gk, j === 3 ? C.accent : C.ink);
+      });
+    } else {
+      box(g, -w / 2 + 26, -h / 2 + 28, 120, 14, C.ink);
+      box(g, -w / 2 + 26, -h / 2 + 60, w - 52, h - 90, C.sand);
+    }
+    g.restore();
+  }
+  g.globalAlpha = 1;
+
+  // Packaging: a box rises and folds closed, the mark on its front
+  const rise = eio(seg(t, 3.6, 4.6)) * out;
+  if (rise > 0) {
+    const cx = 1240;
+    const base = 760;
+    const hgt = 220 * rise;
+    const top: Array<[number, number]> = [
+      [cx, base - hgt - 170],
+      [cx + 180, base - hgt - 85],
+      [cx, base - hgt],
+      [cx - 180, base - hgt - 85],
+    ];
+    const poly = (pts: Array<[number, number]>, fill: string) => {
+      g.beginPath();
+      g.moveTo(pts[0]![0], pts[0]![1]);
+      pts.slice(1).forEach(([x, y]) => g.lineTo(x, y));
+      g.closePath();
+      g.fillStyle = fill;
+      g.fill();
+      g.strokeStyle = C.ink;
+      g.lineWidth = 4;
+      g.stroke();
+    };
+    // left face
+    poly([top[3]!, top[2]!, [cx, base], [cx - 180, base - 85]], C.paper);
+    // right face
+    poly([top[2]!, top[1]!, [cx + 180, base - 85], [cx, base]], C.sand);
+    // the mark on the left face, skewed onto it
+    const mk = eo(seg(t, 4.5, 5.0));
+    if (mk > 0 && hgt > 60) {
+      // centre of the left face, then skew so the mark lies flat on it
+      g.save();
+      g.translate(cx - 90, base - hgt / 2 - 42.5);
+      g.transform(1, 85 / 180, 0, 1, 0, 0);
+      g.globalAlpha = mk;
+      mark(g, 0, 0, Math.min(90, hgt * 0.5) * mk);
+      g.restore();
+      g.globalAlpha = 1;
+    }
+    // lid flaps close
+    const lid = eio(seg(t, 4.6, 5.3));
+    if (lid > 0) {
+      g.globalAlpha = lid;
+      poly(top, C.paper);
+      g.strokeStyle = C.soft;
+      g.lineWidth = 3;
+      line(g, top[3]![0] + 90, top[3]![1] + 42, top[1]![0] - 90, top[1]![1] - 42, lid);
+      g.globalAlpha = 1;
+    }
+  }
+}
+
+
+// ---------- Digital experiences: one experience, synced across laptop, tablet and phone ----------
+function digitalExperience(g: G, t: number) {
+  ground(g);
+  const out = 1 - eio(seg(t, 6.9, 7.7));
+  // [centre x, centre y, screen w, screen h]
+  const devices: Array<[number, number, number, number]> = [
+    [520, 420, 540, 340],
+    [1030, 450, 260, 350],
+    [1340, 480, 150, 290],
+  ];
+  const centres = devices.map(([x, y]) => [x, y] as const);
+
+  // Links between the devices (drawn first, so they run behind the screens)
+  g.setLineDash([12, 12]);
+  g.strokeStyle = C.soft;
+  g.lineWidth = 3;
+  for (let i = 0; i < 2; i++) {
+    const k = eio(seg(t, 1.1 + i * 0.25, 1.9 + i * 0.25)) * out;
+    const [x1, y1] = centres[i]!;
+    const [x2, y2] = centres[i + 1]!;
+    line(g, x1, y1, x2, y2, k);
+  }
+  g.setLineDash([]);
+
+  const arrive = [2.3, 3.5, 4.6];
+  devices.forEach(([cx, cy, w, h], i) => {
+    const k = back(seg(t, 0.2 + i * 0.18, 1.0 + i * 0.18)) * out;
+    scaled(g, cx, cy, k, () => {
+      const x = cx - w / 2;
+      const y = cy - h / 2;
+      if (i === 0) {
+        // laptop: screen + base
+        box(g, x - 14, y - 14, w + 28, h + 28, C.ink);
+        box(g, x, y, w, h, C.paper);
+        g.beginPath();
+        g.moveTo(x - 60, y + h + 14);
+        g.lineTo(x + w + 60, y + h + 14);
+        g.lineTo(x + w + 30, y + h + 44);
+        g.lineTo(x - 30, y + h + 44);
+        g.closePath();
+        g.fillStyle = C.ink;
+        g.fill();
+      } else {
+        box(g, x - 12, y - 22, w + 24, h + 44, C.ink);
+        box(g, x, y, w, h, C.paper);
+      }
+      // the same content arrives on each screen in turn
+      const c = back(seg(t, arrive[i]!, arrive[i]! + 0.6));
+      if (c > 0) {
+        const pad = w * 0.1;
+        scaled(g, cx, cy, c, () => {
+          box(g, x + pad, y + pad, w - pad * 2, h * 0.36, C.ink);
+          box(g, x + pad, y + pad + h * 0.44, (w - pad * 2) * 0.7, Math.max(10, h * 0.05), C.soft);
+          box(g, x + pad, y + pad + h * 0.54, (w - pad * 2) * 0.45, Math.max(10, h * 0.05), C.soft);
+          box(g, x + pad, y + h - pad - h * 0.14, (w - pad * 2) * 0.5, h * 0.12, C.accent);
+        });
+      }
+      // a short pulse once everything is in sync
+      const p = seg(t, 5.2, 6.0);
+      if (p > 0 && p < 1) {
+        g.strokeStyle = `rgba(0,0,0,${1 - p})`;
+        g.lineWidth = 4;
+        const grow = 16 + p * 40;
+        g.strokeRect(x - grow, y - grow, w + grow * 2, h + grow * 2);
+      }
+    });
+  });
+
+  // A signal travels along the links, carrying the content
+  for (let i = 0; i < 2; i++) {
+    const k = seg(t, arrive[i]! + 0.5, arrive[i + 1]!);
+    if (k <= 0 || k >= 1) continue;
+    const [x1, y1] = centres[i]!;
+    const [x2, y2] = centres[i + 1]!;
+    const e = eio(k);
+    box(g, lerp(x1, x2, e) - 14, lerp(y1, y2, e) - 14, 28, 28, C.accent, C.ink, 3);
+  }
+}
+
+/** Play two scenes back to back (each starts and ends empty, so the join is clean). */
+const pair =
+  (a: (g: G, t: number) => void, b: (g: G, t: number) => void) =>
+  (g: G, t: number) =>
+    t < LOOP ? a(g, t) : b(g, t - LOOP);
+
 export const SCENES = {
-  'ui-ux-design': uiux,
-  branding,
-  'design-systems': designSystems,
-  'motion-design': motionDesign,
-  'no-code-development': noCode,
-  'digital-experiences': websites,
+  'branding-design-systems': pair(branding, designSystems),
+  'ui-ux-web-design': pair(uiux, websites),
+  'web-development': noCode,
+  'motion-graphic-design': pair(graphicDesign, motionDesign),
+  'digital-experiences': digitalExperience,
 } as const;
+
+/** Loop length per scene: combined services play both of their scenes. */
+export const SCENE_LOOPS: Record<keyof typeof SCENES, number> = {
+  'branding-design-systems': LOOP * 2,
+  'ui-ux-web-design': LOOP * 2,
+  'web-development': LOOP,
+  'motion-graphic-design': LOOP * 2,
+  'digital-experiences': LOOP,
+};
 
 export type SceneName = keyof typeof SCENES;

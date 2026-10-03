@@ -33,14 +33,14 @@ export default function Services() {
     <>
       <Seo
         title="Services"
-        description="UI / UX design, branding, design systems, motion, no-code development and websites — designed and built by Dsquare Studio."
+        description="Branding and design systems, UI / UX and web design, web and no-code development, motion and graphic design, and digital experiences — by Dsquare Studio."
       />
       <div className="container-site pt-32 md:pt-44">
         <SectionHeader
           as="h1"
           eyebrow="Services"
           title={['What we can', 'build together.']}
-          intro="Six things we do well. Most projects mix a few of them."
+          intro="Five things we do well. Most projects mix a few of them."
         />
 
         <nav aria-label="Services" className="mt-16 md:mt-24">
@@ -57,7 +57,7 @@ export default function Services() {
         </nav>
       </div>
 
-      <div className="container-site section-space space-y-28 md:space-y-44">
+      <div className="container-site section-space space-y-[calc(var(--section-space)*2)]">
         {services.map((service, i) => {
           const related = service.relatedProjects.map(getProject).filter((p): p is Project => !!p);
           return (

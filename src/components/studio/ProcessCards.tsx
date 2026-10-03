@@ -55,7 +55,11 @@ export function ProcessCards({ header }: { header?: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
+  const [stickyH, setStickyH] = useState(0);
+  const dims = useRef({ distance: 0 });
+  dims.current.distance = distance;
 
   // How far the track has to travel so the last card ends at the right edge
   useLayoutEffect(() => {
@@ -66,21 +70,32 @@ export function ProcessCards({ header }: { header?: ReactNode }) {
       const cs = getComputedStyle(view);
       const inner = view.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
       setDistance(Math.max(0, track.scrollWidth - inner));
+      if (stickyRef.current) setStickyH(stickyRef.current.offsetHeight);
     };
     measure();
     const ro = new ResizeObserver(measure);
     if (trackRef.current) ro.observe(trackRef.current);
     if (viewportRef.current) ro.observe(viewportRef.current);
+    if (stickyRef.current) ro.observe(stickyRef.current);
     return () => ro.disconnect();
   }, []);
 
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
-  const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
-  const bar = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  // Pinned from the moment the section's top reaches the top of the screen, for exactly
+  // `distance` pixels of scrolling (the pinned block is only as tall as its content)
+  const { scrollY } = useScroll();
+  const progress = useTransform(scrollY, (y) => {
+    const el = sectionRef.current;
+    const d = dims.current.distance;
+    if (!el || d <= 0) return 0;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    return Math.min(1, Math.max(0, (y - top) / d));
+  });
+  const x = useTransform(progress, (p) => -p * dims.current.distance);
+  const bar = progress;
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: `calc(100svh + ${distance}px)` }} aria-label="How we work, step by step">
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-20">
+    <section ref={sectionRef} className="relative" style={{ height: stickyH + distance }} aria-label="How we work, step by step">
+      <div ref={stickyRef} className="sticky top-0 overflow-hidden py-[var(--section-space)]">
         <div ref={viewportRef} className="container-site [container-type:inline-size]">
           {header && <div className="mb-8 md:mb-10">{header}</div>}
           <motion.div ref={trackRef} className="flex w-max gap-[var(--grid-gap)] will-change-transform" style={{ x }}>

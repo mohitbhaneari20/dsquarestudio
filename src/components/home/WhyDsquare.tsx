@@ -25,7 +25,7 @@ export function WhyDsquare() {
   return (
     <section className="container-site section-space">
       <div className="grid-site gap-y-10">
-        <p className="text-meta col-span-12 flex items-center gap-2 text-muted md:col-span-3">
+        <p className="text-meta col-span-12 flex items-center gap-2 text-muted md:col-span-3 md:tag-top-h1">
           <SquareBullet /> Why Dsquare
         </p>
         <div className="col-span-12 md:col-span-9">

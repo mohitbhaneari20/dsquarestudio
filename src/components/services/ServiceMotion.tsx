@@ -1,7 +1,7 @@
 import { useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { cn } from '../../lib/cn';
-import { H, LOOP, SCENES, W, type SceneName } from './scenes';
+import { H, SCENE_LOOPS, SCENES, W, type SceneName } from './scenes';
 
 /**
  * A service's looping brand-colour animation, drawn live on a canvas.
@@ -16,15 +16,16 @@ export function ServiceMotion({ scene, label, className }: { scene: SceneName; l
     const g = canvas?.getContext('2d');
     if (!canvas || !g) return;
     const draw = SCENES[scene];
+    const loop = SCENE_LOOPS[scene];
     // A representative still while off screen
     if (!inView) {
-      draw(g, LOOP * 0.6);
+      draw(g, 4.8);
       return;
     }
     let frame = 0;
     const start = performance.now();
     const tick = () => {
-      draw(g, ((performance.now() - start) / 1000) % LOOP);
+      draw(g, ((performance.now() - start) / 1000) % loop);
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);

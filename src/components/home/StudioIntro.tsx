@@ -12,7 +12,7 @@ export function StudioIntro() {
   return (
     <section className="container-site section-space">
       <div className="grid-site gap-y-10">
-        <p className="text-meta col-span-12 flex items-center gap-2 text-muted md:col-span-3">
+        <p className="text-meta col-span-12 flex items-center gap-2 text-muted md:col-span-3 md:tag-top-h3">
           <SquareBullet /> Studio
         </p>
         <div className="col-span-12 md:col-span-9 lg:col-span-8">

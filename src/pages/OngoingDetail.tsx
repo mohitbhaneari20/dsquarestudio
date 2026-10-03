@@ -59,7 +59,7 @@ export default function OngoingDetail() {
           <section aria-labelledby="work-so-far" className="pt-[var(--section-space)]">
             <div className="container-site">
               <div className="grid-site gap-y-6 border-t border-border pt-4">
-                <p className="text-meta col-span-12 text-muted lg:col-span-3">Visuals</p>
+                <p className="text-meta col-span-12 text-muted lg:col-span-3 lg:tag-top-h2">Visuals</p>
                 <div className="col-span-12 lg:col-span-9">
                   <h2 id="work-so-far" className="text-h2">
                     The work so far.
