@@ -1,8 +1,36 @@
+import { useInView } from 'framer-motion';
 import { Play } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import type { MediaAsset, Motif, Tone } from '../../data/types';
 import { cn } from '../../lib/cn';
 import { MARK_PATHS } from '../brand/paths';
 import { useReduceMotion } from '../../lib/motionPreference';
+
+/** A muted looping clip that only downloads and plays while it's on screen. */
+function InViewVideo({ className, media, still }: { className: string; media: MediaAsset; still: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const inView = useInView(ref, { margin: '200px 0px' });
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || still) return;
+    if (inView) v.play().catch(() => {});
+    else v.pause();
+  }, [inView, still]);
+  return (
+    <video
+      ref={ref}
+      className={className}
+      src={media.src}
+      poster={media.poster}
+      controls={still}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-label={media.alt}
+    />
+  );
+}
 
 interface ProjectVisualProps {
   media: MediaAsset;
@@ -35,20 +63,7 @@ export function ProjectVisual({ media, tone, label, slug, className, priority, s
 
   let content;
   if (media.src && media.type === 'video') {
-    content = (
-      <video
-        className={inner}
-        src={media.src}
-        poster={media.poster}
-        autoPlay={!reduce}
-        controls={!!reduce}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-label={media.alt}
-      />
-    );
+    content = <InViewVideo className={inner} media={media} still={!!reduce} />;
   } else if (media.src && media.size) {
     // Minimal cover: the image small and centred on a flat backdrop
     content = (

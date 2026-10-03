@@ -213,6 +213,133 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: 'falance',
+    title: 'Falance',
+    client: 'Self-initiated',
+    year: '2026',
+    categories: ['UI / UX', 'Development'],
+    discipline: 'Mobile App / UX Case Study',
+    type: 'Self-initiated',
+    status: 'Completed',
+    summary: 'A calm, pixel-drawn mobile app that helps people decide what matters today, focus on it, and find their balance.',
+    description:
+      'Falance helps people stop juggling everything and start with one thing. It brings together a daily focus screen, goals broken into small steps, a gentle look at life balance and a small library of books — five tabs, 31 screens and states, 22 custom pixel icons and six pixel avatars, built as a working prototype with real subscriptions.',
+    tone: { bg: '#F3F3F0', ink: '#0E0E0E', accent: '#588157' },
+    thumbnail: { src: '/assets/projects/falance/cover.webp', alt: 'Falance — Goals, Today and Focus mode screens', kind: 'mobile' },
+    heroImage: { src: '/assets/projects/falance/hero.webp', alt: 'Falance — five screens from onboarding to plans', kind: 'hero' },
+    gallery: [
+      {
+        layout: 'phones',
+        caption: 'Onboarding — under a minute: three quiet lines, a name and a face, a focus area and one goal',
+        media: [
+          { src: '/assets/projects/falance/screens/ob-1.webp', alt: 'Life gets busy', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/ob-3.webp', alt: 'What matters', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/ob-4-name.webp', alt: 'Name + avatar', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/ob-6-goal.webp', alt: 'First goal', kind: 'mobile' },
+        ],
+      },
+      { layout: 'statement', text: 'One question a day: what matters today?' },
+      {
+        layout: 'phones',
+        caption: 'Today — one focus card, one check-in, three priorities',
+        media: [
+          { type: 'video', src: '/assets/projects/falance/video/flow.webm', poster: '/assets/projects/falance/screens/ob-1.webp', alt: 'End-to-end flow', kind: 'motion' },
+          { src: '/assets/projects/falance/screens/today.webp', alt: 'Home', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/today-checkin.webp', alt: 'After check-in', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/today-all-done.webp', alt: 'All three done', kind: 'mobile' },
+        ],
+      },
+      {
+        layout: 'phones',
+        caption: 'Focus mode — the screen goes dark and quiet; a ring of 60 pixels fills as time passes',
+        media: [
+          { src: '/assets/projects/falance/screens/focus-ready.webp', alt: 'Ready', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/focus-running.webp', alt: 'Running', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/focus-done.webp', alt: 'Done', kind: 'mobile' },
+        ],
+      },
+      {
+        layout: 'phones',
+        caption: 'Goals read like chapters, with progress as stars — and balance as a shape, not a score',
+        media: [
+          { src: '/assets/projects/falance/screens/goals.webp', alt: 'Goals', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/goal-detail.webp', alt: 'Goal detail', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/sheet-new-goal.webp', alt: 'New goal', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/balance.webp', alt: 'Balance', kind: 'mobile' },
+        ],
+      },
+      { layout: 'statement', text: 'Calm, not colourful. Monochrome, one green accent, and every icon drawn pixel by pixel.' },
+      {
+        layout: 'phones',
+        caption: '22 icons on a 12 × 12 grid, animated in stepped frames like sprites',
+        media: [
+          { type: 'video', src: '/assets/projects/falance/video/icons-lab.webm', alt: 'Icon set in motion', kind: 'motion' },
+          { type: 'video', src: '/assets/projects/falance/video/motion.webm', poster: '/assets/projects/falance/screens/today.webp', alt: 'Icons, tabs and checkboxes', kind: 'motion' },
+        ],
+      },
+      {
+        layout: 'strip',
+        ratio: '1 / 1',
+        caption: 'Design system — buttons, chips and tags · stars, dot meter and pixel ring · inputs',
+        media: [
+          { src: '/assets/projects/falance/components/buttons.webp', alt: 'Buttons, chips, tags', kind: 'mockup', fit: 'contain', background: '#FFFFFF' },
+          { src: '/assets/projects/falance/components/progress.webp', alt: 'Progress', kind: 'mockup', fit: 'contain', background: '#FFFFFF' },
+          { src: '/assets/projects/falance/components/forms.webp', alt: 'Inputs', kind: 'mockup', fit: 'contain', background: '#FFFFFF' },
+        ],
+      },
+      {
+        layout: 'phones',
+        caption: 'Books — the price lives on the cover, so you always know what’s free',
+        media: [
+          { src: '/assets/projects/falance/screens/books.webp', alt: 'Library', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/book-detail-locked.webp', alt: 'Locked book', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/sheet-buy.webp', alt: 'Buy sheet', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/reader.webp', alt: 'Reader', kind: 'mobile' },
+        ],
+      },
+      { layout: 'statement', text: 'A calm brand needs a calm paywall. Ask once, never pressure.' },
+      {
+        layout: 'phones',
+        caption: 'Plans — one decision at a time: tier, then billing, then one clear button',
+        media: [
+          { src: '/assets/projects/falance/screens/plans-plus.webp', alt: 'Plus', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/plans-pro.webp', alt: 'Pro', kind: 'mobile' },
+          { type: 'video', src: '/assets/projects/falance/video/scroll-plans.webm', poster: '/assets/projects/falance/screens/plans-plus.webp', alt: 'Scrolling the plans page', kind: 'motion' },
+          { src: '/assets/projects/falance/screens/plans-subscribed.webp', alt: 'Subscribed', kind: 'mobile' },
+        ],
+      },
+      {
+        layout: 'phones',
+        caption: 'Full-length screens, scrolled',
+        media: [
+          { type: 'video', src: '/assets/projects/falance/video/scroll-today.webm', poster: '/assets/projects/falance/screens/today.webp', alt: 'Today', kind: 'motion' },
+          { type: 'video', src: '/assets/projects/falance/video/scroll-goals.webm', poster: '/assets/projects/falance/screens/goals.webp', alt: 'Goals', kind: 'motion' },
+          { type: 'video', src: '/assets/projects/falance/video/scroll-balance.webm', poster: '/assets/projects/falance/screens/balance.webp', alt: 'Balance', kind: 'motion' },
+          { type: 'video', src: '/assets/projects/falance/video/scroll-books.webm', poster: '/assets/projects/falance/screens/books.webp', alt: 'Books', kind: 'motion' },
+          { type: 'video', src: '/assets/projects/falance/video/scroll-me.webm', poster: '/assets/projects/falance/screens/me.webp', alt: 'Me', kind: 'motion' },
+        ],
+      },
+      {
+        layout: 'phones',
+        caption: 'Before → after: from a warm, Kindle-like first version to a monochrome, pixel-drawn system',
+        media: [
+          { src: '/assets/projects/falance/before/today.webp', alt: 'Before · Today', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/today.webp', alt: 'After · Today', kind: 'mobile' },
+          { src: '/assets/projects/falance/before/focus-running.webp', alt: 'Before · Focus', kind: 'mobile' },
+          { src: '/assets/projects/falance/screens/focus-running.webp', alt: 'After · Focus', kind: 'mobile' },
+        ],
+      },
+    ],
+    services: ['Product & UX Design', 'Visual & Icon Design', 'Interaction Design', 'Front-end Prototyping'],
+    challenge:
+      'People have goals but struggle to stay focused and consistent — and most productivity apps add dashboards, charts and badges that become one more thing to maintain.',
+    approach:
+      'Remove instead of add. One question per screen, three priorities a day, progress shown as patterns rather than percentages, and warm microcopy instead of guilt. A monochrome, pixel-drawn system gives it a voice without noise.',
+    outcome:
+      'A working mobile prototype across five tabs — onboarding, Today, focus mode, goals, balance, books and a calm Plus/Pro paywall with real Razorpay payments verified on the server. Usability testing with five participants is planned next.',
+    featured: true,
+  },
+  {
     slug: 'dsquare-studio',
     title: 'Dsquare Studio',
     client: 'Dsquare (ourselves)',
