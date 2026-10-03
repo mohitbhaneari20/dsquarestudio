@@ -1,0 +1,31 @@
+/**
+ * Global studio details. Update these before going live —
+ * the URL, email and social handles below are placeholders.
+ */
+export const site = {
+  name: 'Dsquare Studio',
+  shortName: 'DSQUARE',
+  tagline: 'Design + Development Studio',
+  url: 'https://dsquare.studio', // TODO: replace with the production domain
+  email: 'hello@dsquare.studio', // TODO: replace with the real inbox
+  defaultTitle: 'Dsquare Studio — Design + Development',
+  defaultDescription:
+    'Dsquare is an independent design and development studio creating brands, digital experiences, websites and products.',
+  ogImage: '/og-image.png',
+  year: 2026,
+  /** Shown as small edge details on /work. TODO: confirm. */
+  location: { label: 'India', coords: '30°N / 78°E', timeZone: 'Asia/Kolkata', tzLabel: 'IST' },
+  // TODO: replace with real profile URLs
+  socials: [
+    { label: 'Instagram', href: 'https://www.instagram.com/dsquare.studio' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/dsquare-studio' },
+    { label: 'Behance', href: 'https://www.behance.net/dsquarestudio' },
+  ],
+} as const;
+
+export const navigation = [
+  { label: 'Work', to: '/work' },
+  { label: 'Ongoing', to: '/ongoing' },
+  { label: 'Studio', to: '/studio' },
+  { label: 'Services', to: '/services' },
+] as const;

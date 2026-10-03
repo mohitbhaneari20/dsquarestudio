@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#E6E1D8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Defaults for crawlers that don't run JS. <Seo /> updates these per route. -->
+    <title>Dsquare Studio — Design + Development</title>
+    <meta name="description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
+    <link rel="canonical" href="https://dsquare.studio/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dsquare Studio" />
+    <meta property="og:title" content="Dsquare Studio — Design + Development" />
+    <meta property="og:description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
+    <meta property="og:url" content="https://dsquare.studio/" />
+    <meta property="og:image" content="https://dsquare.studio/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dsquare Studio — Design + Development" />
+    <meta name="twitter:description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
+    <meta name="twitter:image" content="https://dsquare.studio/og-image.png" />
+
+    <!-- Apply the motion preference before first paint (mirrors src/lib/motionPreference.tsx) -->
+    <script>
+      try {
+        var m = localStorage.getItem('dsq-motion');
+        if (m === 'off' || (m !== 'on' && matchMedia('(prefers-reduced-motion: reduce)').matches))
+          document.documentElement.classList.add('reduce-motion');
+        // Motion on: the loader plays on every load, so paint its orange right away (no flash)
+        else document.documentElement.classList.add('intro-pending');
+      } catch (e) {}
+    </script>
+    <style>
+      /* Only the root (it paints the canvas + scrollbar gutter); the page itself keeps its own colour */
+      html.intro-pending { background: #ff6600 !important; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+    />
+  </head>
+  <body style="background:#e6e1d8">
+    <div id="root"></div>
+    <noscript>Dsquare Studio — an independent design and development studio. This site needs JavaScript.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

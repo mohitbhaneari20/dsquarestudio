@@ -1,0 +1,14 @@
+# Dependencies & build output (recreated by `npm install` / `npm run build`)
+node_modules
+dist
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Editor / OS / tooling
+.DS_Store
+.claude
+.vscode
+*.log

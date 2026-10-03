@@ -1,0 +1,332 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Change the accent here and it updates everywhere.
+
+   Palette
+     Vibrant Orange  #FA5C01 / #FF9A60
+     Off-White       #FAFAFA / #FFFFFF
+     Grey Sand       #D5D1C8 / #E6E1D8
+     Deep Taupe      #675845 / #8D7961
+     Pitch Black     #000000 / #2F2F2F
+------------------------------------------------------------------- */
+:root {
+  --orange: #fa5c01;
+  --orange-soft: #ff9a60;
+  --off-white: #fafafa;
+  --white: #ffffff;
+  --sand: #d5d1c8;
+  --sand-light: #e6e1d8;
+  --taupe: #675845;
+  --taupe-light: #8d7961;
+  --black: #000000;
+  --black-soft: #2f2f2f;
+
+  --background: var(--sand-light);
+  --surface: var(--off-white);
+  --foreground: var(--black);
+  --muted: var(--taupe);
+  --border: rgb(103 88 69 / 0.22);
+  /* Hairline colour for the page's visible column lines */
+  --grid-line: rgb(103 88 69 / 0.1);
+  --accent: var(--orange);
+  --accent-foreground: var(--black);
+
+  /* Layout */
+  --container-width: 1680px;
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  --grid-gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  --section-space: clamp(5rem, 11vw, 10rem);
+  --nav-height: 4.5rem;
+
+  /* Shape */
+  --radius: 6px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-fast: 200ms var(--ease-out);
+  --transition-medium: 450ms var(--ease-out);
+  --transition-slow: 900ms var(--ease-out);
+}
+
+/* Inverted sections (philosophy, CTA, footer) swap the palette locally. */
+.theme-inverse {
+  --background: var(--black);
+  --surface: var(--black-soft);
+  --foreground: var(--off-white);
+  --muted: var(--taupe-light);
+  --border: rgb(250 250 250 / 0.16);
+  --grid-line: rgb(250 250 250 / 0.06);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-orange-soft: var(--orange-soft);
+  --color-sand: var(--sand);
+  --color-sand-light: var(--sand-light);
+  --color-taupe: var(--taupe);
+  --color-taupe-light: var(--taupe-light);
+  --color-black-soft: var(--black-soft);
+
+  --font-sans: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-condensed: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+
+  --radius-sm: var(--radius);
+  --radius-lg: var(--radius-lg);
+
+  --ease-out: var(--ease-out);
+}
+
+@theme {
+  --breakpoint-xl: 75rem; /* 1200px — desktop starts here */
+}
+
+/* `motion-ok:` = only when the site's motion preference is on (html has no .reduce-motion) */
+@custom-variant motion-ok (&:where(html:not(.reduce-motion) *));
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    /* Reserve the scrollbar's space so locking scroll (intro, menus) never shifts the layout */
+    scrollbar-gutter: stable;
+  }
+
+  /* Lenis (smooth scrolling) — it drives the scroll itself, so native smoothing must be off */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    line-height: 1.5;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Typography scale (fluid). Kept to a small set of sizes on purpose.
+------------------------------------------------------------------- */
+@utility text-display {
+  font-size: clamp(3.25rem, 10.5vw, 11.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+@utility text-h1 {
+  font-size: clamp(2.6rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+
+@utility text-h2 {
+  font-size: clamp(2.1rem, 4.6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+@utility text-h3 {
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+@utility text-lead {
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+/* Condensed all-caps display for statement moments */
+@utility text-condensed {
+  font-family: var(--font-condensed);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+}
+
+@utility text-meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------
+   Layout primitives
+------------------------------------------------------------------- */
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility grid-site {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+}
+
+@utility section-space {
+  padding-block: var(--section-space);
+}
+
+/* Animated underline for text links */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--transition-medium);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Keyframes
+------------------------------------------------------------------- */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(14px, -10px) rotate(9deg);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+.animate-scroll-cue {
+  animation: scroll-cue 2.2s var(--ease-in-out) infinite;
+}
+.animate-drift {
+  animation: drift 6s var(--ease-in-out) infinite;
+}
+
+/* ------------------------------------------------------------------
+   Custom cursor — only applied when <CustomCursor /> enables it
+   (fine pointer, hover-capable devices, motion allowed).
+------------------------------------------------------------------- */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+html.has-custom-cursor :is(input, textarea, select, [contenteditable='true']) {
+  cursor: text !important;
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion
+------------------------------------------------------------------- */
+/* Applied from the system setting or the footer's Motion switch (see lib/motionPreference). */
+html.reduce-motion {
+  scroll-behavior: auto;
+}
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
