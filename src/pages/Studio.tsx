@@ -1,19 +1,9 @@
-import { ProcessTimeline } from '../components/studio/ProcessTimeline';
+import { ProcessCards } from '../components/studio/ProcessCards';
 import { CTA } from '../components/ui/CTA';
 import { Reveal } from '../components/ui/Reveal';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Seo } from '../components/ui/Seo';
 import { TextReveal } from '../components/ui/TextReveal';
-import { pad } from '../lib/format';
-
-const interests = [
-  { title: 'Design', body: 'Deciding what something should be, and how it should feel.' },
-  { title: 'Development', body: 'Making it real — in code, in the browser, on a phone.' },
-  { title: 'Problem solving', body: 'Starting from the problem, not from a style.' },
-  { title: 'Visual systems', body: 'Rules that keep things consistent as they grow.' },
-  { title: 'User experience', body: 'Respecting people’s time and attention.' },
-  { title: 'Building products', body: 'Shipping, learning and improving. Then again.' },
-];
 
 export default function Studio() {
   return (
@@ -65,24 +55,10 @@ export default function Studio() {
         </div>
       </section>
 
-      {/* Interests */}
-      <section className="container-site section-space">
-        <SectionHeader index="03" eyebrow="What we care about" title={['Things we think about', 'a lot.']} />
-        <ul className="mt-16 grid gap-x-[var(--grid-gap)] sm:grid-cols-2 lg:grid-cols-3 md:mt-24">
-          {interests.map((item, i) => (
-            <Reveal as="li" key={item.title} delay={(i % 3) * 0.06} className="border-t border-border pb-12 pt-5">
-              <span className="text-meta text-muted">{pad(i + 1)}</span>
-              <h3 className="text-h3 mt-6">{item.title}</h3>
-              <p className="mt-3 max-w-xs text-muted">{item.body}</p>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
-
       {/* Why */}
       <section className="container-site pb-[var(--section-space)]">
         <div className="grid-site gap-y-8 border-t border-border pt-4">
-          <p className="text-meta col-span-12 text-muted lg:col-span-3">(04) Why Dsquare exists</p>
+          <p className="text-meta col-span-12 text-muted lg:col-span-3">(03) Why Dsquare exists</p>
           <div className="col-span-12 lg:col-span-9">
             <TextReveal
               lines={['To help businesses and ideas', 'communicate better through', 'design and technology.']}
@@ -97,13 +73,9 @@ export default function Studio() {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="container-site pb-[var(--section-space)]">
-        <SectionHeader index="05" eyebrow="How we work" title={['Five steps,', 'repeated as needed.']} />
-        <div className="mt-16 md:mt-24">
-          <ProcessTimeline />
-        </div>
-      </section>
+      {/* Process: heading and the five steps, pinned together while the cards scroll sideways */}
+      <ProcessCards header={<SectionHeader index="04" eyebrow="How we work" title={['Five steps,', 'repeated as needed.']} />} />
+      <div className="pb-[var(--section-space)]" />
 
       <CTA />
     </>

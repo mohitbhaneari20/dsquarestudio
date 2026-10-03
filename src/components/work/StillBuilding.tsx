@@ -30,7 +30,7 @@ function deskMedia(p: OngoingProject): MediaAsset[] {
 function DeskCard({ project }: { project: OngoingProject }) {
   const { ongoing } = project;
   return (
-    <Link to={`/ongoing/${project.slug}`} className="group block" data-cursor="Open">
+    <Link to={`/ongoing/${project.slug}`} className="group block" data-cursor="Dig it">
       {/* The board */}
       <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-surface">
         <div

@@ -31,7 +31,7 @@
   /* Hairline colour for the page's visible column lines */
   --grid-line: rgb(103 88 69 / 0.1);
   --accent: var(--orange);
-  --accent-foreground: var(--black);
+  --accent-foreground: var(--off-white); /* text on orange (buttons, badges) */
 
   /* Layout */
   --container-width: 1680px;
@@ -41,9 +41,10 @@
   --nav-height: 4.5rem;
 
   /* Shape */
-  --radius: 6px;
-  --radius-lg: 14px;
-  --radius-pill: 999px;
+  /* Sharp everywhere — no rounded corners anywhere on the site */
+  --radius: 0px;
+  --radius-lg: 0px;
+  --radius-pill: 0px;
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -329,4 +330,12 @@ html.reduce-motion *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+}
+
+/* Sharp, no curves: overrides every rounded-* utility and inline radius (cards, buttons,
+   pills, dots, images, frames). Drawn shapes inside SVGs are unaffected. */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
 }

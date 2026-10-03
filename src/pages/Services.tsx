@@ -2,17 +2,16 @@ import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CTA } from '../components/ui/CTA';
 import { ImageReveal } from '../components/ui/ImageReveal';
-import { ProjectVisual } from '../components/ui/ProjectVisual';
+import { ServiceMotion } from '../components/services/ServiceMotion';
 import { Reveal } from '../components/ui/Reveal';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Seo } from '../components/ui/Seo';
 import { getProject, projectHref } from '../data/projects';
 import { services } from '../data/services';
 import type { Project } from '../data/types';
+import type { SceneName } from '../components/services/scenes';
 import { useHashScroll } from '../hooks/useHashScroll';
 import { pad } from '../lib/format';
-
-const tone = { bg: '#D5D1C8', ink: '#000000' };
 
 function List({ title, items }: { title: string; items: string[] }) {
   return (
@@ -75,12 +74,7 @@ export default function Services() {
 
               <div className="col-span-12 md:col-span-7 md:col-start-6 lg:col-span-6 lg:col-start-7">
                 <ImageReveal>
-                  <ProjectVisual
-                    media={{ alt: `${service.title} illustration`, motif: service.motif }}
-                    tone={tone}
-                    label={service.title}
-                    className="aspect-[16/10] rounded-sm"
-                  />
+                  <ServiceMotion scene={service.slug as SceneName} label={service.title} className="aspect-[16/10]" />
                 </ImageReveal>
                 <Reveal>
                   <p className="text-lead mt-10">{service.description}</p>

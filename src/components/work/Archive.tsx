@@ -64,6 +64,7 @@ export function Archive({ projects }: { projects: Project[] }) {
               >
                 <Link
                   to={projectHref(p)}
+                  data-cursor="Dig it"
                   onPointerEnter={() => setHovered(p)}
                   onFocus={() => setHovered(null)}
                   className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 py-5 transition-[padding] duration-500 ease-out hover:py-7 md:grid-cols-[4rem_1fr_1fr_6rem_2rem] md:gap-x-6"

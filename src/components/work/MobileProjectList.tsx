@@ -14,7 +14,7 @@ export function MobileProjectList({ projects }: { projects: Project[] }) {
         const [main, detail] = pickMedia(p, 2);
         return (
           <li key={p.slug}>
-            <Link to={projectHref(p)} className="block">
+            <Link to={projectHref(p)} className="block" data-cursor="Dig it">
               <div className="text-meta mb-3 flex justify-between text-muted">
                 <span>
                   {pad(i + 1)} / {pad(projects.length)}

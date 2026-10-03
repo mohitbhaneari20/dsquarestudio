@@ -9,6 +9,7 @@ import { PageTransition } from '../components/layout/PageTransition';
 import { ProjectTransitionProvider } from '../components/layout/ProjectTransition';
 import { DSquareLoader } from '../components/ui/DSquareLoader';
 import { CustomCursor } from '../components/ui/CustomCursor';
+import { SoundEffects } from '../components/ui/SoundEffects';
 import { ScrollProgress } from '../components/ui/ScrollProgress';
 import { useReduceMotion } from '../lib/motionPreference';
 import { scrollToTop, startSmoothScroll, stopSmoothScroll } from '../lib/smoothScroll';
@@ -62,6 +63,7 @@ export function RootLayout() {
       </AnimatePresence>
 
       <CustomCursor />
+      <SoundEffects />
       </LoadingScreen>
       </ProjectTransitionProvider>
     </MotionConfig>

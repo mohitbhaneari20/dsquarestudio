@@ -263,7 +263,7 @@ export function ProjectShowcase({ projects, index, direction, onNavigate }: Proj
           onClick={onOpen}
           onPointerMove={onPointerMove}
           onPointerLeave={onPointerLeave}
-          data-cursor="View"
+          data-cursor="Dig it"
           aria-label={`Open ${project.title} — ${project.discipline}`}
           className="group relative block aspect-[2/1] w-full"
         >

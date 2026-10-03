@@ -23,14 +23,14 @@ function a11y(title: string | null | undefined, fallback: string) {
   return title === null ? { 'aria-hidden': true as const } : { role: 'img', 'aria-label': title ?? fallback };
 }
 
-/** The square monogram on its own. */
+/** The square monogram on its own, with the © in its top-right notch (as in the official monogram file). */
 export function BrandMark({ className, title, copyright = true }: BrandProps) {
   return (
     <svg viewBox={MARK_VIEWBOX} className={cn('fill-current', className)} {...a11y(title, 'Dsquare Studio')}>
       {MARK_PATHS.map((d, i) => (
         <path key={i} d={d} />
       ))}
-      {copyright && MARK_COPYRIGHT_PATHS.map((d, i) => <path key={`c${i}`} d={d} />)}
+      {copyright && HEADER_COPYRIGHT_PATHS.map((d, i) => <path key={`c${i}`} d={d} />)}
     </svg>
   );
 }

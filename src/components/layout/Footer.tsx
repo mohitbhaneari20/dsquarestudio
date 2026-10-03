@@ -26,7 +26,7 @@ export function Footer() {
             <ul className="space-y-2">
               {footerNav.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="link-underline">
+                  <Link to={item.to} className="link-underline transition-colors hover:text-accent">
                     {item.label}
                   </Link>
                 </li>
@@ -58,7 +58,7 @@ export function Footer() {
 
         <div className="mt-20 flex items-end justify-between border-t border-border pt-6 md:mt-28">
           <p className="text-meta flex items-center gap-3 text-muted">
-            <BrandMark title={null} className="size-6 text-accent" />
+            <BrandMark title={null} className="size-8 text-accent" />
             {site.tagline}
           </p>
           <a href="#top" className="text-meta inline-flex items-center gap-1.5 text-muted transition-colors hover:text-foreground">

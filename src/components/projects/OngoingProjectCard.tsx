@@ -27,7 +27,7 @@ export function OngoingProjectCard({ project, index, variant = 'row' }: OngoingP
   if (variant === 'row') {
     return (
       <Reveal as="li" className="border-t border-border">
-        <Link to={href} className="group grid-site items-center gap-y-5 py-8 md:py-10" data-cursor="Open">
+        <Link to={href} className="group grid-site items-center gap-y-5 py-8 md:py-10" data-cursor="Dig it">
           <div className="col-span-12 md:col-span-4 lg:col-span-3">
             <ProjectVisual
               media={project.thumbnail}
@@ -74,7 +74,7 @@ export function OngoingProjectCard({ project, index, variant = 'row' }: OngoingP
   return (
     <article className="grid-site gap-y-8 border-t border-border pt-6">
       <div className="col-span-12 lg:col-span-7">
-        <Link to={href} className="group block" data-cursor="Open" aria-label={`Open ${project.title} journal`} tabIndex={-1}>
+        <Link to={href} className="group block" data-cursor="Dig it" aria-label={`Open ${project.title} journal`} tabIndex={-1}>
           <ImageReveal>
             <ProjectVisual
               media={project.heroImage}

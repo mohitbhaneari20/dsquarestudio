@@ -53,7 +53,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                     to={item.to}
                     onClick={onClose}
                     className={({ isActive }) =>
-                      cn('flex items-baseline justify-between py-4 text-[clamp(2.5rem,12vw,4.5rem)] font-medium leading-none tracking-[-0.045em]', isActive && 'text-accent')
+                      cn('flex items-baseline justify-between py-4 text-[clamp(2.5rem,12vw,4.5rem)] font-medium leading-none tracking-[-0.045em] transition-colors hover:text-accent', isActive && 'text-accent')
                     }
                   >
                     {item.label}

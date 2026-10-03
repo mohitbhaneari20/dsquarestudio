@@ -25,7 +25,7 @@ export function ProjectCard({ project, sizes = '(min-width: 768px) 50vw, 100vw',
   return (
     <Link
       to={projectHref(project)}
-      data-cursor={project.status === 'Ongoing' ? 'Open' : 'View'}
+      data-cursor="Dig it"
       className={cn('group block rounded-[2px] focus-visible:outline-offset-4', className)}
     >
       <ImageReveal>

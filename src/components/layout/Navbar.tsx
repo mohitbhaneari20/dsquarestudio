@@ -25,7 +25,7 @@ function NavItem({ label, to }: { label: string; to: string }) {
         className={({ isActive }) =>
           cn(
             'relative inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] transition-colors',
-            isActive ? 'text-foreground' : 'text-muted hover:text-foreground',
+            isActive ? 'text-foreground hover:text-accent' : 'text-muted hover:text-accent',
           )
         }
       >

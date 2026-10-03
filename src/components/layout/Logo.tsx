@@ -5,7 +5,7 @@ import { HeaderLogo } from '../brand/Brand';
 /** Header brand lockup (updated logo file), linking home. Inherits text colour. */
 export function Logo({ onClick }: { onClick?: () => void }) {
   return (
-    <Link to="/" onClick={onClick} className="inline-flex items-center transition-opacity hover:opacity-70" aria-label={`${site.name} — home`}>
+    <Link to="/" onClick={onClick} className="inline-flex items-center transition-colors duration-300 hover:text-accent focus-visible:text-accent" aria-label={`${site.name} — home`}>
       <HeaderLogo title={null} className="h-7 w-auto md:h-8" />
     </Link>
   );
