@@ -21,15 +21,9 @@
     <meta name="twitter:description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
     <meta name="twitter:image" content="https://dsquare.studio/og-image.png" />
 
-    <!-- Apply the motion preference before first paint (mirrors src/lib/motionPreference.tsx) -->
+    <!-- The loader plays on every load, so paint its orange right away (no flash) -->
     <script>
-      try {
-        var m = localStorage.getItem('dsq-motion');
-        if (m === 'off' || (m !== 'on' && matchMedia('(prefers-reduced-motion: reduce)').matches))
-          document.documentElement.classList.add('reduce-motion');
-        // Motion on: the loader plays on every load, so paint its orange right away (no flash)
-        else document.documentElement.classList.add('intro-pending');
-      } catch (e) {}
+      document.documentElement.classList.add('intro-pending');
     </script>
     <style>
       /* Only the root (it paints the canvas + scrollbar gutter); the page itself keeps its own colour */

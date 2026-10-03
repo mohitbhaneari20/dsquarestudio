@@ -8,7 +8,6 @@ import { useIntroDone } from '../../lib/intro';
 import { EASE_OUT_SOFT } from '../../lib/motion';
 import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
-import { MotionToggle } from '../ui/MotionToggle';
 
 const links = [
   { label: 'Work', to: '/work' },
@@ -74,10 +73,6 @@ export function Navbar() {
                 <NavItem key={item.to} {...item} />
               ))}
             </ul>
-
-            {/* Animations on/off — divided from the links on desktop */}
-            <span aria-hidden="true" className="hidden h-4 w-px bg-border md:block" />
-            <MotionToggle />
 
             <button
             type="button"
