@@ -91,7 +91,9 @@ export type GalleryBlock =
   /** Mobile screens in phone frames, side by side */
   | { layout: 'phones'; media: MediaAsset[]; caption?: string }
   /** A row of images at a shared natural ratio, e.g. '3 / 4' posters or '9 / 16' mockups */
-  | { layout: 'strip'; media: MediaAsset[]; ratio: string; caption?: string };
+  | { layout: 'strip'; media: MediaAsset[]; ratio: string; caption?: string }
+  /** One image or video, full width at its true proportions (no crop) — for design boards and clips */
+  | { layout: 'board'; media: MediaAsset; ratio?: '16/10' | '16/9' | '4/3' };
 
 export interface JournalEntry {
   id: string;

@@ -45,6 +45,11 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
           case 'video':
             return <div key={i}>{visual(block.media, 'aspect-[4/5] md:aspect-[16/9]', '100vw')}</div>;
 
+          case 'board': {
+            const aspect = { '16/10': 'aspect-[16/10]', '16/9': 'aspect-[16/9]', '4/3': 'aspect-[4/3]' }[block.ratio ?? '16/10'];
+            return <div key={i}>{visual(block.media, aspect, '100vw')}</div>;
+          }
+
           case 'pair':
             return (
               <div key={i} className="grid-site gap-y-16">

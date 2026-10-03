@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ongoingProjects } from '../../data/projects';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -20,6 +20,11 @@ export function Hero() {
   const ready = useIntroDone();
   // From tablet up the stone is large and floats over the hero; on phones it sits in the flow
   const large = useMediaQuery('(min-width: 768px)');
+  // Parallax: as the page scrolls, the stone rises a little faster than the content (so it moves
+  // away from the text below instead of over it) and turns slightly
+  const { scrollY } = useScroll();
+  const stoneY = useTransform(scrollY, (y) => (reduce ? 0 : -y * 0.3));
+  const stoneTurn = useTransform(scrollY, (y) => (reduce ? 0 : Math.min(y * 0.012, 10)));
 
   /** Fade + rise once the intro is done; `order` staggers the pieces. */
   const enter = (order: number, distance = 24) =>
@@ -47,7 +52,9 @@ export function Hero() {
           <div className="flex min-h-0 flex-1 items-center justify-center py-6 [container-type:size]">
             {!large && (
               <motion.div className="w-[min(71cqh,80vw)]" {...enter(1, 0)}>
-                <StoneObject className="w-full" active={ready} />
+                <motion.div style={{ y: stoneY, rotate: stoneTurn }}>
+                  <StoneObject className="w-full" active={ready} />
+                </motion.div>
               </motion.div>
             )}
           </div>
@@ -90,7 +97,9 @@ export function Hero() {
         {large && (
           <div className="pointer-events-none absolute inset-x-0 bottom-[4svh] top-[18svh] flex items-center justify-center">
             <motion.div className="pointer-events-auto w-[min(52svh,40vw)]" {...enter(1, 0)}>
-              <StoneObject className="w-full" active={ready} />
+              <motion.div style={{ y: stoneY, rotate: stoneTurn }}>
+                <StoneObject className="w-full" active={ready} />
+              </motion.div>
             </motion.div>
           </div>
         )}

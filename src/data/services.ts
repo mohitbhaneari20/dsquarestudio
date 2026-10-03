@@ -22,7 +22,7 @@ export const services: Service[] = [
       'An identity is a set of decisions people can recognise. We design the logo, but mostly the system around it — type, colour, components and tokens — so the brand holds up everywhere, from a business card to a product interface.',
     included: ['Positioning workshop', 'Logo & wordmark', 'Typography & colour', 'Design tokens', 'Component library', 'Usage guidelines'],
     deliverables: ['Logo suite', 'Brand guidelines', 'Figma library', 'Token files', 'Templates'],
-    relatedProjects: ['rawset', 'project-four'],
+    relatedProjects: ['rawset'],
     motif: 'type',
   },
   {
@@ -33,7 +33,7 @@ export const services: Service[] = [
       'We start with what people are trying to do, then design the shortest, clearest way to do it — for apps, products and websites, at every screen size. Pretty comes after useful, but it does come.',
     included: ['User flows', 'Wireframes', 'Interface design', 'Responsive web design', 'Interactive prototypes', 'Usability checks'],
     deliverables: ['Figma files', 'Clickable prototype', 'Responsive layouts', 'Annotated handoff'],
-    relatedProjects: ['falance', 'project-three', 'dsquare-studio'],
+    relatedProjects: ['falance', 'dsquare-studio'],
     motif: 'interface',
   },
   {

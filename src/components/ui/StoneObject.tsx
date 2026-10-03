@@ -9,8 +9,8 @@ const FRONT_SRC = '/brand/stone.webp';
 const SIDE_SRC = '/brand/stone-side.webp';
 
 /** Number of stacked slices that fake the thickness, and the gap between them (px). */
-const LAYERS = 14;
-const STEP = 1.8;
+const LAYERS = 26;
+const STEP = 2.2;
 
 /** How strongly the stone follows the cursor (same feel as the monogram). */
 const MAX_TILT_Y = 28; // degrees, left/right
@@ -39,12 +39,16 @@ const STONE_MASK = {
  * cursor, drifts slightly toward it (magnetic), is lit from the cursor's side (the far
  * side falls into shadow), lifts on hover and does a full turn when clicked; it eases back when
  * the cursor leaves. Starts still and only moves once `active`.
- * Touch devices and reduced motion get a calm, static stone.
+ * On touch screens (no cursor) it drifts slowly by itself so it never sits still;
+ * with reduced motion it's a calm, static stone.
  */
 export function StoneObject({ className, active = true }: { className?: string; active?: boolean }) {
   const reduce = useReduceMotion();
   const finePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
   const interactive = !reduce && finePointer && active;
+  /** Touch screens: no cursor to follow, so the stone drifts slowly on its own */
+  const drifting = !reduce && !finePointer && active;
+  const moving = interactive || drifting;
   const rootRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -70,10 +74,27 @@ export function StoneObject({ className, active = true }: { className?: string; 
   // Extra full turn on click
   const spin = useMotionValue(0);
 
+  // Slow, looping drift (a lazy figure-of-eight) standing in for the cursor on touch screens
+  useEffect(() => {
+    if (!drifting) return;
+    let frame = 0;
+    const start = performance.now();
+    const tick = () => {
+      const t = (performance.now() - start) / 1000;
+      px.set(Math.sin(t * 0.35) * 0.55);
+      py.set(Math.sin(t * 0.27 + 1) * 0.35);
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [drifting, px, py]);
+
   useEffect(() => {
     if (!interactive) {
-      px.set(0);
-      py.set(0);
+      if (!drifting) {
+        px.set(0);
+        py.set(0);
+      }
       return;
     }
     const onMove = (e: PointerEvent) => {
@@ -97,7 +118,7 @@ export function StoneObject({ className, active = true }: { className?: string; 
       window.removeEventListener('pointermove', onMove);
       document.documentElement.removeEventListener('pointerleave', onLeave);
     };
-  }, [interactive, px, py]);
+  }, [interactive, drifting, px, py]);
 
   const onClick = () => {
     if (!interactive || spin.isAnimating()) return;
@@ -120,7 +141,7 @@ export function StoneObject({ className, active = true }: { className?: string; 
       {/* Magnetic drift + hover lift */}
       <motion.div
         className="absolute inset-0 [transform-style:preserve-3d]"
-        style={interactive ? { x: shiftX, y: shiftY } : undefined}
+        style={moving ? { x: shiftX, y: shiftY } : undefined}
         animate={{ scale: interactive && hovered ? 1.04 : 1 }}
         transition={{ type: 'spring', stiffness: 220, damping: 20 }}
       >
@@ -151,7 +172,7 @@ export function StoneObject({ className, active = true }: { className?: string; 
               {/* The photographed face, lit by the cursor: screen brightens the near side, multiply darkens the far side */}
               <div className="absolute inset-0" style={{ transform: `translateZ(${(LAYERS / 2 - 1) * STEP}px)` }}>
                 <img src={FRONT_SRC} alt="" aria-hidden="true" draggable={false} className={slice} />
-                {interactive ? (
+                {moving ? (
                   <>
                     <motion.div className="pointer-events-none absolute inset-0 mix-blend-multiply" style={{ ...STONE_MASK, backgroundImage: shade }} />
                     <motion.div className="pointer-events-none absolute inset-0 mix-blend-screen" style={{ ...STONE_MASK, backgroundImage: highlight }} />
@@ -178,7 +199,7 @@ export function StoneObject({ className, active = true }: { className?: string; 
       {/* Soft floor shadow */}
       <motion.div
         className="absolute -bottom-6 left-1/2 h-6 w-1/2 -translate-x-1/2 rounded-[50%] bg-black/25 blur-xl"
-        style={interactive ? { x: shadowX } : undefined}
+        style={moving ? { x: shadowX } : undefined}
         aria-hidden="true"
       />
     </div>

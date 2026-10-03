@@ -41,7 +41,7 @@ src/
 - **Add a project** — add an object to `projects` in `src/data/projects.ts`.
   `status: 'Completed'` appears under /work/:slug; `status: 'Ongoing'` plus an `ongoing` block appears under /ongoing/:slug with progress, phase and journal.
 - **Real images** — see `public/assets/projects/README.md`. Without `src`, a placeholder in the project's `tone` is drawn instead.
-- **Placeholder projects** — Project Three and Four have `placeholder: true` and say so on the page. Replace or delete them.
+- **Placeholder projects** — set `placeholder: true` on a project to mark it as a dummy entry (it says so on the page).
 - **Project colours** — each project's `tone` (`bg`, `ink`, optional `accent`) colours its placeholders, tints the /work background while it's active, and marks its case study.
 - **Media kinds** — tag assets with `kind` (`desktop`, `mobile`, `poster`, `logo`, `code`, `moodboard`…). The /work composition uses it to pick each image's shape and label.
 - **Case-study layouts** — gallery blocks can be `full`, `pair`, `large-small`, `collage`, `text-image`, `video` or `statement` (big type between visuals). The /work showcase pulls its layered images from the hero, gallery and journal automatically.
