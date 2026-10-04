@@ -51,7 +51,7 @@ export function TrustedBy() {
             {clients.map((c) => (
               <li key={c.name}>
                 {c.slug ? (
-                  <Link to={`/work/${c.slug}`} className={cell} data-cursor="Dig it" aria-label={`${c.name} case study`}>
+                  <Link to={`/work/${c.slug}`} className={cell} data-cursor="View" aria-label={`${c.name} case study`}>
                     <Logo client={c} />
                   </Link>
                 ) : (

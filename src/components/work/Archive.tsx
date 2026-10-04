@@ -10,6 +10,7 @@ import { ProjectVisual } from '../ui/ProjectVisual';
 import { Reveal } from '../ui/Reveal';
 import { TextReveal } from '../ui/TextReveal';
 import { useReduceMotion } from '../../lib/motionPreference';
+import { InlineMonogram } from '../brand/Brand';
 
 /** Compact, always-usable list of every project, with a preview that trails the cursor. */
 export function Archive({ projects }: { projects: Project[] }) {
@@ -31,7 +32,7 @@ export function Archive({ projects }: { projects: Project[] }) {
     <section className="container-site section-space" aria-label="The archive">
       <div className="grid-site gap-y-8 border-t border-border pt-4">
         <p className="text-meta col-span-12 text-muted lg:col-span-3 lg:tag-top-h1">
-          (D<sup>2</sup>/02) Index
+          (<InlineMonogram />/02) Index
         </p>
         <div className="col-span-12 lg:col-span-9">
           <TextReveal as="h2" lines={['The archive']} className="text-h1 uppercase" />
@@ -64,7 +65,7 @@ export function Archive({ projects }: { projects: Project[] }) {
               >
                 <Link
                   to={projectHref(p)}
-                  data-cursor="Dig it"
+                  data-cursor="View"
                   onPointerEnter={() => setHovered(p)}
                   onFocus={() => setHovered(null)}
                   className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 py-5 transition-[padding] duration-500 ease-out hover:py-7 md:grid-cols-[4rem_1fr_1fr_6rem_2rem] md:gap-x-6"

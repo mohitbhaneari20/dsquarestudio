@@ -154,7 +154,7 @@ export interface Project {
    * Work made in-house at an agency before Dsquare: who it was made at and the role held.
    * Shown in the project meta and as a credit line, so the agency and team get their due.
    */
-  credit?: { agency: string; role: string; period: string; note: string };
+  credit?: { agency: string; role: string; period?: string; note: string };
   /** The client's words, exactly as given */
   testimonial?: Testimonial;
   featured: boolean;

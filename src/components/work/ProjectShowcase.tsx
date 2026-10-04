@@ -204,7 +204,7 @@ export function ProjectShowcase({ projects, index, direction, onNavigate }: Proj
       className="container-site"
     >
       <p className="sr-only" aria-live="polite">
-        Project {index + 1} of {count}: {project.title}, {project.discipline}, {project.year}
+        Project {index + 1} of {count}: {[project.title, project.discipline, project.year].filter(Boolean).join(', ')}
       </p>
 
       {/* Number / title / category */}
@@ -263,7 +263,7 @@ export function ProjectShowcase({ projects, index, direction, onNavigate }: Proj
           onClick={onOpen}
           onPointerMove={onPointerMove}
           onPointerLeave={onPointerLeave}
-          data-cursor="Dig it"
+          data-cursor="View"
           aria-label={`Open ${project.title} — ${project.discipline}`}
           className="group relative block aspect-[2/1] w-full"
         >

@@ -53,7 +53,7 @@ export default function ProjectDetail() {
     { label: 'Palette', value: <Palette tone={project.tone} /> },
   ];
   if (project.credit) {
-    meta.splice(1, 0, { label: 'Made at', value: project.credit.agency }, { label: 'My role', value: `${project.credit.role}, ${project.credit.period}` });
+    meta.splice(1, 0, { label: 'Made at', value: project.credit.agency }, { label: 'My role', value: [project.credit.role, project.credit.period].filter(Boolean).join(', ') });
   }
   if (project.website) meta.push({ label: 'Website', value: project.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') });
 

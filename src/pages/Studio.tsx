@@ -6,6 +6,7 @@ import { Reveal } from '../components/ui/Reveal';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Seo } from '../components/ui/Seo';
 import { TextReveal } from '../components/ui/TextReveal';
+import { InlineMonogram } from '../components/brand/Brand';
 
 const MonogramModel = lazy(() => import('../components/studio/MonogramModel'));
 
@@ -18,7 +19,7 @@ export default function Studio() {
       />
 
       <section className="container-site pt-32 md:pt-44">
-        <p className="text-meta border-t border-border pt-4 text-muted">(01) About D²</p>
+        <p className="text-meta border-t border-border pt-4 text-muted">(01) About <InlineMonogram /></p>
         <div className="grid-site mt-10 items-end gap-y-12 border-b border-border md:mt-14">
           {/* Portrait on the left, standing on the section's bottom line, with the name beside the face */}
           <Reveal className="relative order-2 col-span-12 md:order-1 md:col-span-5">

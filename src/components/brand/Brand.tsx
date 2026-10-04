@@ -77,3 +77,13 @@ export function HeaderLogo({ className, title }: Omit<BrandProps, 'copyright'>) 
     </svg>
   );
 }
+
+/** The D² monogram set inline with text (labels, eyebrows) in place of typed "D²". Reads as "D²" to screen readers. */
+export function InlineMonogram({ className }: { className?: string }) {
+  return (
+    <>
+      <BrandMark title={null} copyright={false} className={cn('inline-block size-[1.15em] align-[-0.22em]', className)} />
+      <span className="sr-only">D²</span>
+    </>
+  );
+}

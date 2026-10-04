@@ -25,7 +25,7 @@ export function ProjectCard({ project, sizes = '(min-width: 768px) 50vw, 100vw',
   return (
     <Link
       to={projectHref(project)}
-      data-cursor="Dig it"
+      data-cursor="View"
       className={cn('group block rounded-[2px] focus-visible:outline-offset-4', className)}
     >
       <ImageReveal>
@@ -60,7 +60,8 @@ export function ProjectCard({ project, sizes = '(min-width: 768px) 50vw, 100vw',
         <div className="min-w-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-ok:group-hover:translate-x-1.5">
           <h3 className="text-h3">{project.title}</h3>
           <p className="text-meta mt-2 text-muted">
-            {project.discipline} · {project.year}
+            {project.discipline}
+            {project.year && ` · ${project.year}`}
           </p>
           {showSummary && <p className="mt-3 max-w-md text-muted">{project.summary}</p>}
         </div>

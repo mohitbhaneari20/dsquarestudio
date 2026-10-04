@@ -8,6 +8,7 @@ import { ButtonLink } from '../ui/ButtonLink';
 import { ProjectVisual } from '../ui/ProjectVisual';
 import { Reveal } from '../ui/Reveal';
 import { TextReveal } from '../ui/TextReveal';
+import { InlineMonogram } from '../brand/Brand';
 
 type OngoingProject = Project & { ongoing: OngoingDetails };
 
@@ -30,7 +31,7 @@ function deskMedia(p: OngoingProject): MediaAsset[] {
 function DeskCard({ project }: { project: OngoingProject }) {
   const { ongoing } = project;
   return (
-    <Link to={`/ongoing/${project.slug}`} className="group block" data-cursor="Dig it">
+    <Link to={`/ongoing/${project.slug}`} className="group block" data-cursor="View">
       {/* The board */}
       <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-surface">
         <div
@@ -100,7 +101,7 @@ export function StillBuilding({ projects }: { projects: OngoingProject[] }) {
       <div className="container-site">
         <div className="grid-site gap-y-8 border-t border-border pt-4">
           <p className="text-meta col-span-12 text-muted lg:col-span-3 lg:tag-top-display">
-            (D<sup>2</sup>/03) Work in progress
+            (<InlineMonogram />/03) Work in progress
           </p>
           <div className="col-span-12 lg:col-span-9">
             <TextReveal as="h2" lines={['Still', 'building.']} className="text-display uppercase" />

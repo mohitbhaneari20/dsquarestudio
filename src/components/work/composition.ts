@@ -69,5 +69,5 @@ export function annotationsFor(project: Project): Array<{ text: string; live?: b
     { text: project.categories[1] ?? project.type },
     project.status === 'Ongoing' ? { text: 'Ongoing', live: true } : { text: 'Case study' },
     { text: project.year },
-  ];
+  ].filter((a) => a.text);
 }
