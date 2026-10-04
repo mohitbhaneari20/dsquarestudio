@@ -74,36 +74,29 @@ export const services: Service[] = [
 export interface ProcessStep {
   title: string;
   body: string;
-  /** Meme for this step's card, e.g. '/assets/studio/meme-understand.webp'. Leave out for the placeholder. */
-  meme?: string;
-  /** Shown in the placeholder until a meme is added — a suggestion for what to use. */
-  memeIdea: string;
+  /** Image for this step's card, e.g. '/assets/studio/step-understand.webp'. Leave out for the placeholder. */
+  image?: string;
 }
 
 export const processSteps: ProcessStep[] = [
   {
     title: 'Understand',
     body: 'Questions before pixels. What is this for, who is it for, and what does good look like?',
-    memeIdea: 'The ‘but why?’ face — asking questions before pixels',
   },
   {
     title: 'Explore',
     body: 'Several directions, sketched quickly. Bad ideas get thrown out early, while they’re still cheap.',
-    memeIdea: 'Distracted boyfriend — us, glancing at idea number six',
   },
   {
     title: 'Design',
     body: 'One direction, taken all the way. Real content, real sizes, real states.',
-    memeIdea: 'Two buttons, sweating — 12px or 13px?',
   },
   {
     title: 'Build',
     body: 'Designs become working things. Because we build too, nothing gets lost in handoff.',
-    memeIdea: '‘It works on my machine’',
   },
   {
     title: 'Refine',
     body: 'Test, adjust, test again. Launch is a checkpoint, not the end.',
-    memeIdea: 'Drake — ‘ship it’ ✗ / ‘test it once more’ ✓',
   },
 ];

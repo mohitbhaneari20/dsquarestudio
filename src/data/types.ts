@@ -136,6 +136,8 @@ export interface Project {
   discipline: string;
   type: 'Client Project' | 'Studio Project' | 'Self-initiated' | 'Agency Work';
   status: 'Completed' | 'Ongoing';
+  /** Kept in the data but left off the site entirely (no card, no page, no links). */
+  hidden?: boolean;
   /** True for dummy entries that should be replaced with real work. */
   placeholder?: boolean;
   /** One sentence for cards */

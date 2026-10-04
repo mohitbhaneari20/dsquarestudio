@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { processSteps, type ProcessStep } from '../../data/services';
 import { pad } from '../../lib/format';
 
-function MemePlaceholder({ step }: { step: ProcessStep }) {
+function ImagePlaceholder({ step }: { step: ProcessStep }) {
   return (
     <div
       className="flex h-full w-full flex-col items-center justify-center gap-3 border border-dashed border-foreground/25 p-6 text-center"
@@ -14,11 +14,10 @@ function MemePlaceholder({ step }: { step: ProcessStep }) {
         backgroundSize: '32px 32px',
       }}
       role="img"
-      aria-label={`Meme placeholder — ${step.title}`}
+      aria-label={`Image placeholder — ${step.title}`}
     >
       <ImageIcon size={26} strokeWidth={1.25} className="text-muted" aria-hidden="true" />
-      <p className="text-meta text-muted">Meme — {step.title}</p>
-      <p className="max-w-[16rem] text-sm text-muted">{step.memeIdea}</p>
+      <p className="text-meta text-muted">Image — {step.title}</p>
     </div>
   );
 }
@@ -34,10 +33,10 @@ function Card({ step, index }: { step: ProcessStep; index: number }) {
         </span>
       </div>
       <div className="aspect-[16/9] max-h-[36svh] p-5 pb-0">
-        {step.meme ? (
-          <img src={step.meme} alt={`${step.title} meme`} className="h-full w-full object-cover" loading="lazy" />
+        {step.image ? (
+          <img src={step.image} alt={step.title} className="h-full w-full object-cover" loading="lazy" />
         ) : (
-          <MemePlaceholder step={step} />
+          <ImagePlaceholder step={step} />
         )}
       </div>
       <p className="px-5 pb-6 pt-5 text-muted">{step.body}</p>

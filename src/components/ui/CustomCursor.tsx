@@ -6,8 +6,8 @@ import { useReduceMotion } from '../../lib/motionPreference';
 type Mode = 'default' | 'link' | 'cta' | 'label';
 type CursorState = { mode: Mode; label?: string };
 
-/** Ring size per mode (px) — the trailing square grows over things you can click. */
-const RING = { default: 34, link: 54, cta: 66, label: 92 } as const;
+/** Ring size per mode (px) — the trailing square shrinks over links and buttons so what you click stays visible. */
+const RING = { default: 34, link: 22, cta: 24, label: 92 } as const;
 /** How much the ring stretches along the direction of travel at full speed. */
 const MAX_STRETCH = 0.45;
 
@@ -51,8 +51,8 @@ function Eye({ blink }: { blink: number }) {
  * - a small orange square sits exactly on the pointer
  * - a hairline square trails behind on a soft spring, stretching along the
  *   direction of travel and breathing gently when the pointer rests
- * - link / button: the ring opens up and the dot tucks away
- * - CTA: the ring turns orange
+ * - link / button: the ring shrinks in and the dot tucks away
+ * - CTA: the ring shrinks in and turns orange
  * - `data-cursor="View"` (projects): the ring fills and shows an eye, which blinks on click
  * - other `data-cursor` labels (e.g. "Spin"): the ring fills and shows the word
  * - click: the ring presses in, the dot pops

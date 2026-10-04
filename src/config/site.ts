@@ -1,13 +1,10 @@
-/**
- * Global studio details. Update these before going live —
- * the URL, email and social handles below are placeholders.
- */
+/** Global studio details: domain, inboxes, booking link and social profiles. */
 export const site = {
   name: 'Dsquare Studio',
   shortName: 'DSQUARE',
   tagline: 'Design + Development Studio',
-  url: 'https://dsquare.studio', // TODO: replace with the production domain
-  email: 'hello@dsquare.studio', // TODO: replace with the real inbox
+  url: 'https://www.dsquare.studio',
+  email: 'hello@dsquare.studio',
   /** 30-minute intro call, embedded on /contact#book */
   calendly: 'https://calendly.com/mohitbhaneari20/30min',
   defaultTitle: 'Dsquare Studio — Design + Development',
@@ -17,11 +14,10 @@ export const site = {
   year: 2026,
   /** Shown as small edge details on /work. TODO: confirm. */
   location: { label: 'India', coords: '30°N / 78°E', timeZone: 'Asia/Kolkata', tzLabel: 'IST' },
-  // TODO: replace with real profile URLs
   socials: [
-    { label: 'Instagram', href: 'https://www.instagram.com/dsquare.studio' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/dsquare-studio' },
-    { label: 'Behance', href: 'https://www.behance.net/dsquarestudio' },
+    { label: 'Instagram', href: 'https://www.instagram.com/mbee_2095/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/105914326/' },
+    { label: 'Behance', href: 'https://www.behance.net/dsquare2' },
   ],
 } as const;
 

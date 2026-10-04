@@ -14,7 +14,8 @@ import type { MediaAsset, Project } from './types';
  *  • Dsquare copy is a first draft — edit freely.
  * ─────────────────────────────────────────────────────────────
  */
-export const projects: Project[] = [
+/** Every project, including hidden ones. Use `projects` everywhere on the site. */
+const allProjects: Project[] = [
   {
     slug: 'rawset',
     title: 'RAWSET',
@@ -342,6 +343,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'dsquare-studio',
+    // Private for now: not shown anywhere on the site
+    hidden: true,
     title: 'Dsquare Studio',
     client: 'Dsquare (ourselves)',
     year: '2026',
@@ -471,6 +474,9 @@ export const projects: Project[] = [
     featured: true,
   },
 ];
+
+/** What the site shows: hidden projects are left out of every list, page and link. */
+export const projects = allProjects.filter((p) => !p.hidden);
 
 /* ─── Selectors ─────────────────────────────────────────────── */
 
