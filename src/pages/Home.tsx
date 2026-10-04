@@ -2,6 +2,8 @@ import { Faq } from '../components/home/Faq';
 import { Hero } from '../components/home/Hero';
 import { HomeWork } from '../components/home/HomeWork';
 import { OngoingSection } from '../components/home/OngoingSection';
+import { Testimonials } from '../components/home/Testimonials';
+import { TrustedBy } from '../components/home/TrustedBy';
 import { Statement } from '../components/home/Statement';
 import { StudioIntro } from '../components/home/StudioIntro';
 import { WhyDsquare } from '../components/home/WhyDsquare';
@@ -14,9 +16,11 @@ export default function Home() {
       <Seo />
       <Hero />
       <StudioIntro />
+      <TrustedBy />
       <HomeWork />
       <Statement />
       <WhyDsquare />
+      <Testimonials />
       <OngoingSection />
       <Faq />
       <CTA title={['Have something', 'worth building?']} />

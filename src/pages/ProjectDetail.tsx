@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
+import { TestimonialCard } from '../components/home/Testimonials';
 import { ProjectGallery } from '../components/projects/ProjectGallery';
 import { ProjectHero } from '../components/projects/ProjectHero';
 import { ProjectPager } from '../components/projects/ProjectPager';
@@ -51,7 +52,10 @@ export default function ProjectDetail() {
     { label: 'Services', value: project.services.join(', ') },
     { label: 'Palette', value: <Palette tone={project.tone} /> },
   ];
-  if (project.website) meta.push({ label: 'Website', value: project.website });
+  if (project.credit) {
+    meta.splice(1, 0, { label: 'Made at', value: project.credit.agency }, { label: 'My role', value: `${project.credit.role}, ${project.credit.period}` });
+  }
+  if (project.website) meta.push({ label: 'Website', value: project.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') });
 
   // Text and visuals alternate: first spread, problem/approach, middle spreads, result, final spread.
   const [first, ...rest] = project.gallery;
@@ -75,6 +79,13 @@ export default function ProjectDetail() {
             <Note index="01" label="Overview" colour={colour} size="h3">
               <p>{project.description}</p>
             </Note>
+            {project.credit && (
+              <Reveal delay={0.1}>
+                <p className="mt-8 max-w-2xl border-l-2 pl-5 text-muted" style={{ borderColor: colour }}>
+                  {project.credit.note}
+                </p>
+              </Reveal>
+            )}
           </div>
         </div>
 
@@ -109,6 +120,16 @@ export default function ProjectDetail() {
         </div>
 
         {last && <ProjectGallery blocks={[last]} {...galleryProps} />}
+
+        {project.testimonial && (
+          <div className="container-site section-space pb-0! grid-site">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <Note index="05" label="In their words" colour={colour}>
+                <TestimonialCard t={project.testimonial} large />
+              </Note>
+            </div>
+          </div>
+        )}
       </article>
 
       <div className="pt-[var(--section-space)]">

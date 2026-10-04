@@ -38,21 +38,29 @@ function HandNavItem({ label, to }: { label: string; to: string }) {
           )
         }
       >
-        {label.replace(/\s*D²$/, '')}
-        {/* The D² monogram from the logo in place of the letters */}
-        <BrandMark title={null} copyright={false} className="size-[15px] text-foreground" />
-        <svg viewBox="0 0 200 80" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[18%] -inset-y-[45%] h-[190%] w-[136%] overflow-visible" aria-hidden="true">
-          <motion.path
-            d="M18 44 C 20 14, 120 4, 176 22 C 204 32, 190 66, 120 72 C 60 77, 8 66, 14 40 C 18 26, 60 16, 104 14"
-            fill="none"
-            stroke="var(--accent)"
-            strokeWidth={2.6}
-            strokeLinecap="round"
-            initial={false}
-            animate={{ pathLength: hover ? 1 : 0, opacity: hover ? 1 : 0 }}
-            transition={still ? { duration: 0 } : { pathLength: { duration: 0.5, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.15 } }}
-          />
-        </svg>
+        {({ isActive }) => (
+          <>
+            {label.replace(/\s*D²$/, '')}
+            {/* The D² monogram from the logo in place of the letters — brand orange on hover and on its own page */}
+            <BrandMark
+              title={null}
+              copyright={false}
+              className={cn('size-[15px] transition-colors duration-300', isActive || hover ? 'text-accent' : 'text-foreground')}
+            />
+            <svg viewBox="0 0 200 80" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[18%] -inset-y-[45%] h-[190%] w-[136%] overflow-visible" aria-hidden="true">
+              <motion.path
+                d="M18 44 C 20 14, 120 4, 176 22 C 204 32, 190 66, 120 72 C 60 77, 8 66, 14 40 C 18 26, 60 16, 104 14"
+                fill="none"
+                stroke="var(--accent)"
+                strokeWidth={2.6}
+                strokeLinecap="round"
+                initial={false}
+                animate={{ pathLength: hover ? 1 : 0, opacity: hover ? 1 : 0 }}
+                transition={still ? { duration: 0 } : { pathLength: { duration: 0.5, ease: [0.65, 0, 0.35, 1] }, opacity: { duration: 0.15 } }}
+              />
+            </svg>
+          </>
+        )}
       </NavLink>
     </li>
   );

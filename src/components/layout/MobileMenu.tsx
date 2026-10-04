@@ -6,6 +6,7 @@ import { navigation, site } from '../../config/site';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { cn } from '../../lib/cn';
 import { pad } from '../../lib/format';
+import { BrandMark } from '../brand/Brand';
 import { Logo } from './Logo';
 import { useReduceMotion } from '../../lib/motionPreference';
 
@@ -56,7 +57,15 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                       cn('flex items-baseline justify-between py-4 text-[clamp(2.5rem,12vw,4.5rem)] font-medium leading-none tracking-[-0.045em] transition-colors hover:text-accent', isActive && 'text-accent')
                     }
                   >
-                    {item.label}
+                    {/D²$/.test(item.label) ? (
+                      // "About" followed by the D² monogram from the logo, like the desktop nav
+                      <span className="inline-flex items-baseline gap-[0.22em]" aria-label={item.label}>
+                        {item.label.replace(/\s*D²$/, '')}
+                        <BrandMark title={null} copyright={false} className="size-[0.72em] self-center" />
+                      </span>
+                    ) : (
+                      item.label
+                    )}
                     <span className="text-meta text-muted">{pad(i + 1)}</span>
                   </NavLink>
                 </motion.li>

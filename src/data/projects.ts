@@ -1,3 +1,4 @@
+import { testimonials as extraTestimonials } from './clients';
 import type { MediaAsset, Project } from './types';
 
 /**
@@ -340,6 +341,72 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: 'whistle',
+    title: 'Whistle',
+    client: 'Whistle',
+    year: '2023–24',
+    categories: ['UI / UX', 'Web'],
+    discipline: 'Website UI / Design System',
+    type: 'Agency Work',
+    status: 'Completed',
+    summary: 'The website and design system for Whistle, a B2B lead-generation and outsourced SDR company — designed during my time as Senior UI Designer at One Metric.',
+    description:
+      'Whistle builds sales pipelines for B2B companies: outsourced SDR teams, cold email, LinkedIn outreach and calling. Their website has to do the same job — turn a visitor into a booked meeting. I designed the interface and the design system behind it: one confident violet, clear proof at every scroll, and a set of components that let the team publish new pages without starting from scratch.',
+    credit: {
+      agency: 'One Metric',
+      role: 'Senior UI Designer',
+      period: '2023–2024',
+      note: 'Made during my two years as Senior UI Designer at One Metric. The visual design and design system are my work; content, strategy and design decisions were shaped together with the agency team and the Whistle team. Shown here with thanks — Whistle is their client, not Dsquare’s.',
+    },
+    tone: { bg: '#4A19E4', ink: '#FFFFFF', accent: '#140F3A' },
+    thumbnail: { src: '/assets/projects/whistle/cover.webp', alt: 'Whistle website — homepage on desktop and mobile', kind: 'desktop' },
+    heroImage: { src: '/assets/projects/whistle/hero.webp', alt: 'Whistle website — homepage, About and mobile screens', kind: 'hero' },
+    gallery: [
+      { layout: 'browser', url: '/', media: { src: '/assets/projects/whistle/screens/d-home-hero.webp', alt: 'Whistle homepage — “More Meetings” hero with proof cards', kind: 'desktop' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/boards/logo.webp', alt: 'Whistle logo on white, violet and midnight', kind: 'logo' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/boards/colour.webp', alt: 'Whistle colour palette — violet, midnight, periwinkle, lilac, paper and white', kind: 'moodboard' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/boards/type.webp', alt: 'Whistle typography — Poppins headings, DM Sans body', kind: 'typography' } },
+      { layout: 'statement', text: 'Every scroll answers one question: can they actually get us meetings?' },
+      { layout: 'browser', url: '/', media: { src: '/assets/projects/whistle/screens/d-home-sdr.webp', alt: 'Homepage — No SDR function? and vetted SDR talent', kind: 'desktop' } },
+      { layout: 'browser', url: '/', media: { src: '/assets/projects/whistle/screens/d-home-trust.webp', alt: 'Homepage — client stories and review ratings', kind: 'desktop' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/boards/ui.webp', alt: 'Whistle components — buttons, stat chips, SDR cards, reviews, case-study card and FAQ', kind: 'mockup' } },
+      {
+        layout: 'phones',
+        caption: 'Mobile — the same proof, stacked: headline, stats, SDR cards, client words',
+        media: [
+          { src: '/assets/projects/whistle/screens/m-home.webp', alt: 'Mobile home hero', kind: 'mobile' },
+          { src: '/assets/projects/whistle/screens/m-home-sdr.webp', alt: 'Mobile vetted SDRs', kind: 'mobile' },
+          { src: '/assets/projects/whistle/screens/m-home-trust.webp', alt: 'Mobile trust section', kind: 'mobile' },
+          { src: '/assets/projects/whistle/screens/m-home-proof.webp', alt: 'Mobile reviews', kind: 'mobile' },
+          { src: '/assets/projects/whistle/screens/m-about.webp', alt: 'Mobile About', kind: 'mobile' },
+        ],
+      },
+      { layout: 'statement', text: 'One system, every page: home, about, services, team, blog.' },
+      { layout: 'browser', url: '/about', media: { src: '/assets/projects/whistle/screens/d-about.webp', alt: 'About — the founders and trusted-by logos', kind: 'desktop' } },
+      { layout: 'browser', url: '/outsourced-sdr', media: { src: '/assets/projects/whistle/screens/d-service.webp', alt: 'Service page — Outsourced SDR', kind: 'desktop' } },
+      { layout: 'browser', url: '/our-experts', media: { src: '/assets/projects/whistle/screens/d-experts.webp', alt: 'Our experts', kind: 'desktop' } },
+      { layout: 'browser', url: '/blog', media: { src: '/assets/projects/whistle/screens/d-blog.webp', alt: 'Blog', kind: 'desktop' } },
+      { layout: 'browser', url: '/book-a-meeting', media: { src: '/assets/projects/whistle/screens/d-book.webp', alt: 'Book a meeting', kind: 'desktop' } },
+    ],
+    services: ['UI Design', 'Design System', 'Responsive Web Design', 'Component Library'],
+    challenge:
+      'Lead generation is a crowded, sceptical market — every agency promises meetings. Whistle needed a site that earns trust fast, explains several services and many industries clearly, and keeps pointing to one action: book a call. It also had to grow, with new pages added often.',
+    approach:
+      'Calm first, loud where it counts. A warm off-white page, midnight headings in Poppins and readable DM Sans body text, with Whistle violet saved for buttons and key words — so the next step is always obvious. Proof sits in every section: real people, numbers on glassy stat chips, client words and review ratings. Underneath, a small component set — buttons, stat chips, SDR cards, reviews, case-study cards, FAQ rows — builds every page type the same way.',
+    outcome:
+      'A consistent, responsive website across the homepage, about, services, team, blog and booking pages, all running on one design system the team can keep extending. The site is live at whistle.ltd.',
+    website: 'https://www.whistle.ltd/',
+    testimonial: {
+      quote:
+        'We were incredibly happy with our website design. Mohit was really able to take our vision and run with it. His lead time and quality of work was of the highest caliber!',
+      name: 'Kayla du Plessis',
+      role: 'Head of GTM',
+      company: 'Whistle',
+      photo: '/assets/projects/whistle/kayla-du-plessis.webp',
+    },
+    featured: true,
+  },
+  {
     slug: 'dsquare-studio',
     title: 'Dsquare Studio',
     client: 'Dsquare (ourselves)',
@@ -470,3 +537,9 @@ export const studioLog = ongoingProjects
       .map((entry) => ({ project: p, entry, date: entry.date as string })),
   )
   .sort((a, b) => b.date.localeCompare(a.date));
+
+/** Every client quote: those attached to projects first, then any extra ones. */
+export const allTestimonials = [
+  ...projects.flatMap((p) => (p.testimonial ? [{ ...p.testimonial, slug: p.slug }] : [])),
+  ...extraTestimonials,
+];
