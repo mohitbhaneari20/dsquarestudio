@@ -1,7 +1,26 @@
 import { site } from '../config/site';
 
 export const projectTypes = ['Branding', 'Website', 'UI / UX', 'Development', 'Motion', 'Other'] as const;
-export const budgets = ['Under ₹25k', '₹25k–₹50k', '₹50k–₹1L', '₹1L+', 'Not sure yet'] as const;
+/** Budget ranges, ₹75k up to ₹3L+. */
+const budgetsINR = ['₹75k–₹1L', '₹1L–₹2L', '₹2L–₹3L', '₹3L+', 'Not sure yet'] as const;
+/** The same ranges in US dollars (about ₹86 = $1, rounded) for visitors outside India. */
+const budgetsUSD = ['$900–$1.2k', '$1.2k–$2.3k', '$2.3k–$3.5k', '$3.5k+', 'Not sure yet'] as const;
+
+/**
+ * Whether the visitor is most likely in India, from the browser's own time zone
+ * (falling back to its language). Nothing is looked up or sent anywhere.
+ */
+export function isInIndia(): boolean {
+  try {
+    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (zone) return zone === 'Asia/Kolkata' || zone === 'Asia/Calcutta';
+  } catch {
+    // fall through to the language check
+  }
+  return typeof navigator !== 'undefined' && /-IN$/i.test(navigator.language);
+}
+
+export const budgets: readonly string[] = isInIndia() ? budgetsINR : budgetsUSD;
 
 export interface Inquiry {
   name: string;
