@@ -371,3 +371,11 @@ html.reduce-motion *::after {
 *::after {
   border-radius: 0 !important;
 }
+
+/* Step illustrations on About: their orange line is drawn by scroll, not by their own animation */
+.step-art svg {
+  display: block;
+}
+.step-art .dsq .line {
+  animation: none !important;
+}

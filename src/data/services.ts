@@ -74,8 +74,6 @@ export const services: Service[] = [
 export interface ProcessStep {
   title: string;
   body: string;
-  /** Image for this step's card, e.g. '/assets/studio/step-understand.webp'. Leave out for the placeholder. */
-  image?: string;
 }
 
 export const processSteps: ProcessStep[] = [

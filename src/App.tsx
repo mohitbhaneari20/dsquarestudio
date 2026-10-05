@@ -10,6 +10,7 @@ const Ongoing = lazy(() => import('./pages/Ongoing'));
 const OngoingDetail = lazy(() => import('./pages/OngoingDetail'));
 const Studio = lazy(() => import('./pages/Studio'));
 const Services = lazy(() => import('./pages/Services'));
+const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: 'ongoing/:slug', element: <OngoingDetail /> },
       { path: 'studio', element: <Studio /> },
       { path: 'services', element: <Services /> },
+      { path: 'gallery', element: <Gallery /> },
       { path: 'contact', element: <Contact /> },
       { path: '*', element: <NotFound /> },
     ],

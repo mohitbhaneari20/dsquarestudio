@@ -10,7 +10,6 @@ import { ProjectTransitionProvider } from '../components/layout/ProjectTransitio
 import { DSquareLoader } from '../components/ui/DSquareLoader';
 import { CustomCursor } from '../components/ui/CustomCursor';
 import { SoundEffects } from '../components/ui/SoundEffects';
-import { ScrollProgress } from '../components/ui/ScrollProgress';
 import { useReduceMotion } from '../lib/motionPreference';
 import { scrollToTop, startSmoothScroll, stopSmoothScroll } from '../lib/smoothScroll';
 
@@ -46,7 +45,6 @@ export function RootLayout() {
         Skip to content
       </a>
       <GridLines />
-      <ScrollProgress />
       <Navbar />
 
       {/* No initial={false}: the first page must start hidden so its reveals can play after the intro */}

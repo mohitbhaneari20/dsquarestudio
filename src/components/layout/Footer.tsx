@@ -4,7 +4,8 @@ import { navigation, site } from '../../config/site';
 import { BrandMark, BrandWordmark } from '../brand/Brand';
 import { Reveal } from '../ui/Reveal';
 
-const footerNav = [...navigation, { label: 'Contact', to: '/contact' }];
+// Gallery is linked from the footer only, not the main navigation
+const footerNav = [...navigation, { label: 'Gallery', to: '/gallery' }, { label: 'Contact', to: '/contact' }];
 
 export function Footer() {
   return (
