@@ -27,8 +27,16 @@ export function Footer() {
             <ul className="space-y-2">
               {footerNav.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="link-underline transition-colors hover:text-accent">
-                    {item.label}
+                  <Link to={item.to} className="link-underline transition-colors hover:text-accent" aria-label={item.label}>
+                    {/D²$/.test(item.label) ? (
+                      // "About" followed by the D² monogram, like the main navigation
+                      <span className="inline-flex items-center gap-1.5">
+                        {item.label.replace(/\s*D²$/, '')}
+                        <BrandMark title={null} copyright={false} className="size-[0.95em]" />
+                      </span>
+                    ) : (
+                      item.label
+                    )}
                   </Link>
                 </li>
               ))}
