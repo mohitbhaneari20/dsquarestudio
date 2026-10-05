@@ -6,8 +6,6 @@ import { artworks, type Artwork } from '../data/gallery';
 import { pad } from '../lib/format';
 import { useReduceMotion } from '../lib/motionPreference';
 
-/** Width ÷ height of each artwork shape */
-const RATIO: Record<Artwork['ratio'], number> = { '1/1': 1, '3/4': 3 / 4, '4/5': 4 / 5, '4/3': 4 / 3, '16/9': 16 / 9 };
 const EASE = [0.22, 1, 0.36, 1] as const;
 /** Distance between artworks along the flight path (px of depth) */
 const GAP = 1500;
@@ -73,8 +71,8 @@ function Station({ art, index, cam, width, onOpen }: { art: Artwork; index: numb
         data-cursor="View"
         aria-label={`Open ${art.title}`}
       >
-        <div className="relative w-full overflow-hidden" style={{ aspectRatio: String(RATIO[art.ratio]) }}>
-          {art.src ? <img src={art.src} alt="" className="h-full w-full object-cover" draggable={false} /> : <Placeholder art={art} large />}
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: String(art.ratio) }}>
+          {art.src ? <img src={art.src} alt={art.title} className="h-full w-full object-cover" draggable={false} loading="lazy" decoding="async" /> : <Placeholder art={art} large />}
         </div>
         <span className="text-meta mt-2 flex justify-between px-1 text-muted">
           <span>
@@ -108,7 +106,7 @@ function DetailPanel({ index, onClose, onStep }: { index: number; onClose: () =>
         style={{ transformPerspective: 1200 }}
       >
         <div className="flex items-center justify-center bg-[#efebe4] p-6 md:p-10">
-          <div className="w-full max-w-md" style={{ aspectRatio: String(RATIO[art.ratio]) }}>
+          <div className="w-full" style={{ aspectRatio: String(art.ratio), maxWidth: `min(32rem, calc(64svh * ${art.ratio}))` }}>
             {art.src ? <img src={art.src} alt={art.title} className="h-full w-full object-cover" /> : <Placeholder art={art} large />}
           </div>
         </div>
@@ -170,7 +168,6 @@ export default function Gallery() {
   const [current, setCurrent] = useState(0);
   // Piece i arrives when the camera reaches (i + 1) × GAP; once it's a third of the way past, the next one takes over
   useMotionValueEvent(cam, 'change', (c) => setCurrent(Math.max(0, Math.min(count - 1, Math.ceil(c / GAP - 1.35)))));
-  const introOpacity = useTransform(cam, [0, GAP * 0.45], [1, 0]);
 
   // The mouse tilts the view a little
   const tiltX = useSpring(0, { stiffness: 60, damping: 18 });
@@ -194,7 +191,10 @@ export default function Gallery() {
   }, [open, count]);
 
   const small = size.w < 768;
-  const heroW = Math.round(small ? size.w * 0.78 : Math.min(size.w * 0.42, 680));
+  // Each frame takes its artwork's own shape: as wide as allowed, but never taller than the screen allows
+  const maxW = small ? size.w * 0.82 : Math.min(size.w * 0.46, 760);
+  const maxH = size.h * (small ? 0.42 : 0.5);
+  const frameWidth = (art: Artwork) => Math.round(Math.min(maxW, maxH * art.ratio));
 
   return (
     <>
@@ -203,7 +203,7 @@ export default function Gallery() {
         {/* The eye cursor shows anywhere on the stage; clicking opens the piece you're on */}
         <div
           className="sticky top-0 h-[100svh] cursor-pointer overflow-hidden bg-[#e6e1d8]"
-          style={{ perspective: PERSPECTIVE }}
+          style={{ perspective: PERSPECTIVE, perspectiveOrigin: "50% 60%" }}
           onPointerMove={onPointerMove}
           onClick={(e) => {
             if (!(e.target as Element).closest('button')) setOpen(current);
@@ -215,19 +215,21 @@ export default function Gallery() {
 
           {/* The space, moved toward you as you scroll */}
           <motion.div className="absolute inset-0 [transform-style:preserve-3d]" style={{ rotateX: tiltX, rotateY: tiltY }}>
-            <motion.div className="absolute inset-0 [transform-style:preserve-3d]" style={{ z: cam }}>
+            {/* Centre of the flight sits lower, under the heading */}
+            <motion.div className="absolute inset-x-0 bottom-0 top-[22svh] [transform-style:preserve-3d] md:top-[18svh]" style={{ z: cam }}>
               {artworks.map((art, i) => (
-                <Station key={art.title} art={art} index={i} cam={cam} width={heroW} onOpen={setOpen} />
+                <Station key={art.title} art={art} index={i} cam={cam} width={frameWidth(art)} onOpen={setOpen} />
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Intro, before the first piece arrives */}
-          <motion.div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center" style={{ opacity: introOpacity }}>
-            <p className="text-meta text-muted">Gallery / {pad(count)} pieces</p>
-            <h1 className="mt-4 text-[clamp(3rem,9vw,8rem)] font-medium leading-[0.9] tracking-[-0.06em]">Gallery.</h1>
-            <p className="mt-5 max-w-sm text-muted">Personal work, made for no brief at all. Scroll to fly through.</p>
-          </motion.div>
+          {/* Page heading, pinned at the top; the artworks fly in beneath it */}
+          <div className="container-site pointer-events-none absolute inset-x-0 top-0 z-[2] pt-24 md:pt-28">
+            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <h1 className="text-[clamp(2.75rem,6.5vw,6rem)] font-medium leading-[0.9] tracking-[-0.06em]">Gallery.</h1>
+              <p className="max-w-xs text-sm text-muted md:text-right">Personal work, made for no brief at all. Scroll to fly through, click a piece to open it.</p>
+            </div>
+          </div>
 
           {/* Where you are */}
           <div className="container-site pointer-events-none absolute inset-x-0 bottom-[4svh] flex items-center gap-6">

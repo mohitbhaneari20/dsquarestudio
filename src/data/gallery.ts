@@ -1,28 +1,64 @@
 export interface Artwork {
   title: string;
   year: string;
-  /** e.g. 'Digital', 'Ink on paper', '3D' */
+  /** e.g. 'Digital collage' */
   medium: string;
-  /** A sentence or two shown on the wall label when you hover the piece */
+  /** A sentence or two, shown when the piece is opened */
   description: string;
-  /** Image path, e.g. '/assets/gallery/untitled-01.webp'. Leave out for the placeholder. */
+  /** Image in /public/assets/gallery/. Leave out for a placeholder. */
   src?: string;
-  /** Shape of the frame — match it to the artwork */
-  ratio: '1/1' | '3/4' | '4/5' | '4/3' | '16/9';
+  /** The artwork's own shape, width ÷ height — its frame is sized to match */
+  ratio: number;
 }
 
-/**
- * Personal artworks for /gallery, shown in this order.
- * Add an image to /public/assets/gallery/ and set `src`; replace titles, years, media and descriptions.
- */
+/** Personal artworks for /gallery, in the order you fly past them. */
 export const artworks: Artwork[] = [
-  { title: 'Untitled 01', year: '2026', medium: 'Digital', ratio: '4/5', description: 'A quiet study of light falling across a plain wall.' },
-  { title: 'Untitled 02', year: '2026', medium: 'Digital', ratio: '1/1', description: 'Shapes stacked until they started to balance.' },
-  { title: 'Untitled 03', year: '2026', medium: 'Ink on paper', ratio: '3/4', description: 'Lines drawn fast, kept even when they wobble.' },
-  { title: 'Untitled 04', year: '2025', medium: '3D', ratio: '4/3', description: 'A small object, modelled and lit like a still life.' },
-  { title: 'Untitled 05', year: '2025', medium: 'Digital', ratio: '4/5', description: 'Colour first, form later — an experiment in order.' },
-  { title: 'Untitled 06', year: '2025', medium: 'Digital', ratio: '16/9', description: 'A wide view, mostly empty on purpose.' },
-  { title: 'Untitled 07', year: '2025', medium: 'Ink on paper', ratio: '3/4', description: 'Ink, water and a bit of patience.' },
-  { title: 'Untitled 08', year: '2024', medium: 'Digital', ratio: '1/1', description: 'A square that refused to stay square.' },
-  { title: 'Untitled 09', year: '2024', medium: '3D', ratio: '4/5', description: 'Soft forms, hard light — a test of materials.' },
+  {
+    title: 'Here’s to the Crazy Ones',
+    year: '2026',
+    medium: 'Digital collage',
+    description: 'A man on a stool, traced in highlighter yellow and surrounded by scrawled notes and brush marks — a toast to the people who don’t follow the plan.',
+    src: '/assets/gallery/heres-to-the-crazy-ones.webp',
+    ratio: 1531 / 1402,
+  },
+  {
+    title: 'Mirror Arch',
+    year: '2026',
+    medium: 'Digital collage',
+    description: 'Two mirrored figures pose inside an ornate wrought-iron archway, set against flat teal.',
+    src: '/assets/gallery/mirror-arch.webp',
+    ratio: 1293 / 1800,
+  },
+  {
+    title: 'Both Sides of the Sun',
+    year: '2026',
+    medium: 'Digital collage',
+    description: 'A baroque altar of fruit, cherubs and a dove under a summer sky, around one line: to love and be loved is to feel the sun from both sides.',
+    src: '/assets/gallery/both-sides-of-the-sun.webp',
+    ratio: 1800 / 1251,
+  },
+  {
+    title: 'The Decemberists',
+    year: '2026',
+    medium: 'Digital collage',
+    description: 'A crest for The Decemberists — an all-seeing eye, cherubs and a fountain wrapped in gold scrollwork.',
+    src: '/assets/gallery/the-decemberists.webp',
+    ratio: 1800 / 1581,
+  },
+  {
+    title: 'Gauchar, Uttarakhand',
+    year: '2026',
+    medium: 'Digital collage',
+    description: 'Old family photographs from Gauchar, pinned and annotated by hand. The past can’t be lived again, but it can always be remembered.',
+    src: '/assets/gallery/gauchar-uttarakhand.webp',
+    ratio: 1800 / 1244,
+  },
+  {
+    title: 'The Only Way Out Is Through',
+    year: '2026',
+    medium: 'Digital collage',
+    description: 'A horse in grainy print, mid-gallop across a block of red.',
+    src: '/assets/gallery/the-only-way-out-is-through.webp',
+    ratio: 887 / 570,
+  },
 ];
