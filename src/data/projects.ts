@@ -18,6 +18,11 @@ import type { MediaAsset, Project } from './types';
 const allProjects: Project[] = [
   {
     slug: 'rawset',
+    seo: {
+      title: 'RAWSET — Streetwear Brand & E-commerce Build | Dsquare Studio',
+      description:
+        'Follow Dsquare Studio building RAWSET, a limited-run streetwear label: pixel brand identity, poster campaign and the Drop 01 storefront, shared as it’s made.',
+    },
     title: 'RAWSET',
     client: 'Self-initiated',
     year: '2026',
@@ -216,6 +221,11 @@ const allProjects: Project[] = [
   },
   {
     slug: 'falance',
+    seo: {
+      title: 'Falance — Mobile App UI/UX Design Case Study | Dsquare Studio',
+      description:
+        'How Dsquare Studio designed and built Falance, a calm, pixel-drawn productivity and life-balance app — onboarding, focus mode, goals and a working prototype.',
+    },
     title: 'Falance',
     client: 'Self-initiated',
     year: '2026',
@@ -343,6 +353,11 @@ const allProjects: Project[] = [
   },
   {
     slug: 'dsquare-studio',
+    seo: {
+      title: 'Dsquare Studio — Brand Identity & Website Design Case Study',
+      description:
+        'How Dsquare Studio designed and built its own brand identity, design system and website.',
+    },
     // Private for now: not shown anywhere on the site
     hidden: true,
     title: 'Dsquare Studio',
@@ -410,6 +425,11 @@ const allProjects: Project[] = [
   },
   {
     slug: 'whistle',
+    seo: {
+      title: 'Whistle — B2B Website UI & Design System Case Study | Dsquare Studio',
+      description:
+        'How Mohit Bhandari designed the website UI and design system for Whistle, a B2B lead-generation and outsourced SDR company, as Senior UI Designer at One Metric.',
+    },
     title: 'Whistle',
     client: 'Whistle',
     year: '2025',

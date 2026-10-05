@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ImageIcon } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Reveal } from '../ui/Reveal';
 import { SquareBullet } from '../ui/SquareBullet';
 import { useReduceMotion } from '../../lib/motionPreference';
@@ -80,10 +80,39 @@ function ImagePlaceholder({ label }: { label: string }) {
   );
 }
 
+/**
+ * Card clip that only downloads and plays when its panel is on (or next to) the screen,
+ * so the home page doesn't fetch all three videos up front.
+ */
+function PanelVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const near = useInView(ref, { margin: '0px 100% 0px 100%' });
+  const [load, setLoad] = useState(false);
+  useEffect(() => {
+    if (near) setLoad(true);
+    const v = ref.current;
+    if (!v) return;
+    if (near) v.play().catch(() => {});
+    else v.pause();
+  }, [near, load]);
+  return (
+    <video
+      ref={ref}
+      src={load ? src : undefined}
+      className="h-full w-full rounded-[var(--radius-lg)] border border-current/15 object-cover"
+      muted
+      loop
+      playsInline
+      preload={load ? 'auto' : 'none'}
+      aria-hidden="true"
+    />
+  );
+}
+
 function DisciplineCard({ d, index }: { d: (typeof disciplines)[number]; index: number }) {
   return (
     <article className={`relative flex h-full w-1/4 shrink-0 ${d.tone}`} aria-roledescription="slide" aria-label={`${index + 1} of 3: ${d.title}`}>
-      <div className="container-site grid h-full grid-rows-[auto_1fr] gap-6 pb-10 pt-24 md:grid-cols-12 md:grid-rows-1 md:items-center md:gap-10 md:pt-20">
+      <div className="container-site grid h-full grid-cols-[minmax(0,1fr)] grid-rows-[auto_1fr] gap-6 pb-10 pt-24 md:grid-cols-12 md:grid-rows-1 md:items-center md:gap-10 md:pt-20">
         <div className="md:col-span-5">
           <p className="text-meta flex items-center gap-2 opacity-70">
             <SquareBullet /> {String(index + 1).padStart(2, '0')} / 03
@@ -94,16 +123,7 @@ function DisciplineCard({ d, index }: { d: (typeof disciplines)[number]; index: 
         </div>
         <div className="min-h-0 md:col-span-7 md:h-[72svh]">
           {d.video ? (
-            <video
-              src={d.video}
-              className="h-full w-full rounded-[var(--radius-lg)] border border-current/15 object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
-            />
+            <PanelVideo src={d.video} />
           ) : d.image ? (
             <img src={d.image} alt={d.title} className="h-full w-full rounded-[var(--radius-lg)] object-cover" />
           ) : (

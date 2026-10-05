@@ -10,7 +10,7 @@ const STRAY = { col: 8, row: 2 };
 export default function NotFound() {
   return (
     <>
-      <Seo title="Page not found" noIndex />
+      <Seo />
       <section className="container-site flex min-h-[100svh] flex-col justify-center pb-16 pt-32">
         <p className="text-meta border-t border-border pt-4 text-muted">Error 404</p>
 

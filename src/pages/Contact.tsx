@@ -17,7 +17,7 @@ export default function Contact() {
   useHashScroll();
   return (
     <>
-      <Seo title="Contact" description="Start a project with Dsquare Studio. Tell us about the product, brand or strange idea you’re figuring out." />
+      <Seo />
       <section className="container-site pb-[var(--section-space)] pt-32 md:pt-44">
         <p className="text-meta border-t border-border pt-4 text-muted">Contact</p>
         <TextReveal as="h1" immediate lines={['Let’s make', 'something.']} className="text-display mt-12 md:mt-20" />

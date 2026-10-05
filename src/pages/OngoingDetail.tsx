@@ -30,12 +30,7 @@ export default function OngoingDetail() {
 
   return (
     <>
-      <Seo
-        title={`${project.title} — Project journal`}
-        description={`${project.summary} Follow the build: currently ${ongoing.phase.toLowerCase()}.`}
-        type="article"
-        image={project.heroImage.src}
-      />
+      <Seo />
       <article>
         <ProjectHero
           project={project}

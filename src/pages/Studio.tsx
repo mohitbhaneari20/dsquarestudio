@@ -13,10 +13,7 @@ const MonogramModel = lazy(() => import('../components/studio/MonogramModel'));
 export default function Studio() {
   return (
     <>
-      <Seo
-        title="About D²"
-        description="Dsquare is a small, independent design and development studio. D² — design and development, done by the same hands."
-      />
+      <Seo />
 
       <section className="container-site pt-32 md:pt-44">
         <p className="text-meta border-t border-border pt-4 text-muted">(01) About <InlineMonogram /></p>
@@ -32,7 +29,7 @@ export default function Studio() {
               loading="eager"
               decoding="async"
             />
-            <div className="mt-4 md:absolute md:left-0 md:top-[12%] md:mt-0">
+            <div className="mt-4 lg:absolute lg:left-0 lg:top-[12%] lg:mt-0">
               <p className="text-xl font-medium leading-tight tracking-tight">Mohit Bhandari</p>
               <p className="text-meta mt-1.5 text-muted">Design partner</p>
             </div>

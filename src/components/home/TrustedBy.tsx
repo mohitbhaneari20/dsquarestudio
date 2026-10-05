@@ -1,6 +1,13 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { clients, type ClientLogo } from '../../data/clients';
+import { getProject, projectHref } from '../../data/projects';
+
+/** A client's case study — /ongoing/… while it's still in progress, /work/… once finished. */
+const hrefFor = (slug: string) => {
+  const p = getProject(slug);
+  return p ? projectHref(p) : `/work/${slug}`;
+};
 import { Reveal } from '../ui/Reveal';
 import { SquareBullet } from '../ui/SquareBullet';
 
@@ -51,7 +58,7 @@ export function TrustedBy() {
             {clients.map((c) => (
               <li key={c.name}>
                 {c.slug ? (
-                  <Link to={`/work/${c.slug}`} className={cell} data-cursor="View" aria-label={`${c.name} case study`}>
+                  <Link to={hrefFor(c.slug)} className={cell} data-cursor="View" aria-label={`${c.name} case study`}>
                     <Logo client={c} />
                   </Link>
                 ) : (

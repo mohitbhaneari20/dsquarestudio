@@ -10,10 +10,7 @@ import { formatDate } from '../lib/format';
 export default function Ongoing() {
   return (
     <>
-      <Seo
-        title="Ongoing"
-        description="Projects Dsquare Studio is currently researching, designing and building — shared as a live studio log."
-      />
+      <Seo />
       <div className="container-site pt-32 md:pt-44">
         <SectionHeader
           as="h1"

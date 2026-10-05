@@ -74,11 +74,12 @@ function Station({ art, index, cam, width, onOpen }: { art: Artwork; index: numb
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: String(art.ratio) }}>
           {art.src ? <img src={art.src} alt={art.title} className="h-full w-full object-cover" draggable={false} loading="lazy" decoding="async" /> : <Placeholder art={art} large />}
         </div>
-        <span className="text-meta mt-2 flex justify-between px-1 text-muted">
-          <span>
+        <span className="text-meta mt-2 flex justify-between gap-3 px-1 text-left text-muted">
+          <span className="min-w-0 truncate">
             <span className="text-accent">{pad(index + 1)}</span> {art.title}
           </span>
-          <span>
+          {/* Medium and year only where there's room for both on one line */}
+          <span className="hidden shrink-0 sm:inline">
             {art.medium}, {art.year}
           </span>
         </span>
@@ -198,7 +199,7 @@ export default function Gallery() {
 
   return (
     <>
-      <Seo title="Gallery" description="Personal artworks by Mohit Bhandari of Dsquare Studio — drawings, digital pieces and experiments made outside client work." />
+      <Seo />
       <section ref={sectionRef} className="relative" style={{ height: `calc(100svh + ${travel}px)` }} aria-label="Gallery">
         {/* The eye cursor shows anywhere on the stage; clicking opens the piece you're on */}
         <div

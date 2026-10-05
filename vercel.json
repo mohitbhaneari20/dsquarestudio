@@ -1,1 +1,8 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/about", "destination": "/studio", "permanent": true },
+    { "source": "/work/rawset", "destination": "/ongoing/rawset", "permanent": true }
+  ]
+}

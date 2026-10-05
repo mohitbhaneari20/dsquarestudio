@@ -6,20 +6,17 @@
     <meta name="theme-color" content="#E6E1D8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Defaults for crawlers that don't run JS. <Seo /> updates these per route. -->
-    <title>Dsquare Studio — Design + Development</title>
-    <meta name="description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
+    <!-- seo:start — replaced per page at build time from src/seo/meta.ts (see vite.config.ts) -->
+    <title>Dsquare Studio — Design & Development Studio</title>
+    <meta name="description" content="Dsquare Studio is an independent design and development studio creating brands, digital products, websites and experiences that solve real problems." />
     <link rel="canonical" href="https://www.dsquare.studio/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Dsquare Studio" />
-    <meta property="og:title" content="Dsquare Studio — Design + Development" />
-    <meta property="og:description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
-    <meta property="og:url" content="https://www.dsquare.studio/" />
-    <meta property="og:image" content="https://www.dsquare.studio/og-image.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Dsquare Studio — Design + Development" />
-    <meta name="twitter:description" content="Dsquare is an independent design and development studio creating brands, digital experiences, websites and products." />
-    <meta name="twitter:image" content="https://www.dsquare.studio/og-image.png" />
+    <!-- seo:end -->
+
+    <!--
+      Google Search Console: paste your verification tag here, e.g.
+      <meta name="google-site-verification" content="YOUR-CODE" />
+      (or verify the domain with a DNS TXT record instead — then nothing is needed here)
+    -->
 
     <!-- The loader plays on every load, so paint its orange right away (no flash) -->
     <script>
@@ -38,7 +35,7 @@
   </head>
   <body style="background:#e6e1d8">
     <div id="root"></div>
-    <noscript>Dsquare Studio — an independent design and development studio. This site needs JavaScript.</noscript>
+    <!-- seo:noscript --><noscript>Dsquare Studio — an independent design and development studio. This site needs JavaScript.</noscript><!-- /seo:noscript -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

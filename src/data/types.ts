@@ -142,6 +142,8 @@ export interface Project {
   placeholder?: boolean;
   /** One sentence for cards */
   summary: string;
+  /** Search title and description for the project's page (otherwise built from the discipline and summary) */
+  seo?: { title: string; description: string };
   description: string;
   tone: Tone;
   thumbnail: MediaAsset;

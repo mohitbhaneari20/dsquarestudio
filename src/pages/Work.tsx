@@ -59,10 +59,7 @@ export default function Work() {
 
   return (
     <>
-      <Seo
-        title="Work"
-        description="Selected identities, interfaces, websites and experiments by Dsquare Studio — plus things still taking shape."
-      />
+      <Seo />
       <EdgeDetails section="Work" />
 
       <motion.div animate={{ backgroundColor: tint }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>

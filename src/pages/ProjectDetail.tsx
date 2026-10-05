@@ -3,6 +3,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { TestimonialCard } from '../components/home/Testimonials';
 import { ProjectGallery } from '../components/projects/ProjectGallery';
 import { ProjectHero } from '../components/projects/ProjectHero';
+import { RelatedServices } from '../components/projects/RelatedServices';
 import { ProjectPager } from '../components/projects/ProjectPager';
 import { CTA } from '../components/ui/CTA';
 import { Reveal } from '../components/ui/Reveal';
@@ -44,7 +45,10 @@ export default function ProjectDetail() {
   if (!project) return <NotFound />;
   if (project.status === 'Ongoing') return <Navigate to={`/ongoing/${project.slug}`} replace />;
 
-  const { prev, next } = getNeighbours(completedProjects, project.slug);
+  const neighbours = getNeighbours(completedProjects, project.slug);
+  const next = neighbours.next;
+  // With only two case studies both neighbours are the same project — show it once
+  const prev = neighbours.prev?.slug === next?.slug ? undefined : neighbours.prev;
   const colour = visibleOnLight(project.tone);
   const meta = [
     { label: 'Client', value: project.client },
@@ -65,7 +69,7 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <Seo title={project.title} description={`${project.title} — ${project.summary}`} type="article" image={project.heroImage.src} />
+      <Seo />
       <article>
         <ProjectHero
           project={project}
@@ -115,6 +119,7 @@ export default function ProjectDetail() {
                   Visit the website ↗
                 </a>
               )}
+              <RelatedServices categories={project.categories} className="mt-8 text-base" />
             </Note>
           </div>
         </div>

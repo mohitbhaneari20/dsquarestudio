@@ -31,10 +31,7 @@ export default function Services() {
 
   return (
     <>
-      <Seo
-        title="Services"
-        description="Branding and design systems, UI / UX and web design, web and no-code development, motion and graphic design, and digital experiences — by Dsquare Studio."
-      />
+      <Seo />
       <div className="container-site pt-32 md:pt-44">
         <SectionHeader
           as="h1"
