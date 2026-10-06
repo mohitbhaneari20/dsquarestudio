@@ -36,8 +36,10 @@ export function TextReveal({ lines, as = 'h2', className, lineClassName, delay =
             <motion.span
               className={cn('block will-change-transform', lineClassName)}
               variants={{
-                hidden: reduce ? { opacity: 0 } : { y: '110%', rotate: 2 },
-                shown: reduce ? { opacity: 1 } : { y: '0%', rotate: 0 },
+                // Each state sets every property, so flipping the Motion switch mid-page
+                // can't leave a line half-way (e.g. faded in but still below its mask)
+                hidden: reduce ? { opacity: 0, y: '0%', rotate: 0 } : { opacity: 1, y: '110%', rotate: 2 },
+                shown: { opacity: 1, y: '0%', rotate: 0 },
               }}
               transition={{ duration: reduce ? 0.25 : 1.15, delay: delay + i * 0.09, ease: EASE_OUT_SOFT }}
             >

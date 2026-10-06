@@ -139,13 +139,6 @@ function FloatingCard({ d, index, progress }: { d: (typeof disciplines)[number];
  */
 function DisciplineCards() {
   const reduce = useReduceMotion();
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  // The heading steps back: smaller, softer, quieter
-  const headScale = useTransform(scrollYProgress, [0.02, 0.2], [1, 0.9]);
-  const headBlur = useTransform(scrollYProgress, [0.02, 0.2], ['blur(0px)', 'blur(14px)']);
-  const headOpacity = useTransform(scrollYProgress, [0.02, 0.2], [1, 0.4]);
-
   if (reduce) {
     return (
       <section className="relative z-10 py-[var(--section-space)]" aria-label="Design, develop, deploy">
@@ -162,6 +155,17 @@ function DisciplineCards() {
       </section>
     );
   }
+  return <PinnedDisciplines />;
+}
+
+/** The pinned version. Kept separate so its scroll tracking starts fresh whenever motion is switched on. */
+function PinnedDisciplines() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  // The heading steps back: smaller, softer, quieter
+  const headScale = useTransform(scrollYProgress, [0.02, 0.2], [1, 0.9]);
+  const headBlur = useTransform(scrollYProgress, [0.02, 0.2], ['blur(0px)', 'blur(14px)']);
+  const headOpacity = useTransform(scrollYProgress, [0.02, 0.2], [1, 0.4]);
 
   return (
     <section ref={ref} className="relative z-10 h-[420svh]" aria-label="Design, develop, deploy">
@@ -178,6 +182,7 @@ function DisciplineCards() {
     </section>
   );
 }
+
 export function Statement() {
   return <DisciplineCards />;
 }
