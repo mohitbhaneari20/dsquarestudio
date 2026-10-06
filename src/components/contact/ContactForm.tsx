@@ -16,7 +16,7 @@ import { ButtonLink } from '../ui/ButtonLink';
 const empty: Inquiry = { name: '', email: '', company: '', projectType: '', budget: '', message: '' };
 
 const inputClass =
-  'w-full border-0 border-b border-border bg-transparent px-0 py-3 text-lg tracking-tight placeholder:text-muted/60 focus:border-foreground focus:outline-none focus-visible:outline-none transition-colors';
+  'w-full border-0 border-b border-border bg-transparent px-0 py-3 text-lg tracking-tight placeholder:text-muted focus:border-foreground focus:outline-none focus-visible:outline-none transition-colors';
 
 function Field({ id, label, optional, error, children }: { id: string; label: string; optional?: boolean; error?: string; children: ReactNode }) {
   return (
@@ -27,7 +27,7 @@ function Field({ id, label, optional, error, children }: { id: string; label: st
       </label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="mt-2 text-sm text-accent" role="alert">
+        <p id={`${id}-error`} className="mt-2 text-sm text-accent-ink" role="alert">
           {error}
         </p>
       )}
@@ -83,7 +83,7 @@ function ChoiceGroup({
         })}
       </div>
       {error && (
-        <p id={`${name}-error`} className="mt-2 text-sm text-accent" role="alert">
+        <p id={`${name}-error`} className="mt-2 text-sm text-accent-ink" role="alert">
           {error}
         </p>
       )}
@@ -189,7 +189,7 @@ export function ContactForm() {
           </Field>
 
           {status === 'error' && (
-            <p className="text-sm text-accent" role="alert">
+            <p className="text-sm text-accent-ink" role="alert">
               {submitError}
             </p>
           )}

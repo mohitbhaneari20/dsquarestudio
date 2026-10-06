@@ -1,14 +1,15 @@
 import { ProcessCards } from '../components/studio/ProcessCards';
-import { lazy, Suspense } from 'react';
 import { ExpandingVideo } from '../components/studio/ExpandingVideo';
 import { CTA } from '../components/ui/CTA';
 import { Reveal } from '../components/ui/Reveal';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Seo } from '../components/ui/Seo';
 import { TextReveal } from '../components/ui/TextReveal';
-import { InlineMonogram } from '../components/brand/Brand';
+import { BrandMark, InlineMonogram } from '../components/brand/Brand';
 
-const MonogramModel = lazy(() => import('../components/studio/MonogramModel'));
+/** The 'Why Dsquare exists' film, e.g. '/assets/studio/why.mp4'. Until it exists the section shows a video placeholder. */
+const STUDIO_VIDEO: string | undefined = undefined;
+
 
 export default function Studio() {
   return (
@@ -39,14 +40,14 @@ export default function Studio() {
             <TextReveal
               as="h1"
               immediate
-              lines={['Dsquare is a small studio', 'with a big interest in', 'making things better.']}
-              className="text-[clamp(2.4rem,4.8vw,5rem)] font-medium leading-[0.95] tracking-[-0.045em]"
+              lines={['We’re not interested in', 'making things look good', 'just for the sake of it.']}
+              className="text-[clamp(1.5rem,7.4vw,2.4rem)] font-medium leading-[0.95] md:text-[clamp(2.4rem,4.8vw,5rem)] tracking-[-0.045em]"
             />
             <Reveal className="text-lead mt-10 max-w-xl space-y-6 md:mt-14">
-              <p>Dsquare is an independent design and development studio, run by a designer who also writes code.</p>
+              <p>Dsquare uses design to understand problems, make experiences clearer and build things that actually work.</p>
               <p className="text-muted">
-                We work on brand identities, interfaces, websites and digital products — usually from the first sketch to the
-                version people actually use.
+                It’s an independent design and development studio, run by a designer who also writes code — brands, interfaces,
+                websites and digital products, from the first sketch to the version people use.
               </p>
               <p className="text-muted">Small on purpose. You talk to the person doing the work.</p>
             </Reveal>
@@ -70,11 +71,21 @@ export default function Studio() {
               better because it’s tested in the real thing.
             </p>
           </Reveal>
-          {/* The D² monogram from the 3D file (three.js, loaded only on this page) */}
+          {/* D × D = D²: the monogram on its construction grid (static — the homepage stone is the 3D moment) */}
           <Reveal delay={0.1} className="col-span-12 md:col-span-6 md:col-start-7">
-            <Suspense fallback={<div className="mx-auto aspect-square w-full max-w-[34rem] md:ml-auto md:mr-0" />}>
-              <MonogramModel className="mx-auto aspect-square w-full max-w-[34rem] md:ml-auto md:mr-0" />
-            </Suspense>
+            <figure
+              className="relative mx-auto aspect-square w-full max-w-[34rem] border border-border md:ml-auto md:mr-0"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgb(250 250 250 / 0.06) 1px, transparent 1px), linear-gradient(90deg, rgb(250 250 250 / 0.06) 1px, transparent 1px)',
+                backgroundSize: '12.5% 12.5%',
+              }}
+            >
+              <BrandMark title="The Dsquare monogram — design multiplied by development" copyright={false} className="absolute left-1/2 top-1/2 size-[46%] -translate-x-1/2 -translate-y-1/2 text-accent" />
+              <span className="text-meta absolute left-4 top-4 text-muted">D — Design</span>
+              <span className="text-meta absolute bottom-4 right-4 text-right text-muted">× D — Development</span>
+              <span className="text-meta absolute right-4 top-4 text-accent-ink">= D²</span>
+            </figure>
           </Reveal>
         </div>
       </section>
@@ -96,8 +107,8 @@ export default function Studio() {
           </div>
         </div>
       </section>
-      {/* Add src="/assets/studio/your-video.mp4" to replace the placeholder */}
-      <ExpandingVideo label="Why Dsquare exists — video" gapBelow={0} />
+      {/* The studio film grows to full screen as you scroll; a placeholder until STUDIO_VIDEO is set */}
+      <ExpandingVideo src={STUDIO_VIDEO} label="Why Dsquare exists — video" gapBelow={0} />
 
       {/* Process: heading and the five steps, pinned together while the cards scroll sideways */}
       <ProcessCards header={<SectionHeader index="04" eyebrow="How we work" title={['Five steps,', 'repeated as needed.']} />} />

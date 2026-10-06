@@ -20,7 +20,7 @@ export function CTA({
   title = ['Have something', 'worth building?'],
   body = 'Let’s turn the idea into something people can actually use.',
   eyebrow = 'Start a project',
-  secondary = { to: '/work', label: 'See the work' },
+  secondary,
   titleClassName,
 }: CTAProps) {
   return (
@@ -42,9 +42,11 @@ export function CTA({
           <ButtonLink to="/contact#book" variant="outline" size="lg">
             Book a call
           </ButtonLink>
-          <ButtonLink to={secondary.to} variant="text">
-            {secondary.label}
-          </ButtonLink>
+          {secondary && (
+            <ButtonLink to={secondary.to} variant="text">
+              {secondary.label}
+            </ButtonLink>
+          )}
         </div>
       </Reveal>
     </section>

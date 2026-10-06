@@ -9,7 +9,7 @@ export function TestimonialCard({ t, large = false }: { t: Testimonial; large?: 
   return (
     <figure className="flex h-full flex-col justify-between gap-12 border border-border bg-surface p-6 md:p-8">
       <div>
-        <Quote size={26} strokeWidth={1.25} className="text-accent" aria-hidden="true" />
+        <Quote size={26} strokeWidth={1.25} className="text-accent-ink" aria-hidden="true" />
         <blockquote className={large ? 'text-h3 mt-8' : 'mt-6 text-xl leading-snug tracking-[-0.02em] md:text-2xl'}>“{t.quote}”</blockquote>
       </div>
       <figcaption className="flex items-center gap-4 border-t border-border pt-5">

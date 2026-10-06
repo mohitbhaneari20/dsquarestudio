@@ -15,7 +15,6 @@ export const site = {
   /** Shown as small edge details on /work. TODO: confirm. */
   location: { label: 'India', coords: '30°N / 78°E', timeZone: 'Asia/Kolkata', tzLabel: 'IST' },
   socials: [
-    { label: 'Instagram', href: 'https://www.instagram.com/mbee_2095/' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/105914326/' },
     { label: 'Behance', href: 'https://www.behance.net/dsquare2' },
   ],

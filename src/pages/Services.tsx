@@ -26,6 +26,10 @@ function List({ title, items }: { title: string; items: string[] }) {
   );
 }
 
+/** What sits on each side of D × D — all drawn from the services below. */
+const DESIGN_SIDE = ['Brand identity', 'Design systems', 'UI / UX', 'Web design', 'Motion & graphics'];
+const DEVELOPMENT_SIDE = ['Websites in code', 'No-code (Webflow, Framer)', 'Digital products', 'Design systems in code', 'Launch & handover'];
+
 export default function Services() {
   useHashScroll();
 
@@ -52,6 +56,30 @@ export default function Services() {
             ))}
           </ol>
         </nav>
+
+        {/* Design and Development: the two halves, and why they belong together */}
+        <section aria-labelledby="dxd-title" className="mt-[var(--section-space)] border-t border-foreground pt-8">
+          <h2 id="dxd-title" className="text-h3 max-w-2xl">We don’t hand designs over the wall.</h2>
+          <p className="mt-4 max-w-xl text-muted">The same studio designs it and builds it, so decisions made in one half are tested in the other.</p>
+          <div className="mt-12 grid items-start gap-y-10 md:grid-cols-2 md:gap-x-12">
+            <div>
+              <p className="text-condensed text-[clamp(2.5rem,5vw,4.5rem)] uppercase leading-none">Design</p>
+              <ul className="mt-6 space-y-2 border-t border-border pt-5 text-lg tracking-tight">
+                {DESIGN_SIDE.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-condensed text-[clamp(2.5rem,5vw,4.5rem)] uppercase leading-none">Development</p>
+              <ul className="mt-6 space-y-2 border-t border-border pt-5 text-lg tracking-tight">
+                {DEVELOPMENT_SIDE.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
 
       <div className="container-site section-space space-y-[calc(var(--section-space)*2)]">
@@ -61,7 +89,7 @@ export default function Services() {
             <section key={service.slug} id={service.slug} className="grid-site scroll-mt-24 gap-y-10" aria-labelledby={`${service.slug}-title`}>
               <div className="col-span-12 md:col-span-5">
                 <div className="md:sticky md:top-28">
-                  <p className="text-meta border-t border-border pt-4 text-accent">{pad(i + 1)}</p>
+                  <p className="text-meta border-t border-border pt-4 text-accent-ink">{pad(i + 1)}</p>
                   <h2 id={`${service.slug}-title`} className="text-h2 mt-6">
                     {service.title}
                   </h2>

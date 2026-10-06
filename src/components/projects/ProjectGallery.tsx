@@ -1,7 +1,7 @@
+import type { ReactNode } from 'react';
 import type { GalleryBlock, MediaAsset, Tone } from '../../data/types';
 import { cn } from '../../lib/cn';
 import { visibleOnLight } from '../../lib/color';
-import { ImageReveal } from '../ui/ImageReveal';
 import { ProjectVisual } from '../ui/ProjectVisual';
 import { Reveal } from '../ui/Reveal';
 
@@ -21,6 +21,16 @@ const collageSpots = [
   { left: 72, top: 40, width: 26, rotate: 4, z: 0 },
 ];
 
+/** A board behind the visuals, when the project asks for one (`tone.stage`). */
+function Stage({ colour, children }: { colour?: string; children: ReactNode }) {
+  if (!colour) return <>{children}</>;
+  return (
+    <div className="p-3" style={{ backgroundColor: colour }}>
+      {children}
+    </div>
+  );
+}
+
 /**
  * Editorial gallery. Each block chooses its own composition, so a case
  * study reads as a sequence of spreads rather than image–text–image.
@@ -30,9 +40,9 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
 
   const visual = (media: MediaAsset, aspect: string, sizes: string, caption = true) => (
     <figure>
-      <ImageReveal>
+      <div>
         <ProjectVisual media={media} tone={tone} label={label} slug={slug} className={cn(aspect, 'rounded-sm')} sizes={sizes} />
-      </ImageReveal>
+      </div>
       {caption && <figcaption className="text-meta mt-3 text-muted">{media.caption ?? media.alt}</figcaption>}
     </figure>
   );
@@ -46,8 +56,23 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
             return <div key={i}>{visual(block.media, 'aspect-[4/5] md:aspect-[16/9]', '100vw')}</div>;
 
           case 'board': {
-            const aspect = { '16/10': 'aspect-[16/10]', '16/9': 'aspect-[16/9]', '4/3': 'aspect-[4/3]' }[block.ratio ?? '16/10'];
-            return <div key={i}>{visual(block.media, aspect, '100vw')}</div>;
+            const aspect = {
+              '16/10': 'aspect-[16/10]',
+              '16/9': 'aspect-[16/9]',
+              '4/3': 'aspect-[4/3]',
+            }[block.ratio ?? '16/10'];
+            // Videos (e.g. the intro) bring their own colour, so they skip the board
+            if (!tone.stage || block.media.type === 'video') return <div key={i}>{visual(block.media, aspect, '100vw')}</div>;
+            return (
+              <figure key={i}>
+                <Stage colour={tone.stage}>
+                  <div>
+                    <ProjectVisual media={block.media} tone={tone} label={label} slug={slug} className={cn(aspect, 'rounded-sm')} sizes="100vw" />
+                  </div>
+                </Stage>
+                <figcaption className="text-meta mt-3 text-muted">{block.media.caption ?? block.media.alt}</figcaption>
+              </figure>
+            );
           }
 
           case 'pair':
@@ -85,11 +110,17 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
                       <div
                         key={j}
                         className="absolute shadow-[0_30px_60px_-30px_rgb(0_0_0/0.45)]"
-                        style={{ left: `${spot.left}%`, top: `${spot.top}%`, width: `${spot.width}%`, rotate: `${spot.rotate}deg`, zIndex: spot.z }}
+                        style={{
+                          left: `${spot.left}%`,
+                          top: `${spot.top}%`,
+                          width: `${spot.width}%`,
+                          rotate: `${spot.rotate}deg`,
+                          zIndex: spot.z,
+                        }}
                       >
-                        <ImageReveal>
+                        <div>
                           <ProjectVisual media={m} tone={tone} label={label} className="aspect-[4/3] rounded-sm" sizes="50vw" />
-                        </ImageReveal>
+                        </div>
                       </div>
                     );
                   })}
@@ -101,25 +132,25 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
           case 'browser':
             return (
               <figure key={i}>
-                <ImageReveal>
-                  <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface shadow-[0_40px_80px_-40px_rgb(0_0_0/0.35)]">
-                    {/* Minimal browser chrome */}
-                    <div className="flex h-9 items-center gap-3 border-b border-border px-4" aria-hidden="true">
-                      <span className="flex gap-1.5">
-                        {[0, 1, 2].map((d) => (
-                          <span key={d} className="size-2.5 rounded-full bg-foreground/15" />
-                        ))}
-                      </span>
-                      {block.url && (
-                        <span className="mx-auto truncate rounded-full bg-background px-4 py-1 font-mono text-[10px] text-muted">{block.url}</span>
-                      )}
-                      <span className="w-[42px]" />
-                    </div>
-                    <div style={{ aspectRatio: '16 / 10' }}>
-                      <ProjectVisual media={block.media} tone={tone} label={label} slug={slug} className="h-full w-full" sizes="100vw" />
+                <Stage colour={tone.stage}>
+                  <div>
+                    <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface shadow-[0_40px_80px_-40px_rgb(0_0_0/0.35)]">
+                      {/* Minimal browser chrome */}
+                      <div className="flex h-9 items-center gap-3 border-b border-border px-4" aria-hidden="true">
+                        <span className="flex gap-1.5">
+                          {[0, 1, 2].map((d) => (
+                            <span key={d} className="size-2.5 rounded-full bg-foreground/15" />
+                          ))}
+                        </span>
+                        {block.url && <span className="mx-auto truncate rounded-full bg-background px-4 py-1 font-mono text-[11px] text-muted">{block.url}</span>}
+                        <span className="w-[42px]" />
+                      </div>
+                      <div style={{ aspectRatio: '16 / 10' }}>
+                        <ProjectVisual media={block.media} tone={tone} label={label} slug={slug} className="h-full w-full" sizes="100vw" />
+                      </div>
                     </div>
                   </div>
-                </ImageReveal>
+                </Stage>
                 <figcaption className="text-meta mt-3 text-muted">{block.media.caption ?? block.media.alt}</figcaption>
               </figure>
             );
@@ -127,21 +158,23 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
           case 'phones':
             return (
               <figure key={i}>
-                <div className="grid grid-cols-2 gap-x-[var(--grid-gap)] gap-y-10 md:flex md:items-start md:justify-center md:gap-8">
-                  {block.media.map((m, j) => (
-                    // Staggered heights give the row some rhythm on wider screens
-                    <div key={j} className={cn('md:w-[min(22%,16rem)]', j % 2 === 1 && 'md:mt-16')}>
-                      <ImageReveal>
-                        <div className="rounded-[2.2rem] bg-black p-[6px] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.5)]">
-                          <div className="overflow-hidden rounded-[1.85rem]" style={{ aspectRatio: '390 / 844' }}>
-                            <ProjectVisual media={m} tone={tone} label={label} className="h-full w-full" sizes="(min-width: 768px) 22vw, 50vw" />
+                <Stage colour={tone.stage}>
+                  <div className="grid grid-cols-2 gap-x-[var(--grid-gap)] gap-y-10 md:flex md:items-start md:justify-center md:gap-8">
+                    {block.media.map((m, j) => (
+                      // Staggered heights give the row some rhythm on wider screens
+                      <div key={j} className={cn('md:w-[min(22%,16rem)]', j % 2 === 1 && 'md:mt-16')}>
+                        <div>
+                          <div className="rounded-[2.2rem] bg-black p-[6px] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.5)]">
+                            <div className="overflow-hidden rounded-[1.85rem]" style={{ aspectRatio: '390 / 844' }}>
+                              <ProjectVisual media={m} tone={tone} label={label} className="h-full w-full" sizes="(min-width: 768px) 22vw, 50vw" />
+                            </div>
                           </div>
                         </div>
-                      </ImageReveal>
-                      <p className="text-meta mt-3 text-center text-muted">{m.caption ?? m.alt}</p>
-                    </div>
-                  ))}
-                </div>
+                        <p className={cn('text-meta mt-3 text-center', tone.stage ? 'text-[#fafafa]/70' : 'text-muted')}>{m.caption ?? m.alt}</p>
+                      </div>
+                    ))}
+                  </div>
+                </Stage>
                 {block.caption && <figcaption className="text-meta mt-8 text-center text-muted">{block.caption}</figcaption>}
               </figure>
             );
@@ -157,11 +190,11 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
                 >
                   {block.media.map((m, j) => (
                     <div key={j}>
-                      <ImageReveal>
+                      <div>
                         <div className="overflow-hidden rounded-[2px]" style={{ aspectRatio: block.ratio }}>
                           <ProjectVisual media={m} tone={tone} label={label} className="h-full w-full" sizes="(min-width: 768px) 25vw, 50vw" />
                         </div>
-                      </ImageReveal>
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { projectHref } from '../../data/projects';
+import { projectHref, projectNumber } from '../../data/projects';
+import { pad } from '../../lib/format';
 import type { Project } from '../../data/types';
 import { cn } from '../../lib/cn';
 import { ImageReveal } from '../ui/ImageReveal';
@@ -17,7 +18,7 @@ interface ProjectCardProps {
 }
 
 /**
- * Editorial project card: 4:3 image (cover), title, discipline and year.
+ * Editorial project card, the same everywhere: 4:3 visual, number, title, categories and year.
  * Hover (pointer devices only, and not with reduced motion): image zooms to 1.04,
  * title nudges, arrow moves, a 5% veil appears. The whole card is one link.
  */
@@ -58,10 +59,15 @@ export function ProjectCard({ project, sizes = '(min-width: 768px) 50vw, 100vw',
 
       <div className="mt-5 flex items-start justify-between gap-6">
         <div className="min-w-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-ok:group-hover:translate-x-1.5">
-          <h3 className="text-h3">{project.title}</h3>
+          <p className="text-meta flex gap-3 text-muted">
+            <span className="text-accent-ink">{pad(projectNumber(project))}</span>
+            {project.status === 'Ongoing' && <span>Work in progress</span>}
+            {project.credit && <span>Agency work · {project.credit.agency}</span>}
+          </p>
+          <h3 className="text-h3 mt-2">{project.title}</h3>
           <p className="text-meta mt-2 text-muted">
-            {project.discipline}
-            {project.year && ` · ${project.year}`}
+            {project.categories.join(' · ')}
+            {project.year && ` — ${project.year}`}
           </p>
           {showSummary && <p className="mt-3 max-w-md text-muted">{project.summary}</p>}
         </div>

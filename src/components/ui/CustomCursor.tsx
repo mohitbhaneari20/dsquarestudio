@@ -1,15 +1,10 @@
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useReduceMotion } from '../../lib/motionPreference';
 
-type Mode = 'default' | 'link' | 'cta' | 'label';
+type Mode = 'default' | 'link' | 'label';
 type CursorState = { mode: Mode; label?: string };
-
-/** Ring size per mode (px) — the trailing square shrinks over links and buttons so what you click stays visible. */
-const RING = { default: 34, link: 22, cta: 24, label: 92 } as const;
-/** How much the ring stretches along the direction of travel at full speed. */
-const MAX_STRETCH = 0.45;
 
 /** Words in `data-cursor` that show an icon instead of text. */
 const EYE_LABEL = 'View';
@@ -23,7 +18,7 @@ function Eye({ blink }: { blink: number }) {
   // Remember which click opened this eye, so only clicks made while it's showing blink it
   const [seen] = useState(blink);
   return (
-    <svg viewBox="0 0 32 20" width={38} height={24} fill="none" stroke="#fafafa" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="block overflow-visible">
+    <svg viewBox="0 0 32 20" width={26} height={16} fill="none" stroke="#fafafa" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="block overflow-visible">
       {/* A slow blink every few seconds while it waits */}
       <motion.g style={origin} animate={{ scaleY: [1, 1, 0.06, 1] }} transition={{ duration: 3.2, times: [0, 0.9, 0.94, 1], ease: 'easeInOut', repeat: Infinity }}>
         {/* A quick blink on every click */}
@@ -46,17 +41,14 @@ function Eye({ blink }: { blink: number }) {
 }
 
 /**
- * Two-part square cursor (desktop only) — the "square" in Dsquare.
+ * A quiet custom cursor (mouse and trackpad only) — the "square" in Dsquare.
  *
  * - a small orange square sits exactly on the pointer
- * - a hairline square trails behind on a soft spring, stretching along the
- *   direction of travel and breathing gently when the pointer rests
- * - link / button: the ring shrinks in and the dot tucks away
- * - CTA: the ring shrinks in and turns orange
- * - `data-cursor="View"` (projects): the ring fills and shows an eye, which blinks on click
- * - other `data-cursor` labels (e.g. "Spin"): the ring fills and shows the word
- * - click: the ring presses in, the dot pops
- * The ring is frosted glass: a translucent white fill that blurs what's behind it.
+ * - over links and buttons a thin orange outline grows around it
+ * - over projects (`data-cursor="View"`) a small black tag with an eye sits beside the
+ *   pointer — never on top of the work — and blinks on click; other labels show their word
+ * - it hides over text fields, so the normal text cursor shows there
+ * Always orange, on every background.
  */
 export function CustomCursor() {
   const finePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
@@ -65,72 +57,34 @@ export function CustomCursor() {
 
   const px = useMotionValue(-100);
   const py = useMotionValue(-100);
-  // Dot: nearly locked to the pointer. Ring: a softer, floatier follow.
-  const dotX = useSpring(px, { stiffness: 1600, damping: 70, mass: 0.15 });
-  const dotY = useSpring(py, { stiffness: 1600, damping: 70, mass: 0.15 });
-  const ringX = useSpring(px, { stiffness: 260, damping: 24, mass: 0.6 });
-  const ringY = useSpring(py, { stiffness: 260, damping: 24, mass: 0.6 });
-  // Stretch along the travel direction
-  const angle = useSpring(useMotionValue(0), { stiffness: 300, damping: 30 });
-  const stretch = useSpring(useMotionValue(0), { stiffness: 260, damping: 22 });
-  // Longer along the direction of travel, a little thinner across it — like a drop of ink
-  const scaleX = useTransform(stretch, (v) => 1 + v);
-  const scaleY = useTransform(stretch, (v) => 1 - v * 0.45);
+  // Tight springs: it should feel attached to the pointer, not trail behind it
+  const x = useSpring(px, { stiffness: 1400, damping: 70, mass: 0.15 });
+  const y = useSpring(py, { stiffness: 1400, damping: 70, mass: 0.15 });
 
   const [state, setState] = useState<CursorState>({ mode: 'default' });
   const [visible, setVisible] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [blink, setBlink] = useState(0);
-  const [moving, setMoving] = useState(false);
-  const last = useRef({ x: 0, y: 0, t: 0, a: 0 });
 
   useEffect(() => {
     if (!enabled) return;
     const root = document.documentElement;
     root.classList.add('has-custom-cursor');
-    let settle = 0;
 
     const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
       px.set(e.clientX);
       py.set(e.clientY);
-      const now = performance.now();
-      const l = last.current;
-      const dt = Math.max(8, now - l.t);
-      const dx = e.clientX - l.x;
-      const dy = e.clientY - l.y;
-      const speed = Math.hypot(dx, dy) / dt; // px per ms
-      if (speed > 0.05) {
-        // Unwrap so the ring always turns the short way (a stretched square repeats every 180°)
-        let a = (Math.atan2(dy, dx) * 180) / Math.PI;
-        while (a - l.a > 90) a -= 180;
-        while (a - l.a < -90) a += 180;
-        l.a = a;
-        angle.set(a);
-      }
-      stretch.set(Math.min(MAX_STRETCH, speed * 0.18));
-      last.current = { ...l, x: e.clientX, y: e.clientY, t: now };
-      setMoving(true);
-      clearTimeout(settle);
-      settle = window.setTimeout(() => {
-        stretch.set(0);
-        // Settle back square (a square looks the same every 90°, so snap to the nearest)
-        last.current.a = Math.round(last.current.a / 90) * 90;
-        angle.set(last.current.a);
-        setMoving(false);
-      }, 90);
       setVisible(true);
     };
-
     const onOver = (e: PointerEvent) => {
       const target = e.target as Element | null;
       const labelled = target?.closest<HTMLElement>('[data-cursor]');
       if (labelled) return setState({ mode: 'label', label: labelled.dataset.cursor });
-      if (target?.closest('[data-cursor-cta]')) return setState({ mode: 'cta' });
       if (target?.closest('input, textarea, select')) return setVisible(false);
       if (target?.closest('a, button, [role="tab"], label')) return setState({ mode: 'link' });
       setState({ mode: 'default' });
     };
-
     const onDown = () => {
       setPressed(true);
       setBlink((b) => b + 1);
@@ -144,7 +98,6 @@ export function CustomCursor() {
     document.addEventListener('pointerover', onOver);
     root.addEventListener('pointerleave', onLeave);
     return () => {
-      clearTimeout(settle);
       root.classList.remove('has-custom-cursor');
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onDown);
@@ -152,88 +105,49 @@ export function CustomCursor() {
       document.removeEventListener('pointerover', onOver);
       root.removeEventListener('pointerleave', onLeave);
     };
-  }, [enabled, px, py, angle, stretch]);
+  }, [enabled, px, py]);
 
   if (!enabled) return null;
 
-  const { mode } = state;
-  const size = RING[mode];
-  const labelled = mode === 'label' && !!state.label;
-  const idle = mode === 'default' && !moving && !pressed;
+  const { mode, label } = state;
+  const ring = mode === 'link' ? 30 : 0;
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
-      {/* Trailing square */}
-      <motion.div
-        className="absolute left-0 top-0"
-        style={{ x: ringX, y: ringY }}
-        animate={{ opacity: visible ? 1 : 0 }}
-        transition={{ duration: 0.2 }}
-      >
-        {/* Stretch along the direction of travel */}
-        <motion.div className="relative size-0" style={{ rotate: angle, scaleX, scaleY, transformOrigin: '0 0' }}>
-          <motion.div
-            className="absolute border border-solid"
-            // Frosted glass: blurs and brightens whatever is behind it, with a soft lift
-            style={{
-              backdropFilter: 'blur(3px) saturate(1.6)',
-              WebkitBackdropFilter: 'blur(3px) saturate(1.6)',
-              boxShadow: '0 8px 24px -10px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.55)',
-            }}
-            animate={{
-              width: size,
-              height: size,
-              // Centred on the pointer while it grows
-              left: -size / 2,
-              top: -size / 2,
-              scale: pressed ? 0.78 : idle ? [1, 1.08, 1] : 1,
-              backgroundColor: labelled ? 'rgb(12 12 12 / 0.55)' : mode === 'cta' ? 'rgb(250 92 1 / 0.28)' : mode === 'link' ? 'rgb(255 255 255 / 0.32)' : 'rgb(255 255 255 / 0.22)',
-              borderColor: mode === 'cta' ? 'rgb(250 92 1 / 0.7)' : labelled ? 'rgb(255 255 255 / 0.18)' : 'rgb(255 255 255 / 0.7)',
-            }}
-            transition={{
-              width: { type: 'spring', stiffness: 320, damping: 26 },
-              height: { type: 'spring', stiffness: 320, damping: 26 },
-              left: { type: 'spring', stiffness: 320, damping: 26 },
-              top: { type: 'spring', stiffness: 320, damping: 26 },
-              scale: idle ? { duration: 2.4, ease: 'easeInOut', repeat: Infinity } : { type: 'spring', stiffness: 420, damping: 22 },
-              default: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
-            }}
-          />
-        </motion.div>
-      </motion.div>
-
-      {/* Label inside the filled square, kept upright (outside the stretch) */}
-      <motion.div className="absolute left-0 top-0" style={{ x: ringX, y: ringY }}>
-        <AnimatePresence>
-          {labelled && (
-            <motion.span
-              key={state.label}
-              className="text-meta absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[#fafafa]"
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.6 }}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {state.label === EYE_LABEL ? <Eye blink={blink} /> : state.label}
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Orange dot on the pointer */}
-      <motion.div
-        className="absolute left-0 top-0"
-        style={{ x: dotX, y: dotY }}
-        animate={{ opacity: visible ? 1 : 0 }}
-        transition={{ duration: 0.15 }}
-      >
-        <motion.span
-          className="block size-[7px] -translate-x-1/2 -translate-y-1/2 bg-accent"
-          animate={{ scale: pressed ? 1.8 : mode === 'default' ? 1 : 0, rotate: pressed ? 45 : 0 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 24 }}
-        />
-      </motion.div>
-    </div>
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-[100]"
+      style={{ x, y }}
+      animate={{ opacity: visible ? 1 : 0 }}
+      transition={{ duration: 0.15 }}
+    >
+      {/* Outline over links and buttons */}
+      <motion.span
+        className="absolute block border-[1.5px] border-accent"
+        animate={{ width: ring, height: ring, left: -ring / 2, top: -ring / 2, opacity: ring ? 1 : 0, scale: pressed ? 0.85 : 1 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 32 }}
+      />
+      {/* The square on the pointer */}
+      <motion.span
+        className="absolute -left-1 -top-1 block size-2 bg-accent"
+        animate={{ scale: pressed ? 0.6 : mode === 'label' ? 0.75 : 1 }}
+        transition={{ type: 'spring', stiffness: 600, damping: 30 }}
+      />
+      {/* Tag beside the pointer over projects and labelled elements */}
+      <AnimatePresence>
+        {mode === 'label' && label && (
+          <motion.span
+            key={label}
+            className={`text-meta absolute left-4 top-4 flex items-center justify-center whitespace-nowrap bg-black text-[#fafafa] ${label === EYE_LABEL ? 'size-10' : 'h-8 min-w-8 px-2.5'}`}
+            initial={{ opacity: 0, scale: 0.8, x: -4, y: -4 }}
+            animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: 'top left' }}
+          >
+            {label === EYE_LABEL ? <Eye blink={blink} /> : label}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
-

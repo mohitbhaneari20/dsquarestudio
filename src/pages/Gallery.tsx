@@ -76,7 +76,7 @@ function Station({ art, index, cam, width, onOpen }: { art: Artwork; index: numb
         </div>
         <span className="text-meta mt-2 flex justify-between gap-3 px-1 text-left text-muted">
           <span className="min-w-0 truncate">
-            <span className="text-accent">{pad(index + 1)}</span> {art.title}
+            <span className="text-accent-ink">{pad(index + 1)}</span> {art.title}
           </span>
           {/* Medium and year only where there's room for both on one line */}
           <span className="hidden shrink-0 sm:inline">
@@ -114,7 +114,7 @@ function DetailPanel({ index, onClose, onStep }: { index: number; onClose: () =>
         <div className="flex flex-col p-6 md:p-10">
           <div className="text-meta flex items-center justify-between text-muted">
             <span>
-              <span className="text-accent">{pad(index + 1)}</span> / {pad(artworks.length)}
+              <span className="text-accent-ink">{pad(index + 1)}</span> / {pad(artworks.length)}
             </span>
             <button type="button" onClick={onClose} className="-mr-2 inline-flex size-10 items-center justify-center hover:text-accent" aria-label="Close">
               <X size={20} strokeWidth={1.5} />
@@ -233,9 +233,9 @@ export default function Gallery() {
           </div>
 
           {/* Where you are */}
-          <div className="container-site pointer-events-none absolute inset-x-0 bottom-[4svh] flex items-center gap-6">
+          <div className="container-site pointer-events-none absolute inset-x-0 bottom-[4svh] flex items-center gap-6 pr-36 md:pr-40">
             <span className="text-meta tabular-nums">
-              <span className="text-accent">{pad(current + 1)}</span> / {pad(count)}
+              <span className="text-accent-ink">{pad(current + 1)}</span> / {pad(count)}
             </span>
             <span className="text-meta hidden truncate sm:inline">{artworks[current]?.title}</span>
             <div className="h-px flex-1 bg-foreground/15">

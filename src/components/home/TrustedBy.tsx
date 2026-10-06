@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { clients, type ClientLogo } from '../../data/clients';
 import { getProject, projectHref } from '../../data/projects';
@@ -40,21 +39,21 @@ function Logo({ client }: { client: ClientLogo }) {
   );
 }
 
-const cell = 'group relative flex h-28 items-center justify-center border-b border-r border-border md:h-36';
+const cell = 'group relative flex h-24 items-center justify-center border-b border-r border-border px-6 md:h-28';
 
-/** "Trusted by": the brands we've worked with, plus an open slot for the next one. */
+/**
+ * "Brands we've built": the studio's own brands, linked to their case studies.
+ * Only real work goes here — no placeholder slots, and no implying clients that aren't.
+ */
 export function TrustedBy() {
-  // Fill the row to a multiple of four with open slots
-  const open = Math.max(1, (4 - (clients.length % 4)) % 4 || 0);
-
   return (
-    <section className="container-site section-space pt-0!" aria-label="Trusted by">
+    <section className="container-site section-space pt-0!" aria-label="Brands we’ve built">
       <div className="grid-site gap-y-8">
         <p className="text-meta col-span-12 flex items-center gap-2 self-start text-muted md:col-span-3 md:pt-4">
-          <SquareBullet /> Trusted by
+          <SquareBullet /> Brands we’ve built
         </p>
-        <Reveal className="col-span-12 md:col-span-9">
-          <ul className="grid grid-cols-2 border-l border-t border-border md:grid-cols-4">
+        <Reveal className="col-span-12 md:col-span-9 lg:col-span-6">
+          <ul className="grid border-l border-t border-border" style={{ gridTemplateColumns: `repeat(${clients.length}, minmax(0, 1fr))` }}>
             {clients.map((c) => (
               <li key={c.name}>
                 {c.slug ? (
@@ -66,18 +65,6 @@ export function TrustedBy() {
                     <Logo client={c} />
                   </div>
                 )}
-              </li>
-            ))}
-            {Array.from({ length: open }, (_, i) => (
-              <li key={`open-${i}`}>
-                <Link to="/contact" className={`${cell} flex-col gap-2 text-muted hover:text-accent`}>
-                  <span className="text-meta">{i === open - 1 ? 'Your brand next' : 'Open slot'}</span>
-                  {i === open - 1 && <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden="true" />}
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-3 border border-dashed border-foreground/15 transition-colors group-hover:border-accent/60"
-                  />
-                </Link>
               </li>
             ))}
           </ul>

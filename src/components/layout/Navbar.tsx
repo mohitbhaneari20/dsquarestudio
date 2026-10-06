@@ -1,6 +1,7 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useReduceMotion } from '../../lib/motionPreference';
 import { Menu } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useScrolled } from '../../hooks/useScrolled';
 import { cn } from '../../lib/cn';
@@ -21,7 +22,7 @@ const links = [
 /** "About D²": "About" like the other links followed by the D² monogram; an orange loop is drawn around it on hover. */
 function HandNavItem({ label, to }: { label: string; to: string }) {
   const [hover, setHover] = useState(false);
-  const still = useReducedMotion();
+  const still = useReduceMotion();
   return (
     <li>
       <NavLink
@@ -38,15 +39,11 @@ function HandNavItem({ label, to }: { label: string; to: string }) {
           )
         }
       >
-        {({ isActive }) => (
+        {() => (
           <>
             {label.replace(/\s*D²$/, '')}
-            {/* The D² monogram from the logo in place of the letters — brand orange on hover and on its own page */}
-            <BrandMark
-              title={null}
-              copyright={false}
-              className={cn('size-[15px] transition-colors duration-300', isActive || hover ? 'text-accent' : 'text-foreground')}
-            />
+            {/* The D² monogram from the logo in place of the letters — always black */}
+            <BrandMark title={null} copyright={false} className="size-[15px] text-black" />
             <svg viewBox="0 0 200 80" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[18%] -inset-y-[45%] h-[190%] w-[136%] overflow-visible" aria-hidden="true">
               <motion.path
                 d="M18 44 C 20 14, 120 4, 176 22 C 204 32, 190 66, 120 72 C 60 77, 8 66, 14 40 C 18 26, 60 16, 104 14"
@@ -94,7 +91,12 @@ export function Navbar() {
   const scrolled = useScrolled(24);
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  // Closing the menu (× or Escape) hands keyboard focus back to the Menu button
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    requestAnimationFrame(() => menuButton.current?.focus());
+  }, []);
   const ready = useIntroDone();
 
   useEffect(() => setMenuOpen(false), [pathname]);
@@ -125,6 +127,7 @@ export function Navbar() {
 
             <button
             type="button"
+            ref={menuButton}
             onClick={() => setMenuOpen(true)}
             className="-mr-2 inline-flex h-11 items-center gap-2 px-2 font-mono text-[11px] uppercase tracking-[0.1em] md:hidden"
             aria-expanded={menuOpen}

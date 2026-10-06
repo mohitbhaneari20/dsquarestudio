@@ -27,14 +27,16 @@ export function CategoryFilter({ active, counts, total, onChange }: CategoryFilt
             type="button"
             onClick={() => onChange(o.value)}
             aria-pressed={isActive}
+            // Categories with no projects yet can't be picked (they'd show an empty list)
+            disabled={empty && !isActive}
             className={cn(
               'relative shrink-0 py-2 text-sm uppercase tracking-[0.02em] transition-colors',
               isActive ? 'text-foreground' : 'text-muted hover:text-foreground',
-              empty && !isActive && 'opacity-40',
+              empty && !isActive && 'cursor-default opacity-40 hover:text-muted',
             )}
           >
             {o.label}
-            <sup className="ml-1 font-mono text-[9px]">{o.count}</sup>
+            <sup className="ml-1 font-mono text-[11px]">{o.count}</sup>
             {isActive && (
               <motion.span
                 layoutId="work-filter-underline"

@@ -20,7 +20,7 @@ export default function Contact() {
       <Seo />
       <section className="container-site pb-[var(--section-space)] pt-32 md:pt-44">
         <p className="text-meta border-t border-border pt-4 text-muted">Contact</p>
-        <TextReveal as="h1" immediate lines={['Let’s make', 'something.']} className="text-display mt-12 md:mt-20" />
+        <TextReveal as="h1" immediate lines={['Let’s work', 'together.']} className="text-display mt-12 md:mt-20" />
 
         <div className="grid-site mt-16 gap-y-16 md:mt-24">
           <Reveal className="col-span-12 lg:col-span-4">

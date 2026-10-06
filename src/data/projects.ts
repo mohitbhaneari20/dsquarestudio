@@ -229,8 +229,8 @@ const allProjects: Project[] = [
     title: 'Falance',
     client: 'Self-initiated',
     year: '2026',
-    categories: ['UI / UX', 'Development'],
-    discipline: 'Mobile App / UX Case Study',
+    categories: ['Branding', 'UI / UX', 'Development'],
+    discipline: 'Brand / Product / UI',
     type: 'Self-initiated',
     status: 'Completed',
     summary: 'A calm, pixel-drawn mobile app that helps people decide what matters today, focus on it, and find their balance.',
@@ -342,6 +342,136 @@ const allProjects: Project[] = [
         ],
       },
     ],
+    chapters: [
+      {
+        label: 'Overview',
+        title: 'A calmer way to work toward your goals.',
+        body: 'Falance is a concept for people who struggle to keep balance and focus while working toward their goals. A daily focus screen, goals broken into small steps, a gentle look at life balance and a small library of books — five tabs, 31 screens and states, built as a working prototype.',
+        blocks: [{ layout: 'full', media: { src: '/assets/projects/falance/hero.webp', alt: 'Falance — five screens from onboarding to plans', kind: 'hero' } }],
+      },
+      {
+        label: 'The problem',
+        body: 'People have goals but struggle to stay focused and consistent — and most productivity apps add dashboards, charts and badges that become one more thing to maintain.',
+      },
+      {
+        label: 'The idea',
+        title: 'One question a day: what matters today?',
+        body: 'Remove instead of add. One question per screen, three priorities a day, progress shown as patterns rather than percentages, and warm microcopy instead of guilt.',
+        blocks: [
+          {
+            layout: 'phones',
+            caption: 'Onboarding — under a minute: three quiet lines, a name and a face, a focus area and one goal',
+            media: [
+              { src: '/assets/projects/falance/screens/ob-1.webp', alt: 'Falance onboarding — life gets busy', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/ob-3.webp', alt: 'Falance onboarding — what matters', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/ob-4-name.webp', alt: 'Falance onboarding — name and avatar', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/ob-6-goal.webp', alt: 'Falance onboarding — first goal', kind: 'mobile' },
+            ],
+          },
+          {
+            layout: 'phones',
+            caption: 'Today — one focus card, one check-in, three priorities',
+            media: [
+              { type: 'video', src: '/assets/projects/falance/video/flow.webm', poster: '/assets/projects/falance/screens/ob-1.webp', alt: 'Falance end-to-end flow', kind: 'motion' },
+              { src: '/assets/projects/falance/screens/today.webp', alt: 'Falance Today screen', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/today-checkin.webp', alt: 'Falance Today after check-in', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/today-all-done.webp', alt: 'Falance Today with all three priorities done', kind: 'mobile' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Brand direction',
+        title: 'Calm, not colourful.',
+        body: 'Monochrome, one green accent and a stacked-stone mark for balance. DM Sans for reading, JetBrains Mono for timers and counts — and every icon drawn pixel by pixel on a 12 × 12 grid, animated in stepped frames like sprites.',
+        blocks: [
+          { layout: 'board', media: { src: '/assets/projects/falance/brand-board.webp', alt: 'Falance brand — logo, colour palette, typography and tab icons', kind: 'moodboard' } },
+          {
+            layout: 'phones',
+            caption: '22 pixel icons in motion',
+            media: [
+              { type: 'video', src: '/assets/projects/falance/video/icons-lab.webm', alt: 'Falance pixel icon set in motion', kind: 'motion' },
+              { type: 'video', src: '/assets/projects/falance/video/motion.webm', poster: '/assets/projects/falance/screens/today.webp', alt: 'Falance icons, tabs and checkboxes animating', kind: 'motion' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Product experience',
+        body: 'Focus mode goes dark and quiet while a ring of 60 pixels fills. Goals read like chapters, balance is a shape rather than a score, books show their price on the cover, and the plans page asks once — never pressures.',
+        blocks: [
+          {
+            layout: 'phones',
+            caption: 'Focus mode — ready, running, done',
+            media: [
+              { src: '/assets/projects/falance/screens/focus-ready.webp', alt: 'Falance focus mode — ready', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/focus-running.webp', alt: 'Falance focus mode — running', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/focus-done.webp', alt: 'Falance focus mode — done', kind: 'mobile' },
+            ],
+          },
+          {
+            layout: 'phones',
+            caption: 'Goals and balance',
+            media: [
+              { src: '/assets/projects/falance/screens/goals.webp', alt: 'Falance goals list', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/goal-detail.webp', alt: 'Falance goal detail', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/sheet-new-goal.webp', alt: 'Falance new goal sheet', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/balance.webp', alt: 'Falance life balance shape', kind: 'mobile' },
+            ],
+          },
+          {
+            layout: 'strip',
+            ratio: '1 / 1',
+            caption: 'Design system — buttons, chips and tags · stars, dot meter and pixel ring · inputs',
+            media: [
+              { src: '/assets/projects/falance/components/buttons.webp', alt: 'Falance buttons, chips and tags', kind: 'mockup', fit: 'contain', background: '#FFFFFF' },
+              { src: '/assets/projects/falance/components/progress.webp', alt: 'Falance progress components', kind: 'mockup', fit: 'contain', background: '#FFFFFF' },
+              { src: '/assets/projects/falance/components/forms.webp', alt: 'Falance input fields', kind: 'mockup', fit: 'contain', background: '#FFFFFF' },
+            ],
+          },
+          {
+            layout: 'phones',
+            caption: 'Books and plans — the price lives on the cover; one decision at a time',
+            media: [
+              { src: '/assets/projects/falance/screens/books.webp', alt: 'Falance book library', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/book-detail-locked.webp', alt: 'Falance locked book', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/plans-plus.webp', alt: 'Falance Plus plan', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/plans-subscribed.webp', alt: 'Falance subscribed state', kind: 'mobile' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Final direction',
+        body: 'From a warm, Kindle-like first version to a monochrome, pixel-drawn system — quieter, more consistent, and easier to extend.',
+        blocks: [
+          {
+            layout: 'phones',
+            caption: 'Before → after',
+            media: [
+              { src: '/assets/projects/falance/before/today.webp', alt: 'Falance before — Today', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/today.webp', alt: 'Falance after — Today', kind: 'mobile' },
+              { src: '/assets/projects/falance/before/focus-running.webp', alt: 'Falance before — Focus', kind: 'mobile' },
+              { src: '/assets/projects/falance/screens/focus-running.webp', alt: 'Falance after — Focus', kind: 'mobile' },
+            ],
+          },
+          {
+            layout: 'phones',
+            caption: 'Full-length screens, scrolled',
+            media: [
+              { type: 'video', src: '/assets/projects/falance/video/scroll-today.webm', poster: '/assets/projects/falance/screens/today.webp', alt: 'Falance Today, scrolled', kind: 'motion' },
+              { type: 'video', src: '/assets/projects/falance/video/scroll-goals.webm', poster: '/assets/projects/falance/screens/goals.webp', alt: 'Falance Goals, scrolled', kind: 'motion' },
+              { type: 'video', src: '/assets/projects/falance/video/scroll-balance.webm', poster: '/assets/projects/falance/screens/balance.webp', alt: 'Falance Balance, scrolled', kind: 'motion' },
+              { type: 'video', src: '/assets/projects/falance/video/scroll-books.webm', poster: '/assets/projects/falance/screens/books.webp', alt: 'Falance Books, scrolled', kind: 'motion' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Reflection',
+        body: 'The hardest part was leaving things out. Falance is now a working prototype across five tabs, with real subscriptions verified on the server. It hasn’t been tested with users yet — five usability sessions are next, and they’ll decide what changes.',
+      },
+    ],
     services: ['Product & UX Design', 'Visual & Icon Design', 'Interaction Design', 'Front-end Prototyping'],
     challenge:
       'People have goals but struggle to stay focused and consistent — and most productivity apps add dashboards, charts and badges that become one more thing to maintain.',
@@ -358,8 +488,6 @@ const allProjects: Project[] = [
       description:
         'How Dsquare Studio designed and built its own brand identity, design system and website.',
     },
-    // Private for now: not shown anywhere on the site
-    hidden: true,
     title: 'Dsquare Studio',
     client: 'Dsquare (ourselves)',
     year: '2026',
@@ -370,7 +498,7 @@ const allProjects: Project[] = [
     summary: 'The studio’s own identity and website — designed and built in-house. You’re looking at it.',
     description:
       'Designing for yourself is the hardest brief. Dsquare is D²: design and development, done by the same hands. The identity, the design system and this website were all made in-house — from the first sketch of the monogram to the code that runs the site.',
-    tone: { bg: '#E6E1D8', ink: '#000000', accent: '#FA5C01' },
+    tone: { bg: '#E6E1D8', ink: '#000000', accent: '#FA5C01', stage: '#2F2F2F' },
     thumbnail: { src: '/assets/projects/dsquare-studio/cover.webp', alt: 'Dsquare Studio website on desktop and mobile', kind: 'desktop' },
     heroImage: { src: '/assets/projects/dsquare-studio/hero.webp', alt: 'Dsquare Studio website — menu, About D² and Services', kind: 'hero' },
     gallery: [
@@ -393,8 +521,8 @@ const allProjects: Project[] = [
           { type: 'video', src: '/assets/home/deploy.mp4', alt: 'Deploy', kind: 'motion' },
         ],
       },
-      { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/ui.webp', alt: 'UI components — buttons, tags, navigation, cards, progress, form fields', kind: 'mockup' } },
-      { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/icons.webp', alt: 'Iconography — line icons plus the brand glyphs and custom cursor', kind: 'mockup' } },
+      { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/ui-v2.webp', alt: 'UI components — buttons, tags, navigation, cards, progress, form fields', kind: 'mockup' } },
+      { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/icons-v2.webp', alt: 'Iconography — line icons plus the brand glyphs and custom cursor', kind: 'mockup' } },
       { layout: 'statement', text: 'Mostly calm. One loud colour. Sharp corners everywhere.' },
       { layout: 'browser', url: '/studio', media: { src: '/assets/projects/dsquare-studio/screens/d-about-hero.webp', alt: 'About D² — the founder and the studio', kind: 'desktop' } },
       { layout: 'browser', url: '/studio', media: { src: '/assets/projects/dsquare-studio/screens/d-about-name.webp', alt: 'About D² — the name, with the 3D concrete monogram', kind: 'desktop' } },
@@ -414,11 +542,78 @@ const allProjects: Project[] = [
       { layout: 'browser', url: '/work', media: { src: '/assets/projects/dsquare-studio/screens/d-work-archive.webp', alt: 'Work — the archive', kind: 'desktop' } },
       { layout: 'browser', url: '/contact#book', media: { src: '/assets/projects/dsquare-studio/screens/d-contact-book.webp', alt: 'Contact — book a call straight from the site', kind: 'desktop' } },
     ],
+    chapters: [
+      {
+        label: 'Overview',
+        title: 'Design × Development.',
+        body: 'The studio’s own identity and website, designed and built in the same place — which is the whole point of Dsquare.',
+        blocks: [{ layout: 'browser', url: '/', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-home.webp', alt: 'Dsquare Studio homepage — wordmark, stone monogram and the line “Good design should do more than look good.”', kind: 'desktop' } }],
+      },
+      {
+        label: 'Why Dsquare exists',
+        body: 'Design and development are usually treated as separate jobs: one side makes the picture, the other makes it work, and the idea gets lost in the handover. Dsquare does both, so what gets approved is what ships.',
+        blocks: [{ layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/ideation.webp', alt: 'Ideation — D + D = D², the brand words and three logo directions', kind: 'moodboard' } }],
+      },
+      {
+        label: 'The D² idea',
+        title: 'Two squares, multiplied.',
+        body: 'D for design, D for development — together, D². The monogram is two squares stepping into each other, and the square runs through everything: bullets, the cursor, the tags, the grid.',
+        blocks: [
+          { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/logo.webp', alt: 'Dsquare logo system — primary lockup, monogram and wordmark', kind: 'logo' } },
+          { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/usage.webp', alt: 'Dsquare logo usage — clear space, minimum sizes and misuse', kind: 'logo' } },
+        ],
+      },
+      {
+        label: 'The visual system',
+        body: 'Mostly calm, one loud colour. Sand, black and off-white with a single orange; Geist for everything, Geist Mono for the small print and Anton for the condensed moments; sharp corners and a 12-column grid. Buttons carry black text on orange, so they stay readable.',
+        blocks: [
+          { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/colour.webp', alt: 'Dsquare colour — sand, off-white, black and taupe, with one orange', kind: 'mockup' } },
+          { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/type.webp', alt: 'Dsquare typography — Geist, Geist Mono and Anton', kind: 'typography' } },
+          { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/ui-v2.webp', alt: 'Dsquare UI components — buttons, tags, navigation, project card, progress, form field and section header', kind: 'mockup' } },
+        ],
+      },
+      {
+        label: 'The interaction system',
+        body: 'Three signature moments, each with a reason. The stone: the monogram carved into something solid. The three Ds: the heading steps back and blurs while Design, Develop and Deploy float up and stack in the middle of the screen. The gallery: personal work you fly through. The cursor is the square from D², with an eye that blinks over the work. Everything else stays quiet — and one switch turns the motion off.',
+        blocks: [
+          { layout: 'board', ratio: '16/9', media: { type: 'video', src: '/brand/loader.mp4', alt: 'Dsquare intro — the logo plays in, then the orange splits open over the hero', kind: 'motion' } },
+          { layout: 'browser', url: '/', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-ddd-head.webp', alt: 'Three Ds, one studio — the heading before the cards arrive', kind: 'desktop' } },
+          { layout: 'browser', url: '/', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-ddd-stack.webp', alt: 'Design, Develop and Deploy stacked in the middle of the screen over the blurred heading', kind: 'desktop' } },
+          { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/icons-v2.webp', alt: 'Iconography — line icons, the monogram glyph, square bullet, square cursor and the eye view tag', kind: 'mockup' } },
+          { layout: 'browser', url: '/gallery', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-gallery.webp', alt: 'The gallery — artworks you fly through as you scroll', kind: 'desktop' } },
+        ],
+      },
+      {
+        label: 'The website',
+        body: 'Every page uses the same parts: one project card, one section header, one set of buttons. On phones it reflows to a single column and the menu becomes a full-screen index.',
+        blocks: [
+          { layout: 'browser', url: '/work', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-work.webp', alt: 'Work — numbered project cards on a two-column grid', kind: 'desktop' } },
+          { layout: 'browser', url: '/services', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-services.webp', alt: 'Services — what design covers and what development covers, side by side', kind: 'desktop' } },
+          { layout: 'browser', url: '/studio', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-about.webp', alt: 'About — “We’re not interested in making things look good just for the sake of it.”', kind: 'desktop' } },
+          { layout: 'browser', url: '/contact', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-contact.webp', alt: 'Contact — “Let’s work together.” with the project form', kind: 'desktop' } },
+          {
+            layout: 'phones',
+            caption: 'Mobile — home, the three Ds, work, about and services',
+            media: [
+              { src: '/assets/projects/dsquare-studio/screens/v3-m-home.webp', alt: 'Dsquare on a phone — home', kind: 'mobile' },
+              { src: '/assets/projects/dsquare-studio/screens/v3-m-ddd.webp', alt: 'Dsquare on a phone — the three Ds card stack', kind: 'mobile' },
+              { src: '/assets/projects/dsquare-studio/screens/v3-m-work.webp', alt: 'Dsquare on a phone — work', kind: 'mobile' },
+              { src: '/assets/projects/dsquare-studio/screens/v3-m-about.webp', alt: 'Dsquare on a phone — about', kind: 'mobile' },
+              { src: '/assets/projects/dsquare-studio/screens/v3-m-services.webp', alt: 'Dsquare on a phone — services', kind: 'mobile' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Reflection',
+        body: 'Designing for yourself is the hardest brief: there’s no one to say “that’s enough”. The rule that helped was to keep three memorable moments and make everything else quiet. Still to come: more finished case studies and the studio film.',
+      },
+    ],
     services: ['Brand Identity', 'Design System', 'UI / UX Design', 'Motion Design', 'Front-end Development'],
     challenge:
       'Show what the studio does without saying too much about it. A small studio’s site has to do the job of a pitch deck, a portfolio and a first conversation — and it has to prove “we design and we build” rather than just claim it.',
     approach:
-      'Make the site the portfolio piece. A two-square monogram for D², a calm palette with one loud orange, Geist for everything and mono labels for the details, sharp corners throughout. Then build it ourselves — a stone monogram that tilts toward the cursor, a video loader that splits open over the hero, sideways-scrolling sections, and small animations for every service — so the craft shows in the details.',
+      'Make the site the portfolio piece: a two-square monogram for D², a calm palette with one loud orange, sharp corners throughout — and three signature moments (the stone, the three Ds, the gallery) with everything else kept quiet.',
     outcome:
       'A complete identity and design system, and a fast React site that the studio runs on: projects and case studies come from one data file, the booking calendar is built in, and every page works from phone to desktop. New work goes live by editing content, not components.',
     featured: true,

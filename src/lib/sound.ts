@@ -9,8 +9,35 @@ let noise: AudioBuffer | null = null;
 /** Overall loudness of every UI sound (0–1). */
 const VOLUME = 0.5;
 
+/* ─── On / off, remembered between visits ─── */
+const SOUND_KEY = 'dsq-sound';
+// Off unless the visitor has turned it on
+let muted = (() => {
+  try {
+    return localStorage.getItem(SOUND_KEY) !== 'on';
+  } catch {
+    return true;
+  }
+})();
+const listeners = new Set<() => void>();
+
+export const isSoundOn = () => !muted;
+export function setSoundOn(on: boolean) {
+  muted = !on;
+  try {
+    localStorage.setItem(SOUND_KEY, on ? 'on' : 'off');
+  } catch {
+    /* storage unavailable — the choice lasts for this visit */
+  }
+  listeners.forEach((l) => l());
+}
+export function subscribeSound(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
 function audio(): AudioContext | null {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined' || muted) return null;
   if (!ctx) {
     const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!Ctx) return null;

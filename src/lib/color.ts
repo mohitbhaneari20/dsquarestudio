@@ -19,7 +19,29 @@ export function isLight(hex: string): boolean {
   return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.7;
 }
 
-/** The first colour in a project's palette that stays visible on the light page. */
-export function visibleOnLight(tone: { bg: string; ink: string; accent?: string }): string {
-  return [tone.bg, tone.accent, tone.ink].find((c): c is string => !!c && !isLight(c)) ?? tone.ink;
+function luminance([r, g, b]: [number, number, number]) {
+  const f = (v: number) => {
+    const x = v / 255;
+    return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+}
+
+/** WCAG contrast ratio between two hex colours. */
+export function contrast(a: string, b: string): number {
+  const [l1, l2] = [luminance(parseHex(a)), luminance(parseHex(b))].sort((x, y) => y - x);
+  return (l1! + 0.05) / (l2! + 0.05);
+}
+
+const toHex = (rgb: number[]) => '#' + rgb.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
+
+/**
+ * A project's palette colour that reads as small text on the light page: the first
+ * non-light colour, deepened step by step (same hue) until it reaches 4.5:1 on sand.
+ */
+export function visibleOnLight(tone: { bg: string; ink: string; accent?: string }, page = '#e6e1d8'): string {
+  const base = [tone.bg, tone.accent, tone.ink].find((c): c is string => !!c && !isLight(c)) ?? tone.ink;
+  let rgb = parseHex(base) as number[];
+  for (let i = 0; i < 30 && contrast(toHex(rgb), page) < 4.5; i++) rgb = rgb.map((v) => v * 0.94);
+  return toHex(rgb);
 }

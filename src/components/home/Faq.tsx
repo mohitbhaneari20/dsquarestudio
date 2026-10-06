@@ -43,7 +43,7 @@ export function Faq() {
                       size={22}
                       strokeWidth={1.5}
                       aria-hidden="true"
-                      className={cn('mt-1 shrink-0 transition-transform duration-300', isOpen && 'rotate-45 text-accent')}
+                      className={cn('mt-1 shrink-0 transition-transform duration-300', isOpen && 'rotate-45 text-accent-ink')}
                     />
                   </button>
                 </h3>

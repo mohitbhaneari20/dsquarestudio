@@ -32,6 +32,11 @@ export interface Tone {
   ink: string;
   /** Optional highlight colour (e.g. RAWSET's electric yellow) */
   accent?: string;
+  /**
+   * Backdrop for the case-study visuals. Set it when the project's own screens share the
+   * page colour (e.g. Dsquare's sand), so each one sits on a board instead of blending in.
+   */
+  stage?: string;
 }
 
 /** What an asset depicts — shown as a small annotation and used to pick its shape. */
@@ -95,6 +100,17 @@ export type GalleryBlock =
   /** One image or video, full width at its true proportions (no crop) — for design boards and clips */
   | { layout: 'board'; media: MediaAsset; ratio?: '16/10' | '16/9' | '4/3' };
 
+/**
+ * One chapter of a case study, told in order: a short label ('The problem'), an optional
+ * heading, a few lines of text and the visuals that belong to it.
+ */
+export interface Chapter {
+  label: string;
+  title?: string;
+  body?: string;
+  blocks?: GalleryBlock[];
+}
+
 export interface JournalEntry {
   id: string;
   /** e.g. 'The idea', 'Research', 'What changed' */
@@ -149,6 +165,8 @@ export interface Project {
   thumbnail: MediaAsset;
   heroImage: MediaAsset;
   gallery: GalleryBlock[];
+  /** Case study told as chapters (replaces the overview / problem / approach / result layout when set) */
+  chapters?: Chapter[];
   services: string[];
   challenge: string;
   approach: string;

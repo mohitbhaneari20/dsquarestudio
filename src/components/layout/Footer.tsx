@@ -3,9 +3,21 @@ import { Link } from 'react-router-dom';
 import { navigation, site } from '../../config/site';
 import { BrandMark, BrandWordmark } from '../brand/Brand';
 import { Reveal } from '../ui/Reveal';
+import { isSoundOn, setSoundOn, subscribeSound } from '../../lib/sound';
+import { useSyncExternalStore } from 'react';
 
 // Gallery is linked from the footer only, not the main navigation
 const footerNav = [...navigation, { label: 'Gallery', to: '/gallery' }, { label: 'Contact', to: '/contact' }];
+
+/** Turns the click and typing sounds on or off (off by default, remembered). */
+function SoundToggle() {
+  const on = useSyncExternalStore(subscribeSound, isSoundOn, () => false);
+  return (
+    <button type="button" onClick={() => setSoundOn(!on)} aria-pressed={on} className="link-underline uppercase hover:text-foreground">
+      Sound: {on ? 'On' : 'Off'}
+    </button>
+  );
+}
 
 export function Footer() {
   return (
@@ -13,8 +25,12 @@ export function Footer() {
       <div className="container-site">
         <div className="grid-site gap-y-12">
           <Reveal className="col-span-12 md:col-span-6 lg:col-span-5">
-            <p className="text-h3 max-w-md">
-              Have an idea? <br />
+            <p className="text-h3 max-w-md">Have a problem worth designing?</p>
+            <Link to="/contact" className="group mt-6 inline-flex items-center gap-2 text-lg font-medium text-accent-ink">
+              Start a project
+              <ArrowUpRight size={20} strokeWidth={1.75} aria-hidden="true" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+            <p className="mt-4">
               <a href={`mailto:${site.email}`} className="link-underline text-muted transition-colors hover:text-foreground">
                 {site.email}
               </a>
@@ -67,7 +83,7 @@ export function Footer() {
 
         <div className="mt-20 flex items-end justify-between border-t border-border pt-6 md:mt-28">
           <p className="text-meta flex items-center gap-3 text-muted">
-            <BrandMark title={null} className="size-8 text-accent" />
+            <BrandMark title={null} className="size-8 text-accent-ink" />
             {site.tagline}
           </p>
           <a href="#top" className="text-meta inline-flex items-center gap-1.5 text-muted transition-colors hover:text-foreground">
@@ -76,14 +92,17 @@ export function Footer() {
         </div>
         {/* Oversized brand wordmark, exactly the container width */}
         <Reveal y={60}>
-          <BrandWordmark title={null} className="mt-6 block h-auto w-full text-accent" />
+          <BrandWordmark title={null} className="mt-6 block h-auto w-full text-accent-ink" />
         </Reveal>
       </div>
 
       <div className="relative z-10 border-t border-border bg-background">
         <div className="container-site text-meta flex flex-col gap-2 py-5 text-muted sm:flex-row sm:justify-between">
           <span>© {site.year} {site.name}</span>
-          <span>Made with curiosity + too many iterations.</span>
+          <span className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <SoundToggle />
+            <span>Made with curiosity + too many iterations.</span>
+          </span>
         </div>
       </div>
     </footer>

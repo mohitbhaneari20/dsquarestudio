@@ -15,7 +15,7 @@ export interface ClientLogo {
 }
 
 /**
- * "Trusted by" strip. Only list brands you have actually worked with.
+ * "Brands we've built" strip on the homepage. Only real brands Dsquare has made or worked on.
  * Add a logo as a transparent PNG / WebP / SVG in /public/assets/clients/.
  */
 export const clients: ClientLogo[] = [

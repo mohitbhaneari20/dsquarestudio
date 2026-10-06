@@ -6,16 +6,27 @@ import { cn } from '../../lib/cn';
 import { MARK_PATHS } from '../brand/paths';
 import { useReduceMotion } from '../../lib/motionPreference';
 
-/** A muted looping clip that only downloads and plays while it's on screen. */
+/**
+ * A muted looping clip. It starts loading just before it scrolls into view, and plays
+ * from the beginning each time it comes on screen, so you always see it start.
+ */
 function InViewVideo({ className, media, still }: { className: string; media: MediaAsset; still: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
-  const inView = useInView(ref, { margin: '200px 0px' });
+  const near = useInView(ref, { margin: '200px 0px' });
+  const visible = useInView(ref, { amount: 0.5 });
   useEffect(() => {
     const v = ref.current;
     if (!v || still) return;
-    if (inView) v.play().catch(() => {});
-    else v.pause();
-  }, [inView, still]);
+    if (near && v.preload === 'none') v.preload = 'auto';
+  }, [near, still]);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || still) return;
+    if (visible) {
+      v.currentTime = 0;
+      v.play().catch(() => {});
+    } else v.pause();
+  }, [visible, still]);
   return (
     <video
       ref={ref}

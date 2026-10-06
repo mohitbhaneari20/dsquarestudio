@@ -17,27 +17,59 @@ const OPEN_EASE = [0.76, 0, 0.24, 1] as const;
 /** Hard cap for the whole loader, whatever happens. */
 const MAX_MS = 6000;
 
+const SEEN_KEY = 'dsq-intro-seen';
+
+/**
+ * The intro is the homepage's opening: it plays when a visit starts on the homepage,
+ * once per browsing session. Deep links and later visits open the page straight away.
+ * (index.html makes the same decision before first paint.)
+ */
+function decideIntro(): boolean {
+  if (typeof window === 'undefined' || window.location.pathname !== '/') return false;
+  try {
+    if (sessionStorage.getItem(SEEN_KEY)) return false;
+    sessionStorage.setItem(SEEN_KEY, '1');
+  } catch {
+    /* storage blocked — play it, it's still skippable */
+  }
+  return true;
+}
+// Decided once per page load (not per render — React may render twice in development)
+const PLAY_INTRO = decideIntro();
+const shouldPlayIntro = () => PLAY_INTRO;
+
 /** Resolves when fonts and the window have loaded (so the layout is final). */
 function pageReady(): Promise<void> {
   const loaded =
     document.readyState === 'complete' ? Promise.resolve() : new Promise<void>((r) => window.addEventListener('load', () => r(), { once: true }));
-  const fonts = document.fonts?.ready.then(() => undefined) ?? Promise.resolve();
+  // The font stylesheet loads asynchronously (index.html) — wait for it, then for the fonts themselves
+  const sheet = document.querySelector<HTMLLinkElement>('link[as="style"][href*="fonts.googleapis"]');
+  const sheetLoaded =
+    sheet && sheet.rel === 'preload'
+      ? new Promise<void>((r) => {
+          sheet.addEventListener('load', () => r(), { once: true });
+          sheet.addEventListener('error', () => r(), { once: true });
+          window.setTimeout(r, 3000);
+        })
+      : Promise.resolve();
+  const fonts = sheetLoaded.then(() => document.fonts?.ready).then(() => undefined);
   return Promise.all([loaded, fonts]).then(() => undefined);
 }
 
 /**
- * Full-screen intro that plays the Dsquare loader video on every full page load
- * (first visit and each refresh; in-app navigation doesn't remount it).
+ * Full-screen intro that plays the Dsquare loader video when a visit starts on the
+ * homepage — once per browsing session (in-app navigation never shows it).
  * When the video reaches VIDEO_END_S (just before its own off-white wipe) and the
  * page is ready, the orange splits open from the middle — the left half slides left,
  * the right half slides right — revealing the hero inside the opening. If the video
- * can't play it is skipped; with reduced motion there is no loader at all.
+ * can't play it is skipped; with reduced motion there is no loader at all. Any click, tap,
+ * key, scroll or swipe skips straight to the reveal, so nobody is held by the intro.
  * `useIntroDone()` flips to true as the opening starts, so the hero rises in through it.
  */
 export function LoadingScreen({ children }: { children: ReactNode }) {
   const reduce = !!useReduceMotion();
   // playing → opening (halves slide apart over the hero) → gone
-  const [phase, setPhase] = useState<'playing' | 'opening' | 'gone'>(() => (reduce ? 'gone' : 'playing'));
+  const [phase, setPhase] = useState<'playing' | 'opening' | 'gone'>(() => (reduce || !shouldPlayIntro() ? 'gone' : 'playing'));
   const videoRef = useRef<HTMLVideoElement>(null);
   const playing = phase === 'playing';
   const active = phase !== 'gone';
@@ -47,7 +79,11 @@ export function LoadingScreen({ children }: { children: ReactNode }) {
   // means the strip on the right never flashes sand or a scrollbar mid-reveal.
   // (index.html adds the class before first paint.)
   useEffect(() => {
-    if (!active) return;
+    if (!active) {
+      // Safety net: never leave the page painted loader-orange
+      document.documentElement.classList.remove('intro-pending');
+      return;
+    }
     // Start at the top so the hero is in its scroll-0 state when revealed
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     scrollToTop();
@@ -63,11 +99,21 @@ export function LoadingScreen({ children }: { children: ReactNode }) {
     if (!playing) return;
     let cancelled = false;
     const timers: number[] = [];
+    const skipCleanups: Array<() => void> = [];
 
     const video = videoRef.current;
     let frame = 0;
     const videoDone = new Promise<void>((resolve) => {
       if (!video) return resolve();
+      // Any click, tap, key, scroll or swipe skips the rest of the intro
+      const skip = () => {
+        video.pause();
+        resolve();
+      };
+      for (const type of ['pointerdown', 'keydown', 'wheel', 'touchmove'] as const) {
+        window.addEventListener(type, skip, { once: true, passive: true });
+        skipCleanups.push(() => window.removeEventListener(type, skip));
+      }
       // Watch the playhead every frame and cut at VIDEO_END_S
       const watch = () => {
         if (video.currentTime >= VIDEO_END_S) {
@@ -92,6 +138,7 @@ export function LoadingScreen({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
       timers.forEach(clearTimeout);
+      skipCleanups.forEach((off) => off());
       cancelAnimationFrame(frame);
     };
   }, [playing]);

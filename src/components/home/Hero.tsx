@@ -61,9 +61,12 @@ export function Hero() {
 
           <div className="relative z-10 grid-site items-end gap-y-8">
             <div className="col-span-12 md:col-span-5 lg:col-span-4">
-              <motion.p {...enter(2)} className="text-lg leading-snug text-muted md:text-xl">
-                We design and build brands, websites and digital products that make sense — and actually work.
-              </motion.p>
+              <motion.div {...enter(2)}>
+                <p className="text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-[1.1] tracking-[-0.03em]">Good design should do more than look good.</p>
+                <p className="mt-4 text-base leading-snug text-muted md:text-lg">
+                  Dsquare is an independent design + development studio creating brands, digital products and experiences that solve real problems.
+                </p>
+              </motion.div>
               <motion.div {...enter(3, 16)}>
                 <ButtonLink to="/contact" className="mt-6">
                   Start a project
@@ -83,7 +86,7 @@ export function Hero() {
                       <Link to={`/ongoing/${p.slug}`} className="link-underline text-sm">
                         {p.title}
                       </Link>
-                      <span className="font-mono text-[10px] text-muted">{p.ongoing.progress}%</span>
+                      <span className="font-mono text-[11px] text-muted">{p.ongoing.progress}%</span>
                     </li>
                   ))}
                 </ul>

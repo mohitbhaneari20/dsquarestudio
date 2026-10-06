@@ -84,7 +84,7 @@ export default function OngoingDetail() {
                   ))}
                   <li>
                     <a href="#status" className="inline-flex gap-3 text-sm text-muted transition-colors hover:text-foreground">
-                      <span className="font-mono text-[11px] text-accent">●</span>
+                      <span className="font-mono text-[11px] text-accent-ink">●</span>
                       <span className="link-underline">Current status</span>
                     </a>
                   </li>

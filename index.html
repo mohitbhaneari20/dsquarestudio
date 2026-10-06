@@ -20,7 +20,14 @@
 
     <!-- The loader plays on every load, so paint its orange right away (no flash) -->
     <script>
-      document.documentElement.classList.add('intro-pending');
+      // (No loader for visitors who prefer reduced motion, so no orange either)
+      // The intro only opens a visit that starts on the homepage, once per session (see LoadingScreen)
+      try {
+        var choice = localStorage.getItem('dsq-motion');
+        var motionOff = choice ? choice === 'off' : matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (location.pathname === '/' && !sessionStorage.getItem('dsq-intro-seen') && !motionOff)
+          document.documentElement.classList.add('intro-pending');
+      } catch (e) {}
     </script>
     <style>
       /* Only the root (it paints the canvas + scrollbar gutter); the page itself keeps its own colour */
@@ -28,10 +35,16 @@
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without blocking the first paint (the loader covers the swap) -->
     <link
-      rel="stylesheet"
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" />
+    </noscript>
   </head>
   <body style="background:#e6e1d8">
     <div id="root"></div>

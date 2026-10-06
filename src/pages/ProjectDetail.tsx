@@ -78,6 +78,45 @@ export default function ProjectDetail() {
           meta={meta}
         />
 
+        {project.chapters ? (
+          <>
+            {project.chapters.map((ch, i) => (
+              <section key={ch.label} aria-labelledby={`chapter-${i}`}>
+                <div className="container-site section-space grid-site">
+                  <div className="col-span-12 lg:col-span-8 lg:col-start-5">
+                    <Reveal>
+                      <h2 id={`chapter-${i}`} className="text-meta flex gap-3 border-t border-border pt-4 text-muted">
+                        <span style={{ color: colour }}>{pad(i + 1)}</span>
+                        <span>{ch.label}</span>
+                      </h2>
+                      {ch.title && <p className="text-h3 mt-6">{ch.title}</p>}
+                      {ch.body && <p className={ch.title ? 'text-lead mt-6 max-w-2xl text-muted' : 'text-lead mt-6 max-w-2xl'}>{ch.body}</p>}
+                    </Reveal>
+                    {i === 0 && project.credit && (
+                      <Reveal delay={0.1}>
+                        <p className="mt-8 max-w-2xl border-l-2 pl-5 text-muted" style={{ borderColor: colour }}>
+                          {project.credit.note}
+                        </p>
+                      </Reveal>
+                    )}
+                    {i === project.chapters!.length - 1 && (
+                      <Reveal delay={0.1}>
+                        {project.website && (
+                          <a href={project.website} target="_blank" rel="noreferrer" className="link-underline mt-8 inline-block text-base">
+                            Visit the website ↗
+                          </a>
+                        )}
+                        <RelatedServices categories={project.categories} className="mt-8 text-base" />
+                      </Reveal>
+                    )}
+                  </div>
+                </div>
+                {ch.blocks && ch.blocks.length > 0 && <ProjectGallery blocks={ch.blocks} {...galleryProps} />}
+              </section>
+            ))}
+          </>
+        ) : (
+          <>
         <div className="container-site section-space grid-site">
           <div className="col-span-12 lg:col-span-8 lg:col-start-5">
             <Note index="01" label="Overview" colour={colour} size="h3">
@@ -125,11 +164,13 @@ export default function ProjectDetail() {
         </div>
 
         {last && <ProjectGallery blocks={[last]} {...galleryProps} />}
+          </>
+        )}
 
         {project.testimonial && (
           <div className="container-site section-space pb-0! grid-site">
             <div className="col-span-12 md:col-span-8 md:col-start-3">
-              <Note index="05" label="In their words" colour={colour}>
+              <Note index={pad((project.chapters?.length ?? 4) + 1)} label="In their words" colour={colour}>
                 <TestimonialCard t={project.testimonial} large />
               </Note>
             </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import type { Project } from '../../data/types';
 import { ImageReveal } from '../ui/ImageReveal';
 import { ProjectVisual } from '../ui/ProjectVisual';
+import { cn } from '../../lib/cn';
 import { Reveal } from '../ui/Reveal';
 import { TextReveal } from '../ui/TextReveal';
 import { ProjectMeta, type MetaItem } from './ProjectMeta';
@@ -55,12 +56,16 @@ export function ProjectHero({ project, eyebrow, back, meta, children }: ProjectH
       </div>
 
       <ImageReveal className="mt-12 md:mt-20">
+        {/* Phones get the 4:3 cover rather than the wide hero cropped to its middle */}
+        {!project.pageCover && project.thumbnail.src && (
+          <ProjectVisual media={project.thumbnail} tone={project.tone} label={project.title} slug={project.slug} className="aspect-[4/3] rounded-sm md:hidden" />
+        )}
         <ProjectVisual
           media={project.pageCover ?? project.heroImage}
           tone={project.tone}
           label={project.title}
           slug={project.slug}
-          className="aspect-[4/5] rounded-sm md:aspect-[16/8]"
+          className={cn('aspect-[4/5] rounded-sm md:aspect-[16/8]', !project.pageCover && project.thumbnail.src && 'max-md:hidden')}
           priority
         />
       </ImageReveal>
