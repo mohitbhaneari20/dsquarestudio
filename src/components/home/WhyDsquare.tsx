@@ -33,15 +33,18 @@ export function WhyDsquare() {
         </div>
       </div>
 
-      <ul className="mt-16 grid gap-x-[var(--grid-gap)] gap-y-14 sm:grid-cols-2 md:mt-24 xl:grid-cols-4">
-        {reasons.map((r, i) => (
-          <Reveal as="li" key={r.title} delay={i * 0.06} className="border-t border-foreground/80 pt-5">
-            <span className="font-mono text-[11px] text-muted">0{i + 1}</span>
-            <h3 className="mt-10 text-2xl font-medium leading-tight tracking-[-0.03em]">{r.title}</h3>
-            <p className="mt-4 text-muted">{r.body}</p>
-          </Reveal>
-        ))}
-      </ul>
+      {/* The points sit in the heading's columns, so they read as part of it */}
+      <div className="grid-site mt-16 md:mt-24">
+        <ul className="col-span-12 grid gap-x-[var(--grid-gap)] gap-y-14 sm:grid-cols-2 md:col-span-9 md:col-start-4">
+          {reasons.map((r, i) => (
+            <Reveal as="li" key={r.title} delay={i * 0.06} className="border-t border-foreground/80 pt-5">
+              <span className="font-mono text-[11px] text-muted">0{i + 1}</span>
+              <h3 className="mt-10 text-2xl font-medium leading-tight tracking-[-0.03em]">{r.title}</h3>
+              <p className="mt-4 text-muted">{r.body}</p>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

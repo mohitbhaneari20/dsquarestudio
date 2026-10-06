@@ -26,13 +26,14 @@ export default function Studio() {
               alt="Mohit Bhandari, founder of Dsquare Studio"
               width={1022}
               height={1035}
-              className="mx-auto block h-auto max-h-[78svh] w-auto max-w-full object-contain object-bottom md:ml-auto md:mr-0"
+              className="ml-auto mr-0 block h-auto max-h-[78svh] w-auto max-w-[84%] object-contain object-bottom md:max-w-full"
               loading="eager"
               decoding="async"
             />
-            <div className="mt-4 lg:absolute lg:left-0 lg:top-[12%] lg:mt-0">
-              <p className="text-xl font-medium leading-tight tracking-tight">Mohit Bhandari</p>
-              <p className="text-meta mt-1.5 text-muted">Design partner</p>
+            {/* Beside the face on every screen, smaller on phones so it stays clear of the portrait */}
+            <div className="absolute left-0 top-[12%]">
+              <p className="text-base font-medium leading-tight tracking-tight lg:text-xl">Mohit Bhandari</p>
+              <p className="text-meta mt-1 text-muted md:mt-1.5">Design partner</p>
             </div>
           </Reveal>
 
@@ -90,10 +91,13 @@ export default function Studio() {
         </div>
       </section>
 
-      {/* Why — more room above, then a video that grows to full screen as you scroll */}
-      <section className="container-site pt-[var(--section-space)]">
+      {/* Process: heading and the five steps, pinned together while the cards scroll sideways */}
+      <ProcessCards header={<SectionHeader index="03" eyebrow="How we work" title={['Five steps,', 'repeated as needed.']} />} />
+
+      {/* Why — then a video that grows to full screen as you scroll */}
+      <section className="container-site">
         <div className="grid-site gap-y-8 border-t border-border pt-4">
-          <p className="text-meta col-span-12 text-muted lg:col-span-3 lg:tag-top-h2">(03) Why Dsquare exists</p>
+          <p className="text-meta col-span-12 text-muted lg:col-span-3 lg:tag-top-h2">(04) Why Dsquare exists</p>
           <div className="col-span-12 lg:col-span-9">
             <TextReveal
               lines={['To help businesses and ideas', 'communicate better through', 'design and technology.']}
@@ -109,9 +113,6 @@ export default function Studio() {
       </section>
       {/* The studio film grows to full screen as you scroll; a placeholder until STUDIO_VIDEO is set */}
       <ExpandingVideo src={STUDIO_VIDEO} label="Why Dsquare exists — video" gapBelow={0} />
-
-      {/* Process: heading and the five steps, pinned together while the cards scroll sideways */}
-      <ProcessCards header={<SectionHeader index="04" eyebrow="How we work" title={['Five steps,', 'repeated as needed.']} />} />
 
       <CTA />
     </>

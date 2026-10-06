@@ -26,10 +26,6 @@ function List({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-/** What sits on each side of D × D — all drawn from the services below. */
-const DESIGN_SIDE = ['Brand identity', 'Design systems', 'UI / UX', 'Web design', 'Motion & graphics'];
-const DEVELOPMENT_SIDE = ['Websites in code', 'No-code (Webflow, Framer)', 'Digital products', 'Design systems in code', 'Launch & handover'];
-
 export default function Services() {
   useHashScroll();
 
@@ -37,49 +33,25 @@ export default function Services() {
     <>
       <Seo />
       <div className="container-site pt-32 md:pt-44">
-        <SectionHeader
-          as="h1"
-          eyebrow="Services"
-          title={['What we can', 'build together.']}
-          intro="Five things we do well. Most projects mix a few of them."
-        />
+        <SectionHeader as="h1" eyebrow="Services" title={['What we can', 'build together.']} intro="Five things we do well. Most projects mix a few of them." />
 
-        <nav aria-label="Services" className="mt-16 md:mt-24">
-          <ol className="grid grid-cols-1 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => (
-              <li key={s.slug} className="border-b border-border">
-                <a href={`#${s.slug}`} className="group flex items-baseline gap-4 py-4 pr-4">
-                  <span className="text-meta text-muted">{pad(i + 1)}</span>
-                  <span className="link-underline text-lg tracking-tight">{s.title}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-
-        {/* Design and Development: the two halves, and why they belong together */}
-        <section aria-labelledby="dxd-title" className="mt-[var(--section-space)] border-t border-foreground pt-8">
-          <h2 id="dxd-title" className="text-h3 max-w-2xl">We don’t hand designs over the wall.</h2>
-          <p className="mt-4 max-w-xl text-muted">The same studio designs it and builds it, so decisions made in one half are tested in the other.</p>
-          <div className="mt-12 grid items-start gap-y-10 md:grid-cols-2 md:gap-x-12">
-            <div>
-              <p className="text-condensed text-[clamp(2.5rem,5vw,4.5rem)] uppercase leading-none">Design</p>
-              <ul className="mt-6 space-y-2 border-t border-border pt-5 text-lg tracking-tight">
-                {DESIGN_SIDE.map((x) => (
-                  <li key={x}>{x}</li>
+        {/* The list sits in the heading's columns, so it reads as part of it */}
+        <div className="grid-site">
+          <div className="col-span-12 lg:col-span-9 lg:col-start-4">
+            <nav aria-label="Services" className="mt-16 md:mt-24">
+              <ol className="grid grid-cols-1 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+                {services.map((s, i) => (
+                  <li key={s.slug} className="border-b border-border">
+                    <a href={`#${s.slug}`} className="group flex items-baseline gap-4 py-4 pr-4">
+                      <span className="text-meta text-muted">{pad(i + 1)}</span>
+                      <span className="link-underline text-lg tracking-tight">{s.title}</span>
+                    </a>
+                  </li>
                 ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-condensed text-[clamp(2.5rem,5vw,4.5rem)] uppercase leading-none">Development</p>
-              <ul className="mt-6 space-y-2 border-t border-border pt-5 text-lg tracking-tight">
-                {DEVELOPMENT_SIDE.map((x) => (
-                  <li key={x}>{x}</li>
-                ))}
-              </ul>
-            </div>
+              </ol>
+            </nav>
           </div>
-        </section>
+        </div>
       </div>
 
       <div className="container-site section-space space-y-[calc(var(--section-space)*2)]">

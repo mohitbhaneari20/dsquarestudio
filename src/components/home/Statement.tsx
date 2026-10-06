@@ -28,7 +28,7 @@ const disciplines: Array<{ title: string; headline: string; body: string; image?
     headline: 'Ship it, then keep improving.',
     body: 'Launch is a checkpoint. We test, adjust and keep the work moving after it goes live.',
     video: '/assets/home/deploy.mp4',
-    tone: 'bg-black-soft text-[#fafafa]',
+    tone: 'bg-black-soft text-[#fafafa] ring-1 ring-inset ring-white/15',
   },
 ];
 
@@ -141,7 +141,7 @@ function DisciplineCards() {
   const reduce = useReduceMotion();
   if (reduce) {
     return (
-      <section className="relative z-10 py-[var(--section-space)]" aria-label="Design, develop, deploy">
+      <section className="theme-inverse relative z-10 py-[var(--section-space)]" aria-label="Design, develop, deploy">
         <div className="container-site">
           <Heading />
           <ul className="mt-12 grid gap-[var(--grid-gap)] md:grid-cols-3">
@@ -168,7 +168,7 @@ function PinnedDisciplines() {
   const headOpacity = useTransform(scrollYProgress, [0.02, 0.2], [1, 0.4]);
 
   return (
-    <section ref={ref} className="relative z-10 h-[420svh]" aria-label="Design, develop, deploy">
+    <section ref={ref} className="theme-inverse relative z-10 h-[420svh]" aria-label="Design, develop, deploy">
       <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden pt-[var(--nav-height)]">
         <motion.div className="container-site will-change-[filter,transform]" style={{ scale: headScale, filter: headBlur, opacity: headOpacity }}>
           <Heading />

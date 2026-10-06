@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ImageIcon } from 'lucide-react';
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { processSteps, type ProcessStep } from '../../data/services';
 import { pad } from '../../lib/format';
+import { StepArt } from './StepArt';
 
 function Card({ step, index }: { step: ProcessStep; index: number }) {
   return (
@@ -14,14 +14,8 @@ function Card({ step, index }: { step: ProcessStep; index: number }) {
           {pad(index + 1)} / {pad(processSteps.length)}
         </span>
       </div>
-      {/* Image placeholder until each step has its picture */}
-      <div
-        className="flex aspect-[4/3] max-h-[44svh] w-full flex-col items-center justify-center gap-3 border-b border-border bg-sand text-muted"
-        role="img"
-        aria-label={`${step.title} — image placeholder`}
-      >
-        <ImageIcon size={28} strokeWidth={1.5} aria-hidden="true" />
-        <span className="text-meta">Image placeholder</span>
+      <div className="aspect-[4/3] max-h-[44svh] w-full overflow-hidden border-b border-border bg-black">
+        <StepArt index={index} />
       </div>
       <p className="px-5 pb-6 pt-5 text-muted">{step.body}</p>
     </article>
