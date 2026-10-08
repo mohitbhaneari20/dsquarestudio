@@ -9,7 +9,7 @@ import { CTA } from '../components/ui/CTA';
 import { Reveal } from '../components/ui/Reveal';
 import { Seo } from '../components/ui/Seo';
 import { completedProjects, getNeighbours, getProject, projectNumber } from '../data/projects';
-import type { Tone } from '../data/types';
+import type { Project, Tone } from '../data/types';
 import { visibleOnLight } from '../lib/color';
 import { pad } from '../lib/format';
 import NotFound from './NotFound';
@@ -22,6 +22,32 @@ function Palette({ tone }: { tone: Tone }) {
         <span key={c} className="size-4 rounded-full border border-border" style={{ backgroundColor: c }} title={c} />
       ))}
     </span>
+  );
+}
+
+/** Measured results, before → after. */
+function Results({ items, note, colour }: { items: NonNullable<Project['results']>; note?: string; colour: string }) {
+  return (
+    <div className="mt-12">
+      <ul className="grid gap-x-[var(--grid-gap)] gap-y-8 border-t border-border pt-8 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((r) => (
+          <li key={r.label}>
+            <p className="text-meta text-muted">{r.label}</p>
+            <p className="mt-3 flex items-baseline gap-3">
+              <span className="text-lg text-muted">{r.before}</span>
+              <span aria-hidden="true" className="text-lg text-muted">→</span>
+              <span className="text-h3">{r.after}</span>
+            </p>
+            {r.change && (
+              <p className="text-meta mt-2" style={{ color: colour }}>
+                {r.change}
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+      {note && <p className="text-meta mt-6 text-muted">{note}</p>}
+    </div>
   );
 }
 
@@ -101,6 +127,7 @@ export default function ProjectDetail() {
                     )}
                     {i === project.chapters!.length - 1 && (
                       <Reveal delay={0.1}>
+                        {project.results && <Results items={project.results} note={project.resultsNote} colour={colour} />}
                         {project.website && (
                           <a href={project.website} target="_blank" rel="noreferrer" className="link-underline mt-8 inline-block text-base">
                             Visit the website ↗
@@ -153,6 +180,7 @@ export default function ProjectDetail() {
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <Note index="04" label="The result" colour={colour} size="h3">
               <p>{project.outcome}</p>
+              {project.results && <Results items={project.results} note={project.resultsNote} colour={colour} />}
               {project.website && (
                 <a href={project.website} target="_blank" rel="noreferrer" className="link-underline mt-6 inline-block text-base">
                   Visit the website ↗

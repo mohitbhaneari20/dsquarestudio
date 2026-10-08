@@ -642,16 +642,16 @@ const allProjects: Project[] = [
       note: 'Made during my time as Senior UI Designer at One Metric. The visual design and design system are my work; content, strategy and design decisions were shaped together with the agency team and the Whistle team. Shown here with thanks — Whistle is their client, not Dsquare’s.',
     },
     tone: { bg: '#4A19E4', ink: '#FFFFFF', accent: '#140F3A' },
-    thumbnail: { src: '/assets/projects/whistle/cover.webp', alt: 'Whistle website — homepage on desktop and mobile', kind: 'desktop' },
+    thumbnail: { src: '/assets/projects/whistle/cover.webp', alt: 'Whistle website homepage on a laptop', kind: 'desktop' },
     heroImage: { src: '/assets/projects/whistle/hero.webp', alt: 'Whistle website — homepage, About and mobile screens', kind: 'hero' },
     gallery: [
-      { layout: 'browser', url: '/', media: { src: '/assets/projects/whistle/screens/d-home-hero.webp', alt: 'Whistle homepage — “More Meetings” hero with proof cards', kind: 'desktop' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/hire-sdrs-monitor.webp', alt: 'Whistle Hire SDRs page — “Scale your SDR Team 3X Faster” — on a desktop monitor', kind: 'desktop' } },
       { layout: 'board', media: { src: '/assets/projects/whistle/boards/logo.webp', alt: 'Whistle logo on white, violet and midnight', kind: 'logo' } },
       { layout: 'board', media: { src: '/assets/projects/whistle/boards/colour.webp', alt: 'Whistle colour palette — violet, midnight, periwinkle, lilac, paper and white', kind: 'moodboard' } },
       { layout: 'board', media: { src: '/assets/projects/whistle/boards/type.webp', alt: 'Whistle typography — Poppins headings, DM Sans body', kind: 'typography' } },
       { layout: 'statement', text: 'Every scroll answers one question: can they actually get us meetings?' },
-      { layout: 'browser', url: '/', media: { src: '/assets/projects/whistle/screens/d-home-sdr.webp', alt: 'Homepage — No SDR function? and vetted SDR talent', kind: 'desktop' } },
-      { layout: 'browser', url: '/', media: { src: '/assets/projects/whistle/screens/d-home-trust.webp', alt: 'Homepage — client stories and review ratings', kind: 'desktop' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/vetted-sdrs-tablet.webp', alt: '“Struggling to find quality SDRs?” — vetted SDR talent with their results, on a tablet', kind: 'desktop' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/reviews-laptop.webp', alt: 'Homepage — client stories and review ratings, on a laptop', kind: 'desktop' } },
       { layout: 'board', media: { src: '/assets/projects/whistle/boards/ui.webp', alt: 'Whistle components — buttons, stat chips, SDR cards, reviews, case-study card and FAQ', kind: 'mockup' } },
       {
         layout: 'phones',
@@ -666,9 +666,7 @@ const allProjects: Project[] = [
       },
       { layout: 'statement', text: 'One system, every page: home, about, services, team, blog.' },
       { layout: 'browser', url: '/about', media: { src: '/assets/projects/whistle/screens/d-about.webp', alt: 'About — the founders and trusted-by logos', kind: 'desktop' } },
-      { layout: 'browser', url: '/outsourced-sdr', media: { src: '/assets/projects/whistle/screens/d-service.webp', alt: 'Service page — Outsourced SDR', kind: 'desktop' } },
-      { layout: 'browser', url: '/our-experts', media: { src: '/assets/projects/whistle/screens/d-experts.webp', alt: 'Our experts', kind: 'desktop' } },
-      { layout: 'browser', url: '/blog', media: { src: '/assets/projects/whistle/screens/d-blog.webp', alt: 'Blog', kind: 'desktop' } },
+      { layout: 'board', media: { src: '/assets/projects/whistle/case-studies-laptop.webp', alt: 'Client results by industry — “Proven success with companies in your industry”, on a laptop', kind: 'desktop' } },
       { layout: 'browser', url: '/book-a-meeting', media: { src: '/assets/projects/whistle/screens/d-book.webp', alt: 'Book a meeting', kind: 'desktop' } },
     ],
     services: ['UI Design', 'Design System', 'Responsive Web Design', 'Component Library'],
@@ -677,7 +675,15 @@ const allProjects: Project[] = [
     approach:
       'Calm first, loud where it counts. A warm off-white page, midnight headings in Poppins and readable DM Sans body text, with Whistle violet saved for buttons and key words — so the next step is always obvious. Proof sits in every section: real people, numbers on glassy stat chips, client words and review ratings. Underneath, a small component set — buttons, stat chips, SDR cards, reviews, case-study cards, FAQ rows — builds every page type the same way.',
     outcome:
-      'A consistent, responsive website across the homepage, about, services, team, blog and booking pages, all running on one design system the team can keep extending. The site is live at whistle.ltd.',
+      'One responsive website — home, about, services, team, blog and booking — on a design system the team keeps extending. After launch, Whistle’s search presence more than doubled.',
+    results: [
+      { label: 'Monthly search impressions', before: '55K', after: '121K', change: '+120%' },
+      { label: 'Ranking keywords', before: '129', after: '410', change: '+217%' },
+      { label: 'Monthly organic clicks', before: '306', after: '643', change: '+110%' },
+      { label: 'Average Google position', before: '15.6', after: '10.6', change: '5 places higher' },
+      { label: 'Monthly AI / LLM citations', before: '1,323', after: '2,450', change: '+85%' },
+    ],
+    resultsNote: 'Search performance after launch, measured before → after.',
     website: 'https://www.whistle.ltd/',
     testimonial: {
       quote:

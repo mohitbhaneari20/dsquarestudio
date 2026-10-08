@@ -11,7 +11,6 @@ import { DSquareLoader } from '../components/ui/DSquareLoader';
 import { CustomCursor } from '../components/ui/CustomCursor';
 import { SoundEffects } from '../components/ui/SoundEffects';
 import { MotionToggle } from '../components/ui/MotionToggle';
-import { PageStickers } from '../components/ui/Stickers';
 import { useReduceMotion } from '../lib/motionPreference';
 import { scrollToTop, startSmoothScroll, stopSmoothScroll } from '../lib/smoothScroll';
 
@@ -53,15 +52,11 @@ export function RootLayout() {
       <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
         <PageTransition key={pathname}>
           {/* Content sits above the fixed grid lines */}
-          <div className="relative">
-            <main id="main" tabIndex={-1} className="min-h-[70vh] outline-none">
-              <Suspense fallback={<DSquareLoader />}>
-                <AnimatedOutlet />
-              </Suspense>
-            </main>
-            {/* Two brand stickers per page, stuck over the edges */}
-            <PageStickers />
-          </div>
+          <main id="main" tabIndex={-1} className="min-h-[70vh] outline-none">
+            <Suspense fallback={<DSquareLoader />}>
+              <AnimatedOutlet />
+            </Suspense>
+          </main>
           <Footer />
         </PageTransition>
       </AnimatePresence>

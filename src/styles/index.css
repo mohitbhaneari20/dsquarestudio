@@ -371,11 +371,10 @@ html.reduce-motion *::after {
 }
 
 /* Sharp, no curves: overrides every rounded-* utility and inline radius (cards, buttons,
-   pills, dots, images, frames). Drawn shapes inside SVGs are unaffected.
-   Stickers are the one exception — they're die-cut, so they keep their curves. */
-*:not(.sticker, .sticker *),
-*:not(.sticker *)::before,
-*:not(.sticker *)::after {
+   pills, dots, images, frames). Drawn shapes inside SVGs are unaffected. */
+*,
+*::before,
+*::after {
   border-radius: 0 !important;
 }
 

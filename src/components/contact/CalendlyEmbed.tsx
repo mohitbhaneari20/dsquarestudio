@@ -81,7 +81,6 @@ export function CalendlyEmbed() {
     // Sits against the right edge of its column
     <div className="flex flex-col items-end">
       <div
-        data-no-sticker
         ref={ref}
         // Calendly's free plan ignores the colour settings above, so the frame is re-tinted here:
         // its blue turns to the brand orange and its white warms slightly. Neutrals stay as they are.

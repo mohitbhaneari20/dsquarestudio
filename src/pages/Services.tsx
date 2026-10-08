@@ -1,10 +1,11 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CTA } from '../components/ui/CTA';
 import { ImageReveal } from '../components/ui/ImageReveal';
 import { ServiceMotion } from '../components/services/ServiceMotion';
 import { Reveal } from '../components/ui/Reveal';
-import { SectionHeader } from '../components/ui/SectionHeader';
+import { SquareBullet } from '../components/ui/SquareBullet';
+import { TextReveal } from '../components/ui/TextReveal';
 import { Seo } from '../components/ui/Seo';
 import { getProject, projectHref } from '../data/projects';
 import { services } from '../data/services';
@@ -32,27 +33,39 @@ export default function Services() {
   return (
     <>
       <Seo />
-      <div className="container-site pt-32 md:pt-44">
-        <SectionHeader as="h1" eyebrow="Services" title={['What we can', 'build together.']} intro="Five things we do well. Most projects mix a few of them." />
+      {/* Hero on the same columns as the services below: words and the list on the left like each service's title, the image where each service's media sits */}
+      <section className="container-site grid-site gap-y-12 pt-32 md:pt-44">
+        <div className="col-span-12 md:col-span-6">
+          <p className="text-meta flex items-center gap-3 border-t border-border pt-4 text-muted">
+            <SquareBullet /> Services
+          </p>
+          <TextReveal as="h1" immediate lines={['What we can', 'build together.']} className="text-h1 mt-10" />
+          <Reveal delay={0.15}>
+            <p className="text-lead mt-8 max-w-xl text-muted">Five things we do well. Most projects mix a few of them.</p>
+          </Reveal>
 
-        {/* The list sits in the heading's columns, so it reads as part of it */}
-        <div className="grid-site">
-          <div className="col-span-12 lg:col-span-9 lg:col-start-4">
-            <nav aria-label="Services" className="mt-16 md:mt-24">
-              <ol className="grid grid-cols-1 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-                {services.map((s, i) => (
-                  <li key={s.slug} className="border-b border-border">
-                    <a href={`#${s.slug}`} className="group flex items-baseline gap-4 py-4 pr-4">
-                      <span className="text-meta text-muted">{pad(i + 1)}</span>
-                      <span className="link-underline text-lg tracking-tight">{s.title}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
+          <nav aria-label="Services" className="mt-12 md:mt-16">
+            <ol className="grid grid-cols-1 border-t border-border sm:grid-cols-2 sm:gap-x-[var(--grid-gap)]">
+              {services.map((s, i) => (
+                <li key={s.slug} className="border-b border-border">
+                  <a href={`#${s.slug}`} className="group flex items-baseline gap-4 py-4 pr-4">
+                    <span className="text-meta text-muted">{pad(i + 1)}</span>
+                    <span className="link-underline text-lg tracking-tight">{s.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </div>
+        <div className="col-span-12 md:col-span-6 md:col-start-7">
+          {/* Image placeholder until the hero has its picture */}
+          <div className="flex aspect-[4/5] w-full flex-col items-center justify-center gap-3 bg-sand text-muted md:sticky md:top-28" role="img" aria-label="Services — image placeholder">
+            <ImageIcon size={28} strokeWidth={1.5} aria-hidden="true" />
+            <span className="text-meta">Image placeholder</span>
           </div>
         </div>
-      </div>
+
+      </section>
 
       <div className="container-site section-space space-y-[calc(var(--section-space)*2)]">
         {services.map((service, i) => {

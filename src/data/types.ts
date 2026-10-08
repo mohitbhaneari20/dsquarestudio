@@ -179,6 +179,13 @@ export interface Project {
   credit?: { agency: string; role: string; period?: string; note: string };
   /** The client's words, exactly as given */
   testimonial?: Testimonial;
+  /**
+   * Measured results after launch, shown before → after. Real numbers only —
+   * never estimates or benchmarks. `change` is optional (e.g. '+120%').
+   */
+  results?: { label: string; before: string; after: string; change?: string }[];
+  /** One line under the results saying what they measure */
+  resultsNote?: string;
   featured: boolean;
   /**
    * Optional designed cover for the homepage project card (instead of the thumbnail).
