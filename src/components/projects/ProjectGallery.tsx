@@ -60,6 +60,7 @@ export function ProjectGallery({ blocks, tone, label, slug, className }: Project
               '16/10': 'aspect-[16/10]',
               '16/9': 'aspect-[16/9]',
               '4/3': 'aspect-[4/3]',
+              '15/14': 'aspect-[15/14]', // near-square boards, e.g. a tall brand-guideline page
             }[block.ratio ?? '16/10'];
             // Videos (e.g. the intro) bring their own colour, so they skip the board
             if (!tone.stage || block.media.type === 'video') return <div key={i}>{visual(block.media, aspect, '100vw')}</div>;

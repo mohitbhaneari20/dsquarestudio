@@ -690,7 +690,7 @@ const allProjects: Project[] = [
               { src: '/assets/projects/makvo/brand/app-icon-green.webp', alt: 'MAKVO app icon on Picture Book Green', kind: 'logo', fit: 'contain', background: '#E6E1D8' },
             ],
           },
-          { layout: 'board', ratio: '4/3', media: { src: '/assets/projects/makvo/brand/applications.webp', alt: 'MAKVO brand guidelines — applications: social posts, business card, stickers and profile cover', kind: 'mockup', fit: 'contain', background: '#F6F7EE' } },
+          { layout: 'board', ratio: '15/14', media: { src: '/assets/projects/makvo/brand/applications.webp', alt: 'MAKVO brand guidelines — applications: social posts, business card, stickers and profile cover', kind: 'mockup' } },
           { layout: 'board', ratio: '4/3', media: { src: '/assets/projects/makvo/brand/product.webp', alt: 'MAKVO brand guidelines — dark web, light app', kind: 'mockup' } },
           { layout: 'browser', url: '/people/varun-sharma', media: { src: '/assets/projects/makvo/screens/profile-dark.webp', alt: 'The same profile in dark mode on Midnight Mirage — the theme is remembered, or follows the device', kind: 'desktop' } },
         ],

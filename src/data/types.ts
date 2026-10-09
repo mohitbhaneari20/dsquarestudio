@@ -98,7 +98,7 @@ export type GalleryBlock =
   /** A row of images at a shared natural ratio, e.g. '3 / 4' posters or '9 / 16' mockups */
   | { layout: 'strip'; media: MediaAsset[]; ratio: string; caption?: string }
   /** One image or video, full width at its true proportions (no crop) — for design boards and clips */
-  | { layout: 'board'; media: MediaAsset; ratio?: '16/10' | '16/9' | '4/3' };
+  | { layout: 'board'; media: MediaAsset; ratio?: '16/10' | '16/9' | '4/3' | '15/14' };
 
 /**
  * One chapter of a case study, told in order: a short label ('The problem'), an optional
