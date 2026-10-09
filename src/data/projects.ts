@@ -620,6 +620,115 @@ const allProjects: Project[] = [
     featured: true,
   },
   {
+    slug: 'makvo',
+    seo: {
+      title: 'MAKVO — Product Design & Prototype Case Study | Dsquare Studio',
+      description:
+        'How Dsquare Studio designed MAKVO, a professional network where people are discovered through the work they make, and built a high-fidelity clickable prototype.',
+    },
+    title: 'MAKVO',
+    client: 'MAKVO',
+    year: '2026',
+    categories: ['UI / UX', 'Web', 'Development'],
+    discipline: 'Product Design / Prototype',
+    type: 'Client Project',
+    status: 'Completed',
+    summary: 'A professional network where people are discovered through the work they make, and get hired for it.',
+    description:
+      'MAKVO is a home for designers, developers, studios and the founders who hire them. It brings together things that usually live in separate tools: a portfolio, a professional network, a project marketplace, video interviews and a shared workspace for the project itself.',
+    tone: { bg: '#001F3F', ink: '#F6F7ED', accent: '#DBE64C' },
+    thumbnail: { src: '/assets/projects/makvo/cover.webp', alt: 'MAKVO website and app in dark mode on desktop and phone', kind: 'desktop' },
+    heroImage: { src: '/assets/projects/makvo/hero.webp', alt: 'MAKVO home page, Discover page and phone app', kind: 'hero' },
+    gallery: [],
+    chapters: [
+      {
+        label: 'Overview',
+        title: 'A CV says what you did. Your work shows how you think.',
+        body: 'MAKVO is built on that idea: a home for designers, developers, studios and the founders who hire them — portfolio, network, marketplace, interviews and project workspace in one place. Dsquare designed the product experience end to end and built a high-fidelity, fully clickable prototype to test the idea before any backend work. Every major flow works, from browsing a case study to hiring its author, interviewing them and running the project.',
+        blocks: [
+          { layout: 'browser', url: '/', media: { src: '/assets/projects/makvo/screens/home-dark.webp', alt: 'MAKVO website on desktop in dark mode: the headline “Discover people who build things” beside two portraits framed in the brand’s arch shapes.', kind: 'desktop' } },
+        ],
+      },
+      {
+        label: 'The challenge',
+        title: 'Hiring is split across too many tools.',
+        body: 'Creative professionals keep their best work on portfolio sites, their reputation on social networks and their contracts on freelance marketplaces. Clients judge talent from keyword-matched CVs, then move to email, a video app and a project tool to actually work together. Each handoff loses context. The brief was to connect all of it into one calm, premium product that designers and developers would actually want to be seen on.',
+      },
+      {
+        label: 'The idea',
+        title: 'Every piece of work leads somewhere.',
+        body: 'Person → Work → Connection → Opportunity → Project. A profile built from finished, verified work, not a résumé. Case studies that credit everyone who made them. Follow, connect and message straight from the work you like. Briefs matched to portfolios, with interviews built in. And a shared workspace that ends as verified portfolio work.',
+      },
+      {
+        label: 'What we designed',
+        title: 'Eighteen product areas, one connected flow.',
+        body: 'Discovery that starts with the work; profiles people are proud to share, where Mantis green always means open to work; opportunities with a four-step application; conversations that turn into projects; a workspace that ends in proof; and dashboards for both creators and clients.',
+        blocks: [
+          { layout: 'browser', url: '/discover', media: { src: '/assets/projects/makvo/screens/discover-light.webp', alt: 'Discover — an editorial feed of finished projects, filterable by craft, technology, industry and style', kind: 'desktop' } },
+          { layout: 'browser', url: '/people/varun-sharma', media: { src: '/assets/projects/makvo/screens/profile-light.webp', alt: 'Profile — a portfolio-first page with services, Work DNA, reviews and a green open-to-work ring', kind: 'desktop' } },
+          { layout: 'browser', url: '/opportunities', media: { src: '/assets/projects/makvo/screens/job-light.webp', alt: 'Opportunity — a brief with budget, timeline and a 92 percent match panel', kind: 'desktop' } },
+          { layout: 'browser', url: '/messages', media: { src: '/assets/projects/makvo/screens/messages-light.webp', alt: 'Messages — a thread with a shared case study and a panel showing the linked project', kind: 'desktop' } },
+          { layout: 'browser', url: '/projects', media: { src: '/assets/projects/makvo/screens/workspace-light.webp', alt: 'Workspace — tasks, files, milestones and progress in one place', kind: 'desktop' } },
+          { layout: 'browser', url: '/dashboard', media: { src: '/assets/projects/makvo/screens/dashboard-dark.webp', alt: 'Creator dashboard in dark mode — earnings, active projects, applications and profile views', kind: 'desktop' } },
+        ],
+      },
+      {
+        label: 'Design system',
+        title: 'Applying the Spring palette.',
+        body: 'MAKVO’s brand identity, applied across the whole product and turned into a working design system. Each colour has one job: Spring for the primary action, Mantis for open to work, Picture Book Green for hired and success, Nuit Blanche for links and information. On Praxeti the primary action is a Midnight pill with Spring text; on Midnight it flips to a Spring pill. The logo’s arches and four-point spark became a motif for portrait frames, banners and the Verified badge.',
+        blocks: [
+          { layout: 'board', ratio: '4/3', media: { src: '/assets/projects/makvo/brand/colour.webp', alt: 'MAKVO brand guidelines — the Spring palette: Praxeti White, First Colors of Spring, Midnight Mirage, Mantis, Picture Book Green and Nuit Blanche', kind: 'moodboard' } },
+          { layout: 'board', ratio: '4/3', media: { src: '/assets/projects/makvo/brand/logo-on-colour.webp', alt: 'MAKVO brand guidelines — approved logo pairings on each colour, and the app icons', kind: 'logo' } },
+          {
+            layout: 'strip',
+            ratio: '1 / 1',
+            caption: 'App icons — Midnight is the store icon; Spring, Praxeti and Green tiles are for campaigns and team avatars',
+            media: [
+              { src: '/assets/projects/makvo/brand/app-icon-midnight.webp', alt: 'MAKVO app icon on Midnight', kind: 'logo', fit: 'contain', background: '#E6E1D8' },
+              { src: '/assets/projects/makvo/brand/app-icon-spring.webp', alt: 'MAKVO app icon on Spring', kind: 'logo', fit: 'contain', background: '#E6E1D8' },
+              { src: '/assets/projects/makvo/brand/app-icon-praxeti.webp', alt: 'MAKVO app icon on Praxeti', kind: 'logo', fit: 'contain', background: '#E6E1D8' },
+              { src: '/assets/projects/makvo/brand/app-icon-green.webp', alt: 'MAKVO app icon on Picture Book Green', kind: 'logo', fit: 'contain', background: '#E6E1D8' },
+            ],
+          },
+          { layout: 'board', ratio: '4/3', media: { src: '/assets/projects/makvo/brand/applications.webp', alt: 'MAKVO brand guidelines — applications: social posts, business card, stickers and profile cover', kind: 'mockup', fit: 'contain', background: '#F6F7EE' } },
+          { layout: 'board', ratio: '4/3', media: { src: '/assets/projects/makvo/brand/product.webp', alt: 'MAKVO brand guidelines — dark web, light app', kind: 'mockup' } },
+          { layout: 'browser', url: '/people/varun-sharma', media: { src: '/assets/projects/makvo/screens/profile-dark.webp', alt: 'The same profile in dark mode on Midnight Mirage — the theme is remembered, or follows the device', kind: 'desktop' } },
+        ],
+      },
+      {
+        label: 'Responsive',
+        title: 'Designed for every screen, not shrunk to fit.',
+        body: 'A persistent sidebar on desktop, an icon rail on laptops and tablets, and a bottom tab bar on phones. Every screen was checked at 375, 768, 1024 and 1440 for overflow, legibility and touch targets.',
+        blocks: [
+          {
+            layout: 'phones',
+            caption: 'Home · Profile · Messages (dark) · Dashboard',
+            media: [
+              { src: '/assets/projects/makvo/screens/m-home-light.webp', alt: 'Home page on a phone in light mode', kind: 'mobile' },
+              { src: '/assets/projects/makvo/screens/m-profile-light.webp', alt: 'A profile on a phone', kind: 'mobile' },
+              { src: '/assets/projects/makvo/screens/m-messages-dark.webp', alt: 'Messages list on a phone in dark mode', kind: 'mobile' },
+              { src: '/assets/projects/makvo/screens/m-dashboard-light.webp', alt: 'Creator dashboard on a phone', kind: 'mobile' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Scope & next',
+        title: 'Built to be clicked, not just looked at.',
+        body: '20 working screens, 18 product areas, light and dark themes, and four breakpoints checked on every page — with realistic content throughout, a preview of AI matching, interviews in the flow and reduced-motion support. The prototype is structured so real services can slot in without a redesign: database and authentication, milestone payments, real-time messaging, video interviews and portfolio-based matching. Next: testing the core loop with designers, developers and studios. (Product names, people and projects shown in the prototype are fictional. Photography: Unsplash.)',
+      },
+    ],
+    services: ['Product Strategy', 'UX & UI Design', 'Brand Application', 'Front-end Prototype'],
+    challenge:
+      'Hiring is split across too many tools: portfolios, social networks, freelance marketplaces, email, video apps and project tools. Each handoff loses context, and most marketplaces treat people as listings.',
+    approach:
+      'Connect the whole loop — person, work, connection, opportunity, project — in one calm, premium product, and apply MAKVO’s Spring palette as a working design system where each colour has one job.',
+    outcome:
+      'A high-fidelity, fully clickable, responsive prototype: 20 working screens across 18 product areas, in light and dark themes, ready for real services to slot in behind it.',
+    website: 'https://makvo.vercel.app/',
+    featured: true,
+  },
+  {
     slug: 'whistle',
     seo: {
       title: 'Whistle — B2B Website UI & Design System Case Study | Dsquare Studio',
