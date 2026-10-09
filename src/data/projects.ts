@@ -34,17 +34,8 @@ const allProjects: Project[] = [
     description:
       'RAWSET is a limited-run streetwear label: made raw, worn different. We are building the whole thing ourselves — the pixel identity, the poster campaign and the Drop 01 storefront — so the brand gets tested in the store as it is designed, not after.',
     tone: { bg: '#141413', ink: '#F2F1EE', accent: '#E4FF3A' },
-    thumbnail: { src: '/assets/projects/rawset/site-desktop-home.webp', alt: 'RAWSET website — Winter Arc homepage', kind: 'desktop' },
-    heroImage: { src: '/assets/projects/rawset/site-desktop-drop-hero.webp', alt: 'RAWSET website — Drop 01 mosaic hero', kind: 'hero' },
-    // Project page cover: the wordmark, small and centred on Rawset yellow
-    pageCover: {
-      src: '/assets/projects/rawset/logo-wordmark-black.webp',
-      alt: 'RAWSET wordmark on Rawset yellow',
-      background: '#FEEF24',
-      size: 'clamp(9rem, 18%, 17rem)',
-    },
-    // Homepage card: the star monogram in its construction geometry, in Rawset yellow
-    cover: { type: 'logo-construction', src: '/assets/projects/rawset/logo-monogram.webp', alt: 'RAWSET star monogram', color: '#FEEF24' },
+    thumbnail: { src: '/assets/projects/rawset/cover.webp', alt: 'RAWSET website on desktop and phone, on Rawset yellow', kind: 'desktop' },
+    heroImage: { src: '/assets/projects/rawset/hero.webp', alt: 'RAWSET website — Winter Arc homepage, Drop 01 hero and mobile', kind: 'hero' },
     gallery: [
       // Website — desktop
       {
@@ -101,7 +92,6 @@ const allProjects: Project[] = [
           { src: '/assets/projects/rawset/poster-never-played.webp', alt: 'Never played the same game', kind: 'poster' },
           { src: '/assets/projects/rawset/poster-you-see-it.webp', alt: 'You see it, we live it', kind: 'poster' },
           { src: '/assets/projects/rawset/poster-made-for.webp', alt: 'Made for those who know', kind: 'poster' },
-          { src: '/assets/projects/rawset/poster-street-knew.webp', alt: 'The street already knew', kind: 'poster' },
           { src: '/assets/projects/rawset/poster-2026.webp', alt: '2026 — this isn’t for everyone', kind: 'poster' },
         ],
       },
@@ -238,7 +228,7 @@ const allProjects: Project[] = [
       'Falance helps people stop juggling everything and start with one thing. It brings together a daily focus screen, goals broken into small steps, a gentle look at life balance and a small library of books — five tabs, 31 screens and states, 22 custom pixel icons and six pixel avatars, built as a working prototype with real subscriptions.',
     tone: { bg: '#F3F3F0', ink: '#0E0E0E', accent: '#588157' },
     thumbnail: { src: '/assets/projects/falance/cover.webp', alt: 'Falance — Goals, Today and Focus mode screens', kind: 'mobile' },
-    heroImage: { src: '/assets/projects/falance/hero.webp', alt: 'Falance — five screens from onboarding to plans', kind: 'hero' },
+    heroImage: { src: '/assets/projects/falance/hero.webp', alt: 'Falance — onboarding, Goals, Today, Focus and Plans screens', kind: 'hero' },
     gallery: [
       {
         layout: 'phones',
