@@ -144,8 +144,9 @@ function DetailPanel({ index, onClose, onStep }: { index: number; onClose: () =>
 /** Every piece at once, after the flight: the image, its name and its details. */
 function AllWorks({ onOpen }: { onOpen: (i: number) => void }) {
   const reduce = useReduceMotion();
+  // Pulled up a full screen so it rises over the pinned stage as the last piece lands — no empty stage in between
   return (
-    <section className="bg-[#e6e1d8] pb-24 pt-20 md:pb-32 md:pt-28" aria-labelledby="all-works">
+    <section className="relative z-10 -mt-[100svh] border-t border-foreground/15 bg-background pb-24 pt-20 shadow-[0_-40px_80px_-40px_rgb(0_0_0/0.25)] md:pb-32 md:pt-28" aria-labelledby="all-works">
       <div className="container-site">
         <div className="flex flex-col gap-3 border-b border-foreground/15 pb-6 md:flex-row md:items-end md:justify-between">
           <h2 id="all-works" className="text-[clamp(2rem,4.5vw,4rem)] font-medium leading-[0.9] tracking-[-0.05em]">
@@ -153,14 +154,18 @@ function AllWorks({ onOpen }: { onOpen: (i: number) => void }) {
           </h2>
           <p className="text-meta text-muted">{pad(artworks.length)} pieces</p>
         </div>
-        <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {/* The pieces drop into place one after another */}
+        <motion.ul
+          className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
+          initial={reduce ? false : 'hidden'}
+          whileInView="shown"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{ shown: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } } }}
+        >
           {artworks.map((art, i) => (
             <motion.li
               key={art.title}
-              initial={reduce ? false : { opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: reduce ? 0 : (i % 3) * 0.08, ease: EASE }}
+              variants={{ hidden: { opacity: 0, y: 60, scale: 0.94 }, shown: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: EASE } } }}
             >
               <button type="button" onClick={() => onOpen(i)} className="group block w-full text-left" data-cursor="View" aria-label={`Open ${art.title}`}>
                 <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#efebe4] p-6 md:p-8">
@@ -184,7 +189,7 @@ function AllWorks({ onOpen }: { onOpen: (i: number) => void }) {
               </button>
             </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );
@@ -208,8 +213,8 @@ export default function Gallery() {
   }, []);
 
   const count = artworks.length;
-  // Ends as the last piece slides away; the grid of all works follows straight after
-  const travel = (count + 0.45) * GAP;
+  // The grid of all works starts rising over the stage just after the last piece lands (it overlaps the final screen of the scroll)
+  const travel = count * GAP + 300 + size.h;
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
   // Camera depth: 0 at the start, past the last artwork at the end (smoothed a touch)
   const camRaw = useTransform(scrollYProgress, (p) => p * travel);
