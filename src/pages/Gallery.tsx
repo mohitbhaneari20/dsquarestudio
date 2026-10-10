@@ -141,6 +141,55 @@ function DetailPanel({ index, onClose, onStep }: { index: number; onClose: () =>
   );
 }
 
+/** Every piece at once, after the flight: the image, its name and its details. */
+function AllWorks({ onOpen }: { onOpen: (i: number) => void }) {
+  const reduce = useReduceMotion();
+  return (
+    <section className="bg-[#e6e1d8] pb-24 pt-20 md:pb-32 md:pt-28" aria-labelledby="all-works">
+      <div className="container-site">
+        <div className="flex flex-col gap-3 border-b border-foreground/15 pb-6 md:flex-row md:items-end md:justify-between">
+          <h2 id="all-works" className="text-[clamp(2rem,4.5vw,4rem)] font-medium leading-[0.9] tracking-[-0.05em]">
+            All works.
+          </h2>
+          <p className="text-meta text-muted">{pad(artworks.length)} pieces</p>
+        </div>
+        <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {artworks.map((art, i) => (
+            <motion.li
+              key={art.title}
+              initial={reduce ? false : { opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: reduce ? 0 : (i % 3) * 0.08, ease: EASE }}
+            >
+              <button type="button" onClick={() => onOpen(i)} className="group block w-full text-left" data-cursor="View" aria-label={`Open ${art.title}`}>
+                <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#efebe4] p-6 md:p-8">
+                  <div className="h-full max-w-full" style={{ aspectRatio: String(art.ratio) }}>
+                    {art.src ? (
+                      <img src={art.src} alt={art.title} className="h-full w-full object-cover shadow-[0_30px_60px_-30px_rgb(0_0_0/0.45)] transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
+                    ) : (
+                      <Placeholder art={art} />
+                    )}
+                  </div>
+                </div>
+                <div className="mt-4 flex items-baseline justify-between gap-4">
+                  <h3 className="text-lg font-medium leading-tight transition-colors group-hover:text-accent">
+                    <span className="text-meta mr-2 text-accent-ink">{pad(i + 1)}</span>
+                    {art.title}
+                  </h3>
+                  <span className="text-meta shrink-0 text-muted">{art.year}</span>
+                </div>
+                <p className="text-meta mt-1 text-muted">{art.medium}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{art.description}</p>
+              </button>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 /**
  * Gallery as a flight through space: scrolling moves the camera forward past each
  * artwork in turn. Click the piece in front to open it.
@@ -159,7 +208,8 @@ export default function Gallery() {
   }, []);
 
   const count = artworks.length;
-  const travel = (count + 0.6) * GAP;
+  // Ends as the last piece slides away; the grid of all works follows straight after
+  const travel = (count + 0.45) * GAP;
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
   // Camera depth: 0 at the start, past the last artwork at the end (smoothed a touch)
   const camRaw = useTransform(scrollYProgress, (p) => p * travel);
@@ -244,6 +294,8 @@ export default function Gallery() {
           </div>
         </div>
       </section>
+
+      <AllWorks onOpen={setOpen} />
 
       <AnimatePresence>
         {open !== null && (

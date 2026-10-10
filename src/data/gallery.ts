@@ -46,14 +46,6 @@ export const artworks: Artwork[] = [
     ratio: 1800 / 1581,
   },
   {
-    title: 'Gauchar, Uttarakhand',
-    year: '2026',
-    medium: 'Digital collage',
-    description: 'Black-and-white family photographs from Gauchar, pinned at angles and annotated by hand in blue.',
-    src: '/assets/gallery/gauchar-uttarakhand.webp',
-    ratio: 1800 / 1244,
-  },
-  {
     title: 'The Only Way Out Is Through',
     year: '2026',
     medium: 'Digital collage',
