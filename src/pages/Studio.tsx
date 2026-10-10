@@ -7,8 +7,9 @@ import { Seo } from '../components/ui/Seo';
 import { TextReveal } from '../components/ui/TextReveal';
 import { BrandMark, InlineMonogram } from '../components/brand/Brand';
 
-/** The 'Why Dsquare exists' film, e.g. '/assets/studio/why.mp4'. Until it exists the section shows a video placeholder. */
-const STUDIO_VIDEO: string | undefined = undefined;
+/** The 'Why Dsquare exists' film: a silent loop made from the studio's own work (brand boards and screens from every case study). */
+const STUDIO_VIDEO: string | undefined = '/assets/studio/why.mp4';
+const STUDIO_VIDEO_POSTER = '/assets/studio/why-poster.webp';
 
 
 export default function Studio() {
@@ -111,8 +112,8 @@ export default function Studio() {
           </div>
         </div>
       </section>
-      {/* The studio film grows to full screen as you scroll; a placeholder until STUDIO_VIDEO is set */}
-      <ExpandingVideo src={STUDIO_VIDEO} label="Why Dsquare exists — video" gapBelow={0} />
+      {/* The studio film grows to full screen as you scroll */}
+      <ExpandingVideo src={STUDIO_VIDEO} poster={STUDIO_VIDEO_POSTER} label="Why Dsquare exists — a film of the studio’s work" gapBelow={0} />
 
       <CTA />
     </>

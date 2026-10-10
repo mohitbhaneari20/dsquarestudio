@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { useLayoutEffect, useRef, useState } from 'react';
+import { useReduceMotion } from '../../lib/motionPreference';
 
 /** Scroll timeline (0 → 1 across the pinned stretch): grow, hold full screen, shrink back. */
 const GROW = [0.0, 0.3] as const;
@@ -28,6 +29,8 @@ export function ExpandingVideo({
   gapBelow?: number;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
+  // With motion off the film doesn't play by itself: it shows its poster, with controls
+  const reduce = useReduceMotion();
   const slotRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0, vw: 0, vh: 0 });
   const sizeRef = useRef(size);
@@ -89,7 +92,7 @@ export function ExpandingVideo({
         </div>
         <motion.div className="pointer-events-auto relative z-10 overflow-hidden bg-black" style={{ width, height }}>
           {src ? (
-            <video src={src} poster={poster} className="h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" aria-label={label} />
+            <video key={reduce ? 'still' : 'auto'} src={src} poster={poster} className="h-full w-full object-cover" autoPlay={!reduce} controls={reduce} muted loop playsInline preload="metadata" aria-label={label} />
           ) : (
             <div
               className="flex h-full w-full flex-col items-center justify-center gap-4 text-[#fafafa]"

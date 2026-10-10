@@ -1,8 +1,9 @@
-import { ArrowUpRight, ImageIcon } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CTA } from '../components/ui/CTA';
 import { ImageReveal } from '../components/ui/ImageReveal';
 import { ServiceMotion } from '../components/services/ServiceMotion';
+import { StudioStory } from '../components/services/StudioStory';
 import { Reveal } from '../components/ui/Reveal';
 import { SquareBullet } from '../components/ui/SquareBullet';
 import { TextReveal } from '../components/ui/TextReveal';
@@ -58,11 +59,8 @@ export default function Services() {
           </nav>
         </div>
         <div className="col-span-12 md:col-span-6 md:col-start-7">
-          {/* Image placeholder until the hero has its picture */}
-          <div className="flex aspect-[4/5] w-full flex-col items-center justify-center gap-3 bg-sand text-muted md:sticky md:top-28" role="img" aria-label="Services — image placeholder">
-            <ImageIcon size={28} strokeWidth={1.5} aria-hidden="true" />
-            <span className="text-meta">Image placeholder</span>
-          </div>
+          {/* The studio at work: a looping story from client call to happy client */}
+          <StudioStory className="block aspect-[4/5] w-full md:sticky md:top-28" />
         </div>
 
       </section>
