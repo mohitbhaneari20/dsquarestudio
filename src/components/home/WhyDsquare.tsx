@@ -1,21 +1,26 @@
+import { CodeXml, Eye, KeyRound, MessageSquare } from 'lucide-react';
 import { Reveal } from '../ui/Reveal';
 import { SquareBullet } from '../ui/SquareBullet';
 import { TextReveal } from '../ui/TextReveal';
 
 const reasons = [
   {
+    icon: CodeXml,
     title: 'Design and code, together',
     body: 'The person who designs it also builds it. Ideas survive the trip from mockup to browser, and changes don’t need a meeting.',
   },
   {
+    icon: MessageSquare,
     title: 'You talk to the maker',
     body: 'No account managers, no layers. The first conversation and the final delivery happen with the same person.',
   },
   {
+    icon: Eye,
     title: 'Work in progress, in public',
     body: 'Ongoing projects are shared openly with real progress. You can see how we think before you hire us.',
   },
   {
+    icon: KeyRound,
     title: 'Built to be yours',
     body: 'Clean files, readable code and a site you can update yourself. You shouldn’t need us for every small change.',
   },
@@ -38,8 +43,12 @@ export function WhyDsquare() {
         <ul className="col-span-12 grid gap-x-[var(--grid-gap)] gap-y-14 sm:grid-cols-2 md:col-span-9 md:col-start-4">
           {reasons.map((r, i) => (
             <Reveal as="li" key={r.title} delay={i * 0.06} className="border-t border-foreground/80 pt-5">
-              <span className="font-mono text-[11px] text-muted">0{i + 1}</span>
-              <h3 className="mt-10 text-2xl font-medium leading-tight tracking-[-0.03em]">{r.title}</h3>
+              <div className="flex items-start justify-between">
+                {/* The site's own icon set: 1.5px line icons */}
+                <r.icon size={28} strokeWidth={1.5} aria-hidden="true" />
+                <span className="font-mono text-[11px] text-muted">0{i + 1}</span>
+              </div>
+              <h3 className="mt-6 text-2xl font-medium leading-tight tracking-[-0.03em]">{r.title}</h3>
               <p className="mt-4 text-muted">{r.body}</p>
             </Reveal>
           ))}

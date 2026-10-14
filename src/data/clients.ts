@@ -12,9 +12,9 @@ export interface ClientLogo {
   wordmark?: string;
   /** Links the logo to its case study */
   slug?: string;
-  /** The brand's own colour — the logo turns this colour on hover */
+  /** The logo's colour on hover — the brand colour, or white when the brand colour fills the tile */
   color?: string;
-  /** Tile colour on hover, for brands whose colour needs its own ground (e.g. RAWSET's yellow on black) */
+  /** Tile colour on hover, for brands whose colour needs its own ground (e.g. RAWSET's yellow on black, or Falance's green behind a white logo) */
   hoverBg?: string;
 }
 
@@ -24,9 +24,9 @@ export interface ClientLogo {
  */
 export const clients: ClientLogo[] = [
   { name: 'RAWSET', logo: '/assets/projects/rawset/logo-wordmark-black.webp', ratio: 1569 / 465, slug: 'rawset', color: '#FEEF24', hoverBg: '#000000' },
-  { name: 'Falance', logo: '/assets/projects/falance/mark.svg', ratio: 126 / 165, wordmark: 'Falance', slug: 'falance', color: '#588157' },
+  { name: 'Falance', logo: '/assets/projects/falance/mark.svg', ratio: 126 / 165, wordmark: 'Falance', slug: 'falance', color: '#FFFFFF', hoverBg: '#588157' },
   { name: 'MAKVO', logo: '/assets/clients/makvo.png', ratio: 800 / 154, slug: 'makvo', color: '#001F3F', hoverBg: '#DBE64C' },
-  { name: 'Whistle', logo: '/assets/clients/whistle.png', ratio: 781 / 216, slug: 'whistle', color: '#4A19E4' },
+  { name: 'Whistle', logo: '/assets/clients/whistle.png', ratio: 781 / 216, slug: 'whistle', color: '#FFFFFF', hoverBg: '#4A19E4' },
 ];
 
 
