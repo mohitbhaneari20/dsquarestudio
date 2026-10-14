@@ -571,6 +571,7 @@ const allProjects: Project[] = [
           { layout: 'browser', url: '/', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-ddd-stack.webp', alt: 'Design, Develop and Deploy stacked in the middle of the screen over the blurred heading', kind: 'desktop' } },
           { layout: 'board', media: { src: '/assets/projects/dsquare-studio/boards/icons-v2.webp', alt: 'Iconography — line icons, the monogram glyph, square bullet, square cursor and the eye view tag', kind: 'mockup' } },
           { layout: 'browser', url: '/gallery', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-gallery.webp', alt: 'The gallery — artworks you fly through as you scroll', kind: 'desktop' } },
+          { layout: 'browser', url: '/gallery', media: { src: '/assets/projects/dsquare-studio/screens/v4-d-gallery-grid.webp', alt: 'The gallery’s end — every piece in a grid with its name and details, landing one by one', kind: 'desktop' } },
         ],
       },
       {
@@ -578,9 +579,10 @@ const allProjects: Project[] = [
         body: 'Every page uses the same parts: one project card, one section header, one set of buttons. On phones it reflows to a single column and the menu becomes a full-screen index.',
         blocks: [
           { layout: 'browser', url: '/work', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-work.webp', alt: 'Work — numbered project cards on a two-column grid', kind: 'desktop' } },
-          { layout: 'browser', url: '/services', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-services.webp', alt: 'Services — the five services, listed under the heading', kind: 'desktop' } },
-          { layout: 'browser', url: '/', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-why.webp', alt: 'Why Dsquare — four reasons in a two-by-two grid, set under the heading', kind: 'desktop' } },
+          { layout: 'browser', url: '/services', media: { src: '/assets/projects/dsquare-studio/screens/v4-d-services.webp', alt: 'Services — the five services beside the studio story: the monogram at its desk, from client call to happy client', kind: 'desktop' } },
+          { layout: 'browser', url: '/', media: { src: '/assets/projects/dsquare-studio/screens/v4-d-why.webp', alt: 'Why Dsquare — four reasons in a two-by-two grid under the heading, each with a line icon', kind: 'desktop' } },
           { layout: 'browser', url: '/studio', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-about.webp', alt: 'About — “We’re not interested in making things look good just for the sake of it.”', kind: 'desktop' } },
+          { layout: 'browser', url: '/studio', media: { src: '/assets/projects/dsquare-studio/screens/v4-d-about-film.webp', alt: 'About — the studio film: brands, websites and apps from every case study', kind: 'desktop' } },
           { layout: 'browser', url: '/contact', media: { src: '/assets/projects/dsquare-studio/screens/v3-d-contact.webp', alt: 'Contact — “Let’s work together.” with the project form', kind: 'desktop' } },
           {
             layout: 'phones',
@@ -590,7 +592,7 @@ const allProjects: Project[] = [
               { src: '/assets/projects/dsquare-studio/screens/v3-m-ddd.webp', alt: 'Dsquare on a phone — the three Ds card stack', kind: 'mobile' },
               { src: '/assets/projects/dsquare-studio/screens/v3-m-work.webp', alt: 'Dsquare on a phone — work', kind: 'mobile' },
               { src: '/assets/projects/dsquare-studio/screens/v3-m-about.webp', alt: 'Dsquare on a phone — about, with the name beside the portrait', kind: 'mobile' },
-              { src: '/assets/projects/dsquare-studio/screens/v3-m-services.webp', alt: 'Dsquare on a phone — services', kind: 'mobile' },
+              { src: '/assets/projects/dsquare-studio/screens/v4-m-services.webp', alt: 'Dsquare on a phone — services', kind: 'mobile' },
             ],
           },
         ],
